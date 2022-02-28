@@ -5,6 +5,8 @@
 #include <QTimer>
 #include "connection.h"
 #include <QMessageBox>
+#include "login.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +14,7 @@ int main(int argc, char *argv[])
     MainWindow w;
 
     //specific declaration
+    Login l;
     //specific declaration
 
     Connection c;
@@ -25,12 +28,13 @@ int main(int argc, char *argv[])
 
     }else {
         //specific declaration
+
         //specific declaration
         QSplashScreen *splash = new QSplashScreen;
         splash->setPixmap(QPixmap(":/resource/img/splash.jpg"));
         splash->show();
         QTimer::singleShot(1500,splash,&QWidget::close);
-        QTimer::singleShot(1500,&w,SLOT(show()));
+        QTimer::singleShot(1500,&l,SLOT(show()));
     }
 
 
