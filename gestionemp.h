@@ -15,6 +15,9 @@ public:
     explicit GestionEmp(QWidget *parent = nullptr);
     ~GestionEmp();
 
+private slots:
+    void on_chatBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };
