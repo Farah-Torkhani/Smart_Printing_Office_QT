@@ -1,5 +1,6 @@
 #include "login.h"
 #include "ui_login.h"
+#include "gestionemp.h"
 
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
@@ -15,5 +16,12 @@ Login::~Login()
 
 void Login::on_loginButton_clicked()
 {
+    this->close();
+    GestionEmp gEmp;
+    gEmp.show();
+    QEventLoop loop;
 
+    connect(&gEmp, SIGNAL(closed()), &loop, SLOT(quit()));
+
+    loop.exec();
 }

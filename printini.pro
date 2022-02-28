@@ -17,16 +17,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     connection.cpp \
+    gestionemp.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     connection.h \
+    gestionemp.h \
     login.h \
     mainwindow.h
 
 FORMS += \
+    gestionemp.ui \
     login.ui \
     mainwindow.ui
 
