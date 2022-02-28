@@ -145,6 +145,19 @@ void Row_table::updateBtn_clicked()
     timer2->start(500);
 }
 
+void GestionEmp::on_clearBtn_clicked()
+{
+    timer2->stop();
+    ui->cinInput->setText("");
+    ui->nomInput->setText("");
+    ui->prenomInput->setText("");
+    ui->emailInput->setText("");
+    ui->passwordInput->setText("");
+    ui->numCarteInput->setText("");
+    ui->salaireInput->setText("");
+    ui->telnput->setText("");
+    ui->roleInput->setText("");
+}
 
 
 

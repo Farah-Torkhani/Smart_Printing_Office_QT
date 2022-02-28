@@ -24,6 +24,8 @@ private slots:
 
     void setFormulaire();
 
+    void on_clearBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };
