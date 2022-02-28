@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/Resources">
+        <file>client_img/edit-icon.png</file>
+        <file>client_img/email.png</file>
+        <file>client_img/pdf.png</file>
+        <file>client_img/search.png</file>
+        <file>client_img/sort.png</file>
+        <file>client_img/trash-icon.png</file>
+        <file>client_img/bg.png</file>
+        <file>client_img/refresh.png</file>
+        <file>client_img/refresh-button.png</file>
+        <file>client_img/eraser.png</file>
+    </qresource>
+</RCC>

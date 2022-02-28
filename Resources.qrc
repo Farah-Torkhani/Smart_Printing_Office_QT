@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Client_resources/img">
+        <file>edit-icon.png</file>
+        <file>client_img/edit-icon.png</file>
+    </qresource>
+</RCC>
