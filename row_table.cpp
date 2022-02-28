@@ -64,7 +64,7 @@ Row_table::Row_table(QWidget *parent,QString cin,QString nom,QString prenom,QStr
     deleteBtn->setObjectName("deleteBtn");
     deleteBtn->setParent(row_container);
     //deleteBtn->setGeometry(830,1,32,32);
-    deleteBtn->setGeometry(760,1,32,32);
+    deleteBtn->setGeometry(795,1,32,32);
     deleteBtn->setStyleSheet("QPushButton {background-color: #F5F1F6;border:none;border-radius:15px;qproperty-icon: url(:/resource/img/delete.png);qproperty-iconSize: 18px;}QPushButton::hover {background-color: rgb(254, 129, 75);qproperty-icon: url(:/resource/img/delete.png);qproperty-iconSize: 18px;}");
     deleteBtn->setCursor(QCursor(Qt::PointingHandCursor));
     deleteBtn->setWhatsThis(cin);
