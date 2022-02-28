@@ -53,4 +53,23 @@ QSqlQuery Employees::afficherEmp(int cin)
     return query;
 }
 
+bool Employees::modifierEmp()
+{
+    QSqlQuery query,query2;
+    query.prepare("update EMPLOYEES set nom=:nom, prenom=:prenom, tel=:tel, salaire=:salaire, role=:role  where cin=:cin");
+    query.bindValue(":nom",nom);
+    query.bindValue(":prenom",prenom);
+    query.bindValue(":tel",tel);
+    query.bindValue(":salaire",salaire);
+    query.bindValue(":role",role);
+    query.bindValue(":cin",cin);
+
+    query2.prepare("update COMPTES set email=:email, password=:password, num_card=:num_card  where cin=:cin");
+    query2.bindValue(":email",email);
+    query2.bindValue(":password",password);
+    query2.bindValue(":num_card",numCard);
+    query2.bindValue(":cin",cin);
+
+    return query.exec() && query2.exec();
+}
 

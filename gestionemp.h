@@ -26,6 +26,8 @@ private slots:
 
     void on_clearBtn_clicked();
 
+    void on_updateBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };

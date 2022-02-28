@@ -159,7 +159,25 @@ void GestionEmp::on_clearBtn_clicked()
     ui->roleInput->setText("");
 }
 
+void GestionEmp::on_updateBtn_clicked()
+{
+    int cin2 = ui->cinInput->text().toInt();
+    QString nom = ui->nomInput->text();
+    QString prenom = ui->prenomInput->text();
+    QString email = ui->emailInput->text();
+    QString password = ui->passwordInput->text();
+    QString numCard = ui->numCarteInput->text();
+    int tel = ui->telnput->text().toInt();
+    int salaire = ui->salaireInput->text().toInt();
+    QString role = ui->roleInput->text();
 
+    Employees e(cin2,nom,prenom,email,password,numCard,tel,salaire,role);
+    bool test = e.modifierEmp();
 
-
-
+    if(test){
+        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("employe updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("employe not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }
+}

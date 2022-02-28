@@ -26,6 +26,7 @@ public:
     bool ajouterEmp();
     QSqlQuery afficherAllEmp();
     QSqlQuery afficherEmp(int cin);
+    bool modifierEmp();
 
 };
 
