@@ -1,0 +1,4 @@
+<RCC>
+    <qresource prefix="/produitsRes/IMG"/>
+    <qresource prefix="/res_prod"/>
+</RCC>
