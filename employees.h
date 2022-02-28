@@ -24,6 +24,7 @@ public:
     Employees(int cin,QString nom,QString prenom,QString email,QString password,QString numCard,int tel,int salaire,QString role);
 
     QSqlQuery afficherAllEmp();
+    bool ajouterEmp();
 
 };
 

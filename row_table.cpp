@@ -58,7 +58,6 @@ Row_table::Row_table(QWidget *parent,QString cin,QString nom,QString prenom,QStr
     editBtn->setStyleSheet("QPushButton {background-color: #F5F1F6;border:none;border-radius:15px;qproperty-icon: url(:/resource/img/update.png);qproperty-iconSize: 17px;}QPushButton::hover {background-color: rgb(254, 129, 75);qproperty-icon: url(:/resource/img/update.png);qproperty-iconSize: 17px;}");
     editBtn->setCursor(QCursor(Qt::PointingHandCursor));
     editBtn->setWhatsThis(cin);
-    editBtn->setWhatsThis(cin);
 
 
     deleteBtn->setObjectName("deleteBtn");

@@ -18,6 +18,8 @@ public:
 private slots:
     void on_chatBtn_clicked();
 
+    void on_addBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };

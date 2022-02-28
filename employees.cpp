@@ -18,9 +18,30 @@ Employees::Employees(int cin,QString nom,QString prenom,QString email,QString pa
     this->role = role;
 }
 
+bool Employees::ajouterEmp()
+{
+    QSqlQuery query;
+
+        query.prepare("INSERT all INTO EMPLOYEES (cin, nom, prenom, tel, salaire,role) VALUES (:cin, :nom, :prenom, :tel, :salaire, :role) INTO COMPTES (email, password, num_card, cin) VALUES (:email, :password, :num_card, :cin) SELECT * FROM dual;");
+        query.bindValue(":cin",cin);
+        query.bindValue(":nom",nom);
+        query.bindValue(":prenom",prenom);
+        query.bindValue(":tel",tel);
+        query.bindValue(":salaire",salaire);
+        query.bindValue(":role",role);
+
+        query.bindValue(":email",email);
+        query.bindValue(":password",password);
+        query.bindValue(":num_card",numCard);
+
+        return query.exec();
+}
+
 QSqlQuery Employees::afficherAllEmp()
 {
     QSqlQuery query;
     query.exec("select * from employees");
     return query;
 }
+
+
