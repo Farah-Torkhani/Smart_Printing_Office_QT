@@ -21,14 +21,16 @@ SOURCES += \
     gestionemp.cpp \
     login.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    row_table.cpp
 
 HEADERS += \
     chat.h \
     connection.h \
     gestionemp.h \
     login.h \
-    mainwindow.h
+    mainwindow.h \
+    row_table.h
 
 FORMS += \
     chat.ui \
