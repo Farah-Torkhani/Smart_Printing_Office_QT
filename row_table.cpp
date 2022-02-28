@@ -69,4 +69,5 @@ Row_table::Row_table(QWidget *parent,QString cin,QString nom,QString prenom,QStr
     deleteBtn->setWhatsThis(cin);
 
     connect(editBtn, &QPushButton::clicked, this, &Row_table::updateBtn_clicked);
+    connect(deleteBtn, &QPushButton::clicked, this, &Row_table::deleteBtn_clicked);
 }

@@ -181,3 +181,19 @@ void GestionEmp::on_updateBtn_clicked()
         QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("employe not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
     }
 }
+
+void Row_table::deleteBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    int cin2 = buttonSender->whatsThis().toInt();
+    Employees e;
+    bool test = e.supprimerEmp(cin2);
+//    qDebug()<< cin;
+
+    if(test){
+        QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("employe deleted.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("employe not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }
+}

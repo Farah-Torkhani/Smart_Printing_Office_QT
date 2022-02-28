@@ -25,6 +25,7 @@ public:
 
 private slots:
     void updateBtn_clicked();
+    void deleteBtn_clicked();
 
 signals:
 

@@ -73,3 +73,13 @@ bool Employees::modifierEmp()
     return query.exec() && query2.exec();
 }
 
+bool Employees::supprimerEmp(int cin)
+{
+    QSqlQuery query,query2;
+    query.prepare("Delete from employees where cin=:cin");
+    query2.prepare("Delete from COMPTES where cin=:cin");
+    query.bindValue(":cin",cin);
+    query2.bindValue(":cin",cin);
+    return query2.exec() && query.exec();
+}
+
