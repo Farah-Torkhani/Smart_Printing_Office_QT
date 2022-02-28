@@ -22,6 +22,8 @@ private slots:
 
     void on_refreshBtn_clicked();
 
+    void setFormulaire();
+
 private:
     Ui::GestionEmp *ui;
 };

@@ -12,6 +12,8 @@
 
 QVBoxLayout *layoutt = new QVBoxLayout();
 QTimer *timer = new QTimer();
+QTimer *timer2 = new QTimer();
+int cin = 0;
 
 GestionEmp::GestionEmp(QWidget *parent) :
     QMainWindow(parent),
@@ -32,6 +34,10 @@ GestionEmp::GestionEmp(QWidget *parent) :
 
     connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
     timer->start(3000);
+
+    connect(timer2, SIGNAL(timeout()), this, SLOT(setFormulaire()));
+
+
 }
 
 GestionEmp::~GestionEmp()
@@ -108,3 +114,39 @@ void GestionEmp::on_refreshBtn_clicked()
         layoutt->addWidget( row );
     }
 }
+
+void GestionEmp::setFormulaire()
+{
+    if(cin != -999999999){
+        Employees e;
+        QSqlQuery emp = e.afficherEmp(cin);
+        emp.next();
+        ui->cinInput->setText(emp.value(0).toString()); //cin 0
+        ui->nomInput->setText(emp.value(1).toString()); //nom 1
+        ui->prenomInput->setText(emp.value(2).toString()); //prenom 2
+        ui->emailInput->setText(emp.value(7).toString()); //tel 3
+        ui->passwordInput->setText(emp.value(8).toString()); //salaire 4
+        ui->numCarteInput->setText(emp.value(9).toString()); //date 5
+        ui->salaireInput->setText(emp.value(4).toString()); //role 6
+        ui->telnput->setText(emp.value(3).toString()); //email 7
+        ui->roleInput->setText(emp.value(6).toString()); //pass 8
+
+        bool inputsFocus = ui->cinInput->hasFocus() || ui->nomInput->hasFocus() || ui->prenomInput->hasFocus() || ui->emailInput->hasFocus() || ui->passwordInput->hasFocus() || ui->numCarteInput->hasFocus() || ui->salaireInput->hasFocus() || ui->telnput->hasFocus() || ui->roleInput->hasFocus();
+        if(inputsFocus){
+            timer2->stop();
+        }
+    }
+}
+
+void Row_table::updateBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    cin = buttonSender->whatsThis().toInt();
+    timer2->start(500);
+}
+
+
+
+
+
+

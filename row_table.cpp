@@ -68,5 +68,5 @@ Row_table::Row_table(QWidget *parent,QString cin,QString nom,QString prenom,QStr
     deleteBtn->setCursor(QCursor(Qt::PointingHandCursor));
     deleteBtn->setWhatsThis(cin);
 
-
+    connect(editBtn, &QPushButton::clicked, this, &Row_table::updateBtn_clicked);
 }

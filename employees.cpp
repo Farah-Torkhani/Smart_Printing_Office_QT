@@ -44,4 +44,13 @@ QSqlQuery Employees::afficherAllEmp()
     return query;
 }
 
+QSqlQuery Employees::afficherEmp(int cin)
+{
+    QSqlQuery query;
+    query.prepare("select * from employees inner join COMPTES on employees.cin = COMPTES.cin where employees.cin=:cin");
+    query.bindValue(":cin",cin);
+    query.exec();
+    return query;
+}
+
 

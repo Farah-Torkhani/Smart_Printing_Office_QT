@@ -24,7 +24,7 @@ public:
     QPushButton *deleteBtn = new QPushButton();
 
 private slots:
-
+    void updateBtn_clicked();
 
 signals:
 
