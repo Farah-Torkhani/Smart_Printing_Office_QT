@@ -20,6 +20,8 @@ private slots:
 
     void on_addBtn_clicked();
 
+    void on_refreshBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };
