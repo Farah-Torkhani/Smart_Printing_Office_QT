@@ -7,9 +7,11 @@
 #include "employees.h"
 #include "row_table.h"
 #include <QMessageBox>
+#include <QTimer>
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
+QTimer *timer = new QTimer();
 
 GestionEmp::GestionEmp(QWidget *parent) :
     QMainWindow(parent),
@@ -27,6 +29,9 @@ GestionEmp::GestionEmp(QWidget *parent) :
         row->setMinimumHeight(34);
         layoutt->addWidget( row );
     }
+
+    connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
+    timer->start(3000);
 }
 
 GestionEmp::~GestionEmp()
