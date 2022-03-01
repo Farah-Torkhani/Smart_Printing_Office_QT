@@ -28,6 +28,7 @@ public:
     QSqlQuery afficherEmp(int cin);
     bool modifierEmp();
     bool supprimerEmp(int cin);
+    QSqlQuery rechercheEmp(QString test);
 
 };
 

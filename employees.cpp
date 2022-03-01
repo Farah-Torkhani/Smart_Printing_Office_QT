@@ -83,3 +83,10 @@ bool Employees::supprimerEmp(int cin)
     return query2.exec() && query.exec();
 }
 
+QSqlQuery Employees::rechercheEmp(QString test)
+{
+    QSqlQuery query;
+    query.exec("select * from employees where (nom like '%"+test+"%' or prenom like '%"+test+"%' )");
+    return query;
+}
+

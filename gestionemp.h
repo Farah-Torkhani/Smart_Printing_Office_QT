@@ -28,6 +28,8 @@ private slots:
 
     void on_updateBtn_clicked();
 
+    void on_chercheBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };
