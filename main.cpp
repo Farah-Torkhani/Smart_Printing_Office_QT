@@ -1,38 +1,26 @@
-#include "mainwindow.h"
-
-#include <QApplication>
-#include <QSplashScreen>
-#include <QTimer>
-#include "connection.h"
+#include "machines.h"
 #include <QMessageBox>
+#include <QApplication>
+#include "connection.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-
-    //specific declaration
-    //specific declaration
-
+    //MainWindow w;
+    Machines w;
     Connection c;
-    bool test=c.createconnect();
+        bool test=c.createconnect();
+        if(test)
+        {w.show();
+            QMessageBox::information(nullptr, QObject::tr("database is open"),
+                        QObject::tr("connection successful.\n"
+                                    "Click Cancel to exit."), QMessageBox::Cancel);
 
-    if(!test)
-    {
-        QMessageBox::critical(nullptr, QObject::tr("database is not open"),
-                    QObject::tr("connection failed.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
-
-    }else {
-        //specific declaration
-        //specific declaration
-        QSplashScreen *splash = new QSplashScreen;
-        splash->setPixmap(QPixmap(":/resource/img/splash.jpg"));
-        splash->show();
-        QTimer::singleShot(1500,splash,&QWidget::close);
-        QTimer::singleShot(1500,&w,SLOT(show()));
     }
-
-
+        else
+            QMessageBox::critical(nullptr, QObject::tr("database is not open"),
+                        QObject::tr("connection failed.\n"
+                                    "Click Cancel to exit."), QMessageBox::Cancel);
     return a.exec();
 }
