@@ -90,3 +90,17 @@ QSqlQuery Employees::rechercheEmp(QString test)
     return query;
 }
 
+QSqlQuery Employees::trieEmp(QString test)
+{
+    QSqlQuery query;
+    if(test == "nom"){
+        query.exec("select * from employees order by nom");
+    }else if (test == "date_emb") {
+        query.exec("select * from employees order by DATE_EMB");
+    } else if (test == "salaire") {
+        query.exec("select * from employees order by salaire");
+    }
+
+    return query;
+}
+

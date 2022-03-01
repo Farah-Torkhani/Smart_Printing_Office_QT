@@ -29,6 +29,7 @@ public:
     bool modifierEmp();
     bool supprimerEmp(int cin);
     QSqlQuery rechercheEmp(QString test);
+    QSqlQuery trieEmp(QString test);
 
 };
 

@@ -14,6 +14,7 @@ QVBoxLayout *layoutt = new QVBoxLayout();
 QTimer *timer = new QTimer();
 QTimer *timer2 = new QTimer();
 QTimer *timer3 = new QTimer();
+QTimer *timer4 = new QTimer();
 int cin = 0;
 
 GestionEmp::GestionEmp(QWidget *parent) :
@@ -21,6 +22,9 @@ GestionEmp::GestionEmp(QWidget *parent) :
     ui(new Ui::GestionEmp)
 {
     ui->setupUi(this);
+    ui->trieOption->addItem("nom");
+    ui->trieOption->addItem("date_emb");
+    ui->trieOption->addItem("salaire");
 
     ui->scrollArea->setWidget( ui->scrollAreaContents );
     ui->scrollAreaContents ->setLayout( layoutt );
@@ -38,6 +42,7 @@ GestionEmp::GestionEmp(QWidget *parent) :
 
     connect(timer2, SIGNAL(timeout()), this, SLOT(setFormulaire()));
     connect(timer3, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
+    connect(timer4, SIGNAL(timeout()), this, SLOT(on_trieBtn_clicked()));
 
 
 }
@@ -229,4 +234,31 @@ void GestionEmp::on_chercheBtn_clicked()
         timer3->stop();
         timer->start(3000);
     }
+}
+
+void GestionEmp::on_trieBtn_clicked()
+{
+    timer->stop();
+    timer4->start(3000);
+
+    QString trieOption = ui->trieOption->currentText();
+
+    while(!layoutt->isEmpty()){
+    QLayoutItem* item = layoutt->itemAt(0);
+    layoutt->removeItem(item);
+    QWidget* widgett = item->widget();
+    if(widgett)
+        {
+            delete widgett;
+        }
+    }
+
+    Employees e;
+    QSqlQuery empList = e.trieEmp(trieOption);
+    while (empList.next()) {
+        Row_table *row = new Row_table(ui->scrollArea,empList.value(0).toString(),empList.value(1).toString(),empList.value(2).toString(),empList.value(5).toString().split("T")[0],empList.value(4).toString(),empList.value(6).toString());
+        row->setMinimumHeight(34);
+        layoutt->addWidget( row );
+    }
+
 }

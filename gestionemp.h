@@ -30,6 +30,8 @@ private slots:
 
     void on_chercheBtn_clicked();
 
+    void on_trieBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };

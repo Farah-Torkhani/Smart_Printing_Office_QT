@@ -998,6 +998,20 @@ color: #F5F1F6;
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Montserrat</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
     <property name="currentIndex">
      <number>-1</number>
     </property>
