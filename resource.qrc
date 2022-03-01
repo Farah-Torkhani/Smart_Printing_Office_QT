@@ -1,20 +1,13 @@
 <RCC>
-    <qresource prefix="/resource">
-        <file>img/bg.png</file>
-        <file>img/delete.png</file>
-        <file>img/delete_hover.png</file>
-        <file>img/eng.png</file>
-        <file>img/eraser.png</file>
-        <file>img/fr.png</file>
-        <file>img/icon.png</file>
-        <file>img/language_icon.png</file>
-        <file>img/login.png</file>
-        <file>img/logo.png</file>
-        <file>img/msg.png</file>
-        <file>img/refresh.png</file>
-        <file>img/scan_icon.png</file>
-        <file>img/send_icon.png</file>
-        <file>img/splash.jpg</file>
-        <file>img/update.png</file>
+    <qresource prefix="/img">
+        <file>ressources/img/eng.png</file>
+        <file>ressources/img/fr.png</file>
+        <file>ressources/img/lang_icon.png</file>
+        <file>ressources/img/bg.png</file>
+        <file>ressources/img/edit-icon.png</file>
+        <file>ressources/img/eraser.png</file>
+        <file>ressources/img/search.png</file>
+        <file>ressources/img/sort.png</file>
+        <file>ressources/img/trash-icon.png</file>
     </qresource>
 </RCC>
