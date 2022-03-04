@@ -93,7 +93,10 @@ QSqlQuery Employees::rechercheEmp(QString test)
 QSqlQuery Employees::trieEmp(QString test)
 {
     QSqlQuery query;
-    if(test == "nom"){
+    if(test == "par défaut"){
+        query.exec("select * from employees");
+    }
+    else if(test == "nom"){
         query.exec("select * from employees order by nom");
     }else if (test == "date_emb") {
         query.exec("select * from employees order by DATE_EMB");

@@ -10,13 +10,14 @@
 #include <QTimer>
 #include <QDesktopServices>
 #include <QUrl>
+#include <regex>
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
-QTimer *timer = new QTimer();
-QTimer *timer2 = new QTimer();
-QTimer *timer3 = new QTimer();
-QTimer *timer4 = new QTimer();
+QTimer *timerRefresh = new QTimer();
+QTimer *timerFormulaire = new QTimer();
+QTimer *timerCherche = new QTimer();
+//QTimer *timerTrie = new QTimer();
 int cin = 0;
 
 GestionEmp::GestionEmp(QWidget *parent) :
@@ -24,6 +25,7 @@ GestionEmp::GestionEmp(QWidget *parent) :
     ui(new Ui::GestionEmp)
 {
     ui->setupUi(this);
+    ui->trieOption->addItem("par défaut");
     ui->trieOption->addItem("nom");
     ui->trieOption->addItem("date_emb");
     ui->trieOption->addItem("salaire");
@@ -31,20 +33,22 @@ GestionEmp::GestionEmp(QWidget *parent) :
     ui->scrollArea->setWidget( ui->scrollAreaContents );
     ui->scrollAreaContents ->setLayout( layoutt );
 
+
     Employees e;
-    QSqlQuery empList = e.afficherAllEmp();
+    QString trieOption = ui->trieOption->currentText();
+    QSqlQuery empList = e.trieEmp(trieOption);
     while (empList.next()) {
         Row_table *row = new Row_table(ui->scrollArea,empList.value(0).toString(),empList.value(1).toString(),empList.value(2).toString(),empList.value(5).toString().split("T")[0],empList.value(4).toString(),empList.value(6).toString());
         row->setMinimumHeight(34);
         layoutt->addWidget( row );
     }
 
-    connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
-    timer->start(3000);
+    connect(timerRefresh, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
+    timerRefresh->start(2000);
 
-    connect(timer2, SIGNAL(timeout()), this, SLOT(setFormulaire()));
-    connect(timer3, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
-    connect(timer4, SIGNAL(timeout()), this, SLOT(on_trieBtn_clicked()));
+    connect(timerFormulaire, SIGNAL(timeout()), this, SLOT(setFormulaire()));
+    connect(timerCherche, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
+//    connect(timerTrie, SIGNAL(timeout()), this, SLOT(on_trieBtn_clicked()));
 
 
 }
@@ -71,16 +75,21 @@ void GestionEmp::on_addBtn_clicked()
     int tel = ui->telnput->text().toInt();
     int salaire = ui->salaireInput->text().toInt();
     QString role = ui->roleInput->text();
-
     Employees e(cin,nom,prenom,email,password,numCard,tel,salaire,role);
-    bool test = e.ajouterEmp();
 
-    if(test){
-        QMessageBox::critical(nullptr, QObject::tr("add status"),QObject::tr("employe added.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+    if(is_email_valid(email)){
+        bool test = e.ajouterEmp();
+
+        if(test){
+            QMessageBox::information(nullptr, QObject::tr("add status"),QObject::tr("employe added.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        }
+        else {
+            QMessageBox::critical(nullptr, QObject::tr("add status"),QObject::tr("employe not added.\nClick Cancel to exit."), QMessageBox::Cancel);
+        }
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("invalid email"),QObject::tr("email not valid.\nClick Cancel to exit."), QMessageBox::Cancel);
     }
-    else {
-        QMessageBox::critical(nullptr, QObject::tr("add status"),QObject::tr("employe not added.\nClick Cancel to exit."), QMessageBox::Cancel);
-    }
+
 
 
 
@@ -116,7 +125,8 @@ void GestionEmp::on_refreshBtn_clicked()
 
 
     Employees e;
-    QSqlQuery empList = e.afficherAllEmp();
+    QString trieOption = ui->trieOption->currentText();
+    QSqlQuery empList = e.trieEmp(trieOption);
     while (empList.next()) {
         Row_table *row = new Row_table(ui->scrollArea,empList.value(0).toString(),empList.value(1).toString(),empList.value(2).toString(),empList.value(5).toString().split("T")[0],empList.value(4).toString(),empList.value(6).toString());
         row->setMinimumHeight(34);
@@ -142,7 +152,7 @@ void GestionEmp::setFormulaire()
 
         bool inputsFocus = ui->cinInput->hasFocus() || ui->nomInput->hasFocus() || ui->prenomInput->hasFocus() || ui->emailInput->hasFocus() || ui->passwordInput->hasFocus() || ui->numCarteInput->hasFocus() || ui->salaireInput->hasFocus() || ui->telnput->hasFocus() || ui->roleInput->hasFocus();
         if(inputsFocus){
-            timer2->stop();
+            timerFormulaire->stop();
         }
     }
 }
@@ -151,12 +161,12 @@ void Row_table::updateBtn_clicked()
 {
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     cin = buttonSender->whatsThis().toInt();
-    timer2->start(500);
+    timerFormulaire->start(500);
 }
 
 void GestionEmp::on_clearBtn_clicked()
 {
-    timer2->stop();
+    timerFormulaire->stop();
     ui->cinInput->setText("");
     ui->nomInput->setText("");
     ui->prenomInput->setText("");
@@ -180,15 +190,20 @@ void GestionEmp::on_updateBtn_clicked()
     int salaire = ui->salaireInput->text().toInt();
     QString role = ui->roleInput->text();
 
-    Employees e(cin2,nom,prenom,email,password,numCard,tel,salaire,role);
-    bool test = e.modifierEmp();
+    if(is_email_valid(email)){
+        Employees e(cin2,nom,prenom,email,password,numCard,tel,salaire,role);
+        bool test = e.modifierEmp();
 
-    if(test){
-        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("employe updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        if(test){
+            QMessageBox::information(nullptr, QObject::tr("update status"),QObject::tr("employe updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        }
+        else {
+            QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("employe not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
+        }
+    }else {
+        QMessageBox::critical(nullptr, QObject::tr("invalid email"),QObject::tr("email not valid.\nClick Cancel to exit."), QMessageBox::Cancel);
     }
-    else {
-        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("employe not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
-    }
+
 }
 
 void Row_table::deleteBtn_clicked()
@@ -200,7 +215,7 @@ void Row_table::deleteBtn_clicked()
 //    qDebug()<< cin;
 
     if(test){
-        QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("employe deleted.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        QMessageBox::information(nullptr, QObject::tr("delete status"),QObject::tr("employe deleted.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
     }
     else {
         QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("employe not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
@@ -212,8 +227,8 @@ void GestionEmp::on_chercheBtn_clicked()
     QString recherche = ui->chercheInput->text();
 
     if(recherche != ""){
-        timer->stop();
-        timer3->start(3000);
+        timerRefresh->stop();
+        timerCherche->start(3000);
 
         while(!layoutt->isEmpty()){
         QLayoutItem* item = layoutt->itemAt(0);
@@ -233,39 +248,19 @@ void GestionEmp::on_chercheBtn_clicked()
             layoutt->addWidget( row );
         }
     }else {
-        timer3->stop();
-        timer->start(3000);
+        timerCherche->stop();
+        timerRefresh->start(2000);
     }
-}
-
-void GestionEmp::on_trieBtn_clicked()
-{
-    timer->stop();
-    timer4->start(3000);
-
-    QString trieOption = ui->trieOption->currentText();
-
-    while(!layoutt->isEmpty()){
-    QLayoutItem* item = layoutt->itemAt(0);
-    layoutt->removeItem(item);
-    QWidget* widgett = item->widget();
-    if(widgett)
-        {
-            delete widgett;
-        }
-    }
-
-    Employees e;
-    QSqlQuery empList = e.trieEmp(trieOption);
-    while (empList.next()) {
-        Row_table *row = new Row_table(ui->scrollArea,empList.value(0).toString(),empList.value(1).toString(),empList.value(2).toString(),empList.value(5).toString().split("T")[0],empList.value(4).toString(),empList.value(6).toString());
-        row->setMinimumHeight(34);
-        layoutt->addWidget( row );
-    }
-
 }
 
 void GestionEmp::on_formationBtn_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://www.inforoutefpt.org/formation-professionnelle/diplome-etudes-professionnelles/5313/"));
+}
+
+bool GestionEmp::is_email_valid(QString email)
+{
+    QRegularExpression regex("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+
+    return regex.match(email).hasMatch();
 }

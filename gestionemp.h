@@ -14,6 +14,7 @@ class GestionEmp : public QMainWindow
 public:
     explicit GestionEmp(QWidget *parent = nullptr);
     ~GestionEmp();
+    bool is_email_valid(QString email);
 
 private slots:
     void on_chatBtn_clicked();
@@ -29,8 +30,6 @@ private slots:
     void on_updateBtn_clicked();
 
     void on_chercheBtn_clicked();
-
-    void on_trieBtn_clicked();
 
     void on_formationBtn_clicked();
 
