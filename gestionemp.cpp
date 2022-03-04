@@ -8,6 +8,8 @@
 #include "row_table.h"
 #include <QMessageBox>
 #include <QTimer>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
@@ -261,4 +263,9 @@ void GestionEmp::on_trieBtn_clicked()
         layoutt->addWidget( row );
     }
 
+}
+
+void GestionEmp::on_formationBtn_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://www.inforoutefpt.org/formation-professionnelle/diplome-etudes-professionnelles/5313/"));
 }
