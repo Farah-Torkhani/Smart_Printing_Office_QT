@@ -23,300 +23,6 @@ background-image: url(:/resource/img/bg.png);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="updateBtn">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>400</y>
-      <width>101</width>
-      <height>38</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton#updateBtn {
-    background-color: rgb(101, 104, 243);
-	color: rgb(245, 241, 246);
-	border-radius: 10px;
- }
-
-QPushButton#updateBtn:hover {
-	background-color: rgb(254, 129, 75);
-}
-
-QPushButton#updateBtn:pressed {
-	background-color: rgb(255, 114, 68);
-}</string>
-    </property>
-    <property name="text">
-     <string>Modifier</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_12">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>100</y>
-      <width>141</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">#label_12{
-background-color: #6568F3;
-color: #F5F1F6;
-}</string>
-    </property>
-    <property name="text">
-     <string>Date_emb</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="refreshBtn">
-    <property name="geometry">
-     <rect>
-      <x>1160</x>
-      <y>50</y>
-      <width>81</width>
-      <height>38</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: none;
-border:none;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="resource.qrc">
-      <normaloff>:/resource/img/refresh.png</normaloff>:/resource/img/refresh.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>20</width>
-      <height>20</height>
-     </size>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addBtn">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>400</y>
-      <width>101</width>
-      <height>38</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton#addBtn {
-    background-color: rgb(101, 104, 243);
-	color: rgb(245, 241, 246);
-	border-radius: 10px;
- }
-
-QPushButton#addBtn:hover {
-	background-color: rgb(254, 129, 75);
-}
-
-QPushButton#addBtn:pressed {
-	background-color: rgb(255, 114, 68);
-}</string>
-    </property>
-    <property name="text">
-     <string>Ajouter</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="chercheBtn">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>50</y>
-      <width>101</width>
-      <height>38</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton#chercheBtn {
-    background-color: rgb(255, 114, 68);
-	color: rgb(245, 241, 246);
-	border-radius: 10px;
- }
-
-QPushButton#chercheBtn:hover {
-	background-color: rgb(254, 129, 75);
-}
-
-QPushButton#chercheBtn:pressed {
-	background-color: rgb(255, 114, 68);
-}</string>
-    </property>
-    <property name="text">
-     <string>Chercher</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>1110</x>
-      <y>100</y>
-      <width>151</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">#label_13{
-background-color: #6568F3;
-border-top-right-radius: 15px;
-border-bottom-right-radius: 5px;
-color: #F5F1F6;
-}</string>
-    </property>
-    <property name="text">
-     <string>#</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_19">
-    <property name="geometry">
-     <rect>
-      <x>860</x>
-      <y>100</y>
-      <width>101</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #6568F3;
-color: #F5F1F6;
-</string>
-    </property>
-    <property name="text">
-     <string>Salaire</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_40">
-    <property name="geometry">
-     <rect>
-      <x>960</x>
-      <y>100</y>
-      <width>151</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #6568F3;
-color: #F5F1F6;
-</string>
-    </property>
-    <property name="text">
-     <string>Role</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="chercheInput">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>50</y>
-      <width>251</width>
-      <height>39</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(245, 241, 246);
-border-radius: 18px;
-padding: 5px 10px;
-color: rgb(52, 23, 99);
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>Chercher (nom)</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="formulaire">
     <property name="geometry">
      <rect>
@@ -844,190 +550,272 @@ QPushButton#clearBtn:pressed {
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="label_11">
+   <widget class="QLabel" name="fullnameLabel">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>100</y>
-      <width>111</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">#label_11{
-background-color: #6568F3;
-color: #F5F1F6;
-}</string>
-    </property>
-    <property name="text">
-     <string>Prenom</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_18">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>100</y>
-      <width>111</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #6568F3;
-color: #F5F1F6;
-</string>
-    </property>
-    <property name="text">
-     <string>Nom</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>470</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(52, 23, 99);</string>
-    </property>
-    <property name="text">
-     <string>Trie par: </string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_10">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>100</y>
-      <width>141</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">#label_10{
-background-color: #6568F3;
-border-top-left-radius: 15px;
-border-bottom-left-radius: 5px;
-color: #F5F1F6;
-}</string>
-    </property>
-    <property name="text">
-     <string>    Cin</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="trieOption">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>470</y>
+      <x>1030</x>
+      <y>20</y>
       <width>211</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="currentIndex">
-     <number>-1</number>
-    </property>
-   </widget>
-   <widget class="QScrollArea" name="scrollArea">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>170</y>
-      <width>940</width>
-      <height>213</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;border:none;</string>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOn</enum>
-    </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="scrollAreaContents">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>919</width>
-       <height>213</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="formationBtn">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>400</y>
-      <width>121</width>
-      <height>38</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Montserrat SemiBold</family>
-      <pointsize>11</pointsize>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="text">
+     <string>Nabil Mersni</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="logoutBtn">
+    <property name="geometry">
+     <rect>
+      <x>1250</x>
+      <y>10</y>
+      <width>45</width>
+      <height>45</height>
+     </rect>
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton#formationBtn {
+     <string notr="true">QPushButton {
+	border:none;
+	border-radius:15px;
+}
+
+QPushButton::hover {
+  background-color: rgb(254, 129, 75);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="resource.qrc">
+      <normaloff>:/resource/img/logout.png</normaloff>:/resource/img/logout.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>19</y>
+      <width>23</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/resource/img/user.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="adminInterface">
+    <property name="geometry">
+     <rect>
+      <x>349</x>
+      <y>60</y>
+      <width>951</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#adminInterface{
+border:none;
+}</string>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>140</y>
+       <width>940</width>
+       <height>213</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:transparent;border:none;</string>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOn</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>919</width>
+        <height>213</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="updateBtn">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>370</y>
+       <width>101</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#updateBtn {
+    background-color: rgb(101, 104, 243);
+	color: rgb(245, 241, 246);
+	border-radius: 10px;
+ }
+
+QPushButton#updateBtn:hover {
+	background-color: rgb(254, 129, 75);
+}
+
+QPushButton#updateBtn:pressed {
+	background-color: rgb(255, 114, 68);
+}</string>
+     </property>
+     <property name="text">
+      <string>Modifier</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_40">
+     <property name="geometry">
+      <rect>
+       <x>610</x>
+       <y>70</y>
+       <width>151</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #6568F3;
+color: #F5F1F6;
+</string>
+     </property>
+     <property name="text">
+      <string>Role</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>141</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_10{
+background-color: #6568F3;
+border-top-left-radius: 15px;
+border-bottom-left-radius: 5px;
+color: #F5F1F6;
+}</string>
+     </property>
+     <property name="text">
+      <string>    Cin</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="chercheInput">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>251</width>
+       <height>39</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(245, 241, 246);
+border-radius: 18px;
+padding: 5px 10px;
+color: rgb(52, 23, 99);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Chercher (nom)</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="formationBtn">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>370</y>
+       <width>121</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#formationBtn {
     background-color: rgb(101, 104, 243);
 	color: rgb(245, 241, 246);
 	border-radius: 10px;
@@ -1040,33 +828,243 @@ QPushButton#formationBtn:hover {
 QPushButton#formationBtn:pressed {
 	background-color: rgb(255, 114, 68);
 }</string>
-    </property>
-    <property name="text">
-     <string>formation</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="chatBtn">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>400</y>
-      <width>61</width>
-      <height>38</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton#chatBtn {
+     </property>
+     <property name="text">
+      <string>formation</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="refreshBtn">
+     <property name="geometry">
+      <rect>
+       <x>810</x>
+       <y>20</y>
+       <width>81</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: none;
+border:none;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="resource.qrc">
+       <normaloff>:/resource/img/refresh.png</normaloff>:/resource/img/refresh.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>70</y>
+       <width>111</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #6568F3;
+color: #F5F1F6;
+</string>
+     </property>
+     <property name="text">
+      <string>Nom</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>70</y>
+       <width>151</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_13{
+background-color: #6568F3;
+border-top-right-radius: 15px;
+border-bottom-right-radius: 5px;
+color: #F5F1F6;
+}</string>
+     </property>
+     <property name="text">
+      <string>#</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>70</y>
+       <width>141</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_12{
+background-color: #6568F3;
+color: #F5F1F6;
+}</string>
+     </property>
+     <property name="text">
+      <string>Date_emb</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="chercheBtn">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>20</y>
+       <width>101</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#chercheBtn {
+    background-color: rgb(255, 114, 68);
+	color: rgb(245, 241, 246);
+	border-radius: 10px;
+ }
+
+QPushButton#chercheBtn:hover {
+	background-color: rgb(254, 129, 75);
+}
+
+QPushButton#chercheBtn:pressed {
+	background-color: rgb(255, 114, 68);
+}</string>
+     </property>
+     <property name="text">
+      <string>Chercher</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>440</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(52, 23, 99);</string>
+     </property>
+     <property name="text">
+      <string>Trie par: </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>70</y>
+       <width>111</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_11{
+background-color: #6568F3;
+color: #F5F1F6;
+}</string>
+     </property>
+     <property name="text">
+      <string>Prenom</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="chatBtn">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>370</y>
+       <width>61</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#chatBtn {
     background-color: rgb(101, 104, 243);
 	color: rgb(245, 241, 246);
 	border-radius: 10px;
@@ -1079,11 +1077,109 @@ QPushButton#chatBtn:hover {
 QPushButton#chatBtn:pressed {
 	background-color: rgb(255, 114, 68);
 }</string>
-    </property>
-    <property name="text">
-     <string>Chat</string>
-    </property>
+     </property>
+     <property name="text">
+      <string>Chat</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>370</y>
+       <width>101</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#addBtn {
+    background-color: rgb(101, 104, 243);
+	color: rgb(245, 241, 246);
+	border-radius: 10px;
+ }
+
+QPushButton#addBtn:hover {
+	background-color: rgb(254, 129, 75);
+}
+
+QPushButton#addBtn:pressed {
+	background-color: rgb(255, 114, 68);
+}</string>
+     </property>
+     <property name="text">
+      <string>Ajouter</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="trieOption">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>440</y>
+       <width>211</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat</family>
+       <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="currentText">
+      <string/>
+     </property>
+     <property name="currentIndex">
+      <number>-1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>70</y>
+       <width>101</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #6568F3;
+color: #F5F1F6;
+</string>
+     </property>
+     <property name="text">
+      <string>Salaire</string>
+     </property>
+    </widget>
    </widget>
+   <zorder>adminInterface</zorder>
+   <zorder>formulaire</zorder>
+   <zorder>fullnameLabel</zorder>
+   <zorder>logoutBtn</zorder>
+   <zorder>label_16</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -11,6 +11,8 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <regex>
+#include "login.h"
+#include <QDebug>
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
@@ -33,7 +35,10 @@ GestionEmp::GestionEmp(QWidget *parent) :
     ui->scrollArea->setWidget( ui->scrollAreaContents );
     ui->scrollAreaContents ->setLayout( layoutt );
 
+    ui->fullnameLabel->setText(currentEmp.getNom()+" "+ currentEmp.getPrenom());
+//    ui->adminInterface->hide();
 
+//    qDebug()<< currentEmp.nom;
     Employees e;
     QString trieOption = ui->trieOption->currentText();
     QSqlQuery empList = e.trieEmp(trieOption);
@@ -263,4 +268,16 @@ bool GestionEmp::is_email_valid(QString email)
     QRegularExpression regex("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
 
     return regex.match(email).hasMatch();
+}
+
+void GestionEmp::on_logoutBtn_clicked()
+{
+    this->close();
+    Login login;
+    login.show();
+    QEventLoop loop;
+
+    connect(&login, SIGNAL(closed()), &loop, SLOT(quit()));
+
+    loop.exec();
 }

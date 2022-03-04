@@ -33,6 +33,9 @@ private slots:
 
     void on_formationBtn_clicked();
 
+
+    void on_logoutBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };

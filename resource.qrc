@@ -16,5 +16,7 @@
         <file>img/send_icon.png</file>
         <file>img/splash.jpg</file>
         <file>img/update.png</file>
+        <file>img/logout.png</file>
+        <file>img/user.png</file>
     </qresource>
 </RCC>

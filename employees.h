@@ -22,6 +22,7 @@ private:
 public:
     Employees();
     Employees(int cin,QString nom,QString prenom,QString email,QString password,QString numCard,int tel,int salaire,QString role);
+    Employees(QString email,QString password);
 
     bool ajouterEmp();
     QSqlQuery afficherAllEmp();
@@ -30,6 +31,21 @@ public:
     bool supprimerEmp(int cin);
     QSqlQuery rechercheEmp(QString test);
     QSqlQuery trieEmp(QString test);
+    bool authEmp();
+    QSqlQuery afficherEmp(QString email);
+
+    int getCin(){
+        return cin;
+    }
+    QString getNom(){
+        return nom;
+    }
+    QString getPrenom(){
+        return prenom;
+    }
+    QString getRole(){
+        return role;
+    }
 
 };
 

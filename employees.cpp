@@ -18,6 +18,12 @@ Employees::Employees(int cin,QString nom,QString prenom,QString email,QString pa
     this->role = role;
 }
 
+Employees::Employees(QString email,QString password)
+{
+    this->email = email;
+    this->password = password;
+}
+
 bool Employees::ajouterEmp()
 {
     QSqlQuery query;
@@ -86,7 +92,7 @@ bool Employees::supprimerEmp(int cin)
 QSqlQuery Employees::rechercheEmp(QString test)
 {
     QSqlQuery query;
-    query.exec("select * from employees where (nom like '%"+test+"%' or prenom like '%"+test+"%' )");
+    query.exec("select * from employees where (UPPER(nom) like UPPER('%"+test+"%') or UPPER(prenom) like UPPER('%"+test+"%') )");
     return query;
 }
 
@@ -99,7 +105,7 @@ QSqlQuery Employees::trieEmp(QString test)
     else if(test == "nom"){
         query.exec("select * from employees order by nom");
     }else if (test == "date_emb") {
-        query.exec("select * from employees order by DATE_EMB");
+        query.exec("select * from employees order by DATE_EMB desc");
     } else if (test == "salaire") {
         query.exec("select * from employees order by salaire");
     }
@@ -107,3 +113,32 @@ QSqlQuery Employees::trieEmp(QString test)
     return query;
 }
 
+
+bool Employees::authEmp()
+{
+    bool test = false;
+    QSqlQuery query;
+    query.prepare("select * from COMPTES where email=:email");
+    query.bindValue(":email",email);
+    if(query.exec()){
+        query.next();
+        if(query.value(1).toString() == password){
+             test = true;
+        }else {
+             test = false;
+        }
+    }else {
+        test = false;
+    }
+
+    return test;
+}
+
+QSqlQuery Employees::afficherEmp(QString email)
+{
+    QSqlQuery query;
+    query.prepare("select * from employees inner join COMPTES on employees.cin = COMPTES.cin where COMPTES.email=:email");
+    query.bindValue(":email",email);
+    query.exec();
+    return query;
+}

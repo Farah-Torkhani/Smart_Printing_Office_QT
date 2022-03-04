@@ -1,6 +1,11 @@
 #include "login.h"
 #include "ui_login.h"
 #include "gestionemp.h"
+#include "employees.h"
+#include <QDebug>
+#include <QMessageBox>
+
+Employees currentEmp;
 
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
@@ -16,12 +21,35 @@ Login::~Login()
 
 void Login::on_loginButton_clicked()
 {
-    this->close();
-    GestionEmp gEmp;
-    gEmp.show();
-    QEventLoop loop;
+    QString email = ui->login_email->text();
+    QString password = ui->login_password->text();
 
-    connect(&gEmp, SIGNAL(closed()), &loop, SLOT(quit()));
+    if(email == "" && password == ""){
+        QMessageBox::critical(nullptr, QObject::tr("login status"),QObject::tr("please fill the email and password input.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }else {
+        Employees e(email,password);
 
-    loop.exec();
+    //    qDebug()<< e.authEmp();
+        if(e.authEmp()){
+            QSqlQuery emp = e.afficherEmp(email);
+            emp.next();
+            qDebug()<< emp.value(0).toString();
+            Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
+            currentEmp = test;
+                this->close();
+                GestionEmp gEmp;
+                gEmp.show();
+                QEventLoop loop;
+
+                connect(&gEmp, SIGNAL(closed()), &loop, SLOT(quit()));
+
+                loop.exec();
+        }else {
+            QMessageBox::critical(nullptr, QObject::tr("login status"),QObject::tr("email or password are incorrect.\nClick Cancel to exit."), QMessageBox::Cancel);
+        }
+
+
+    }
+
+
 }

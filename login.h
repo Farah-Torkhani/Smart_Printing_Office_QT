@@ -2,6 +2,9 @@
 #define LOGIN_H
 
 #include <QMainWindow>
+#include "employees.h"
+
+extern Employees currentEmp;
 
 namespace Ui {
 class Login;
