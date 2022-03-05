@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
         QSplashScreen *splash = new QSplashScreen;
         splash->setPixmap(QPixmap(":/resource/img/splash.jpg"));
         splash->show();
-        QTimer::singleShot(1500,splash,&QWidget::close);
-        QTimer::singleShot(1500,&l,SLOT(show()));
+        QTimer::singleShot(500,splash,&QWidget::close);
+        QTimer::singleShot(500,&l,SLOT(show()));
     }
 
 

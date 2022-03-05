@@ -47,6 +47,8 @@ private slots:
 
     void refreshCurrentEmp();
 
+    void on_me_chatBtn_clicked();
+
 private:
     Ui::GestionEmp *ui;
 };

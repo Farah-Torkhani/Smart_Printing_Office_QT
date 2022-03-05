@@ -13,6 +13,7 @@
 #include <regex>
 #include "login.h"
 #include <QDebug>
+#include <QProcess>
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
@@ -28,6 +29,7 @@ GestionEmp::GestionEmp(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GestionEmp)
 {
+    qDebug()<< "ahla ahla";
     ui->setupUi(this);
     ui->trieOption->addItem("par défaut");
     ui->trieOption->addItem("nom");
@@ -56,15 +58,8 @@ GestionEmp::GestionEmp(QWidget *parent) :
     }
 
 //    qDebug()<< currentEmp.nom;
-    Employees e;
-    QString trieOption = ui->trieOption->currentText();
-    QSqlQuery empList = e.trieEmp(trieOption);
-    while (empList.next()) {
-        Row_table *row = new Row_table(ui->scrollArea,empList.value(0).toString(),empList.value(1).toString(),empList.value(2).toString(),empList.value(5).toString().split("T")[0],empList.value(4).toString(),empList.value(6).toString());
-        row->setMinimumHeight(34);
-        layoutt->addWidget( row );
-    }
 
+    on_refreshBtn_clicked();
     connect(timerRefresh, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
     timerRefresh->start(2000);
 
@@ -82,8 +77,11 @@ GestionEmp::~GestionEmp()
 
 void GestionEmp::on_chatBtn_clicked()
 {
-    Chat chat;
-    chat.exec();
+    Chat *chat = new Chat();
+//    chat->setAttribute(Qt::WA_DeleteOnClose,true);
+//    connect(chat, &Chat::close, chat, &Chat::deleteLater);
+    chat->show();
+
 }
 
 void GestionEmp::on_addBtn_clicked()
@@ -135,6 +133,7 @@ void GestionEmp::on_addBtn_clicked()
 
 void GestionEmp::on_refreshBtn_clicked()
 {
+
     while(!layoutt->isEmpty()){
         QLayoutItem* item = layoutt->itemAt(0);
         layoutt->removeItem(item);
@@ -144,7 +143,6 @@ void GestionEmp::on_refreshBtn_clicked()
                 delete widgett;
             }
     }
-
 
     Employees e;
     QString trieOption = ui->trieOption->currentText();
@@ -313,7 +311,24 @@ void GestionEmp::on_logoutBtn_clicked()
     timerAccountInfo->stop();
     timerCurrentEmp->stop();
 
+
+    disconnect(timerCurrentEmp, SIGNAL(timeout()), this, SLOT(refreshCurrentEmp()));
+    disconnect(timerRefresh, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
+    disconnect(timerFormulaire, SIGNAL(timeout()), this, SLOT(setFormulaire()));
+    disconnect(timerCherche, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
+    disconnect(timerAccountInfo, SIGNAL(timeout()), this, SLOT(refreshAccountInfo()));
+
     this->close();
+
+//    delete timerRefresh;
+//    qApp->quit();
+//    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+//    delete this->centralWidget();
+//    delete this->menuBar();
+//    delete this->statusBar();
+//    deleteLater();
+//    this->destroy(true,true);
+//    delete this;
     Login login;
     login.show();
     QEventLoop loop;
@@ -415,4 +430,10 @@ void GestionEmp::refreshCurrentEmp()
     currentEmp = test;
 
     ui->fullnameLabel->setText( emp.value(1).toString() +" "+ emp.value(2).toString() );
+}
+
+void GestionEmp::on_me_chatBtn_clicked()
+{
+    Chat *chat = new Chat();
+    chat->show();
 }

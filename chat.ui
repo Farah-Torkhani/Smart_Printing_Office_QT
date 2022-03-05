@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>650</width>
     <height>350</height>
    </rect>
   </property>
@@ -22,52 +22,10 @@
 background-image: url(:/resource/img/bg.png);
 }</string>
   </property>
-  <widget class="QLabel" name="label_4">
+  <widget class="QPushButton" name="sendMessBtn">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>38</y>
-     <width>70</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Montserrat SemiBold</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string>Hi there!</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>16</x>
-     <y>18</y>
-     <width>461</width>
-     <height>271</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(245, 241, 246);
-border-radius: 17px;
-padding: 5px 10px;
-</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>426</x>
+     <x>580</x>
      <y>298</y>
      <width>51</width>
      <height>35</height>
@@ -104,9 +62,9 @@ QPushButton::hover {
   <widget class="QLineEdit" name="lineEdit_3">
    <property name="geometry">
     <rect>
-     <x>16</x>
+     <x>20</x>
      <y>298</y>
-     <width>391</width>
+     <width>541</width>
      <height>35</height>
     </rect>
    </property>
@@ -129,13 +87,13 @@ padding: 5px 10px;
     <string>Message</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>38</y>
-     <width>91</width>
-     <height>16</height>
+     <x>20</x>
+     <y>20</y>
+     <width>611</width>
+     <height>261</height>
     </rect>
    </property>
    <property name="font">
@@ -144,121 +102,27 @@ padding: 5px 10px;
      <weight>75</weight>
      <bold>true</bold>
     </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string>Mersni Nabil</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>126</x>
-     <y>38</y>
-     <width>31</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Montserrat Black</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(52, 23, 99);</string>
+    <string notr="true">background-color: rgb(245, 241, 246);
+border-radius: 17px;
+padding: 5px 10px;
+</string>
    </property>
-   <property name="text">
-    <string>&gt;&gt;&gt;</string>
+   <property name="widgetResizable">
+    <bool>true</bool>
    </property>
+   <widget class="QWidget" name="scrollAreaContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>591</width>
+      <height>241</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>136</x>
-     <y>60</y>
-     <width>31</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Montserrat Black</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(52, 23, 99);</string>
-   </property>
-   <property name="text">
-    <string>&gt;&gt;&gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>60</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Montserrat SemiBold</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string>Hello!</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>60</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Montserrat SemiBold</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string>Torkhani farah</string>
-   </property>
-  </widget>
-  <zorder>label</zorder>
-  <zorder>label_4</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>lineEdit_3</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_5</zorder>
-  <zorder>label_7</zorder>
-  <zorder>label_6</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>

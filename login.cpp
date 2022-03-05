@@ -5,13 +5,21 @@
 #include <QDebug>
 #include <QMessageBox>
 
+
 Employees currentEmp;
+//QVBoxLayout *layoutt = new QVBoxLayout();
+//QTimer *timerRefresh = new QTimer();
+//QTimer *timerFormulaire = new QTimer();
+//QTimer *timerCherche = new QTimer();
+//QTimer *timerAccountInfo = new QTimer();
+//QTimer *timerCurrentEmp = new QTimer();
 
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+//    this->setAttribute(Qt::WA_DeleteOnClose);
 }
 
 Login::~Login()
