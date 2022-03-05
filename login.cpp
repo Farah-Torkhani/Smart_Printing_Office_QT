@@ -27,11 +27,11 @@ void Login::on_loginButton_clicked()
     if(email == "" && password == ""){
         QMessageBox::critical(nullptr, QObject::tr("login status"),QObject::tr("please fill the email and password input.\nClick Cancel to exit."), QMessageBox::Cancel);
     }else {
-        Employees e(email,password);
+        Employees e(email.toLower(),password);
 
     //    qDebug()<< e.authEmp();
         if(e.authEmp()){
-            QSqlQuery emp = e.afficherEmp(email);
+            QSqlQuery emp = e.afficherEmp(email.toLower());
             emp.next();
             qDebug()<< emp.value(0).toString();
             Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());

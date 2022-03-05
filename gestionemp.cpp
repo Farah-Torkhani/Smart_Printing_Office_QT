@@ -19,6 +19,8 @@ QVBoxLayout *layoutt = new QVBoxLayout();
 QTimer *timerRefresh = new QTimer();
 QTimer *timerFormulaire = new QTimer();
 QTimer *timerCherche = new QTimer();
+QTimer *timerAccountInfo = new QTimer();
+QTimer *timerCurrentEmp = new QTimer();
 //QTimer *timerTrie = new QTimer();
 int cin = 0;
 
@@ -36,7 +38,22 @@ GestionEmp::GestionEmp(QWidget *parent) :
     ui->scrollAreaContents ->setLayout( layoutt );
 
     ui->fullnameLabel->setText(currentEmp.getNom()+" "+ currentEmp.getPrenom());
-//    ui->adminInterface->hide();
+
+    refreshAccountInfo();
+
+    if(currentEmp.getRole() != "admin"){
+        ui->adminInterface->hide();
+        ui->cinInput->setDisabled(true);
+        ui->roleInput->setDisabled(true);
+        ui->salaireInput->setDisabled(true);
+        connect(timerAccountInfo, SIGNAL(timeout()), this, SLOT(refreshAccountInfo()));
+        timerAccountInfo->start(500);
+    }else {
+        ui->userInterface->hide();
+        ui->account_info->hide();
+        connect(timerCurrentEmp, SIGNAL(timeout()), this, SLOT(refreshCurrentEmp()));
+        timerCurrentEmp->start(500);
+    }
 
 //    qDebug()<< currentEmp.nom;
     Employees e;
@@ -172,15 +189,18 @@ void Row_table::updateBtn_clicked()
 void GestionEmp::on_clearBtn_clicked()
 {
     timerFormulaire->stop();
-    ui->cinInput->setText("");
+    if(currentEmp.getRole() == "admin"){
+        ui->cinInput->setText("");
+        ui->roleInput->setText("");
+        ui->salaireInput->setText("");
+    }
+
     ui->nomInput->setText("");
     ui->prenomInput->setText("");
     ui->emailInput->setText("");
     ui->passwordInput->setText("");
     ui->numCarteInput->setText("");
-    ui->salaireInput->setText("");
     ui->telnput->setText("");
-    ui->roleInput->setText("");
 }
 
 void GestionEmp::on_updateBtn_clicked()
@@ -221,6 +241,21 @@ void Row_table::deleteBtn_clicked()
 
     if(test){
         QMessageBox::information(nullptr, QObject::tr("delete status"),QObject::tr("employe deleted.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        if(cin2 == currentEmp.getCin()){
+            timerRefresh->stop();
+            timerFormulaire->stop();
+            timerCherche->stop();
+            timerAccountInfo->stop();
+            timerCurrentEmp->stop();
+            this->close();
+            Login login;
+            login.show();
+            QEventLoop loop;
+
+            connect(&login, SIGNAL(closed()), &loop, SLOT(quit()));
+
+            loop.exec();
+        }
     }
     else {
         QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("employe not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
@@ -272,6 +307,12 @@ bool GestionEmp::is_email_valid(QString email)
 
 void GestionEmp::on_logoutBtn_clicked()
 {
+    timerRefresh->stop();
+    timerFormulaire->stop();
+    timerCherche->stop();
+    timerAccountInfo->stop();
+    timerCurrentEmp->stop();
+
     this->close();
     Login login;
     login.show();
@@ -280,4 +321,98 @@ void GestionEmp::on_logoutBtn_clicked()
     connect(&login, SIGNAL(closed()), &loop, SLOT(quit()));
 
     loop.exec();
+}
+
+void GestionEmp::on_me_formationBtn_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://www.inforoutefpt.org/formation-professionnelle/diplome-etudes-professionnelles/5313/"));
+}
+
+void GestionEmp::on_me_setForm_clicked()
+{
+    Employees e;
+    QSqlQuery emp = e.afficherEmp(currentEmp.getCin());
+    emp.next();
+    ui->cinInput->setText(emp.value(0).toString()); //cin 0
+    ui->nomInput->setText(emp.value(1).toString()); //nom 1
+    ui->prenomInput->setText(emp.value(2).toString()); //prenom 2
+    ui->emailInput->setText(emp.value(7).toString()); //tel 3
+    ui->passwordInput->setText(emp.value(8).toString()); //salaire 4
+    ui->numCarteInput->setText(emp.value(9).toString()); //date 5
+    ui->salaireInput->setText(emp.value(4).toString()); //role 6
+    ui->telnput->setText(emp.value(3).toString()); //email 7
+    ui->roleInput->setText(emp.value(6).toString()); //pass 8
+
+}
+
+void GestionEmp::refreshAccountInfo()
+{
+    Employees e;
+    QSqlQuery emp = e.afficherEmp(currentEmp.getCin());
+    emp.next();
+    Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
+    currentEmp = test;
+
+    ui->me_nom->setText(emp.value(1).toString());
+    ui->me_prenom->setText(emp.value(2).toString());
+    ui->me_email->setText(emp.value(7).toString());
+    ui->me_salaire->setText(emp.value(4).toString());
+    ui->me_num_tel->setText(emp.value(3).toString());
+    ui->me_num_carte->setText(emp.value(9).toString());
+    ui->me_fullname->setText( emp.value(1).toString() +" "+ emp.value(2).toString() );
+    ui->fullnameLabel->setText( emp.value(1).toString() +" "+ emp.value(2).toString() );
+    ui->me_role->setText(emp.value(6).toString());
+}
+
+void GestionEmp::on_me_updateBtn_clicked()
+{
+    int cin2 = ui->cinInput->text().toInt();
+    QString nom = ui->nomInput->text();
+    QString prenom = ui->prenomInput->text();
+    QString email = ui->emailInput->text();
+    QString password = ui->passwordInput->text();
+    QString numCard = ui->numCarteInput->text();
+    int tel = ui->telnput->text().toInt();
+    int salaire = ui->salaireInput->text().toInt();
+    QString role = ui->roleInput->text();
+
+    if(is_email_valid(email)){
+        Employees e(cin2,nom,prenom,email,password,numCard,tel,salaire,role);
+        bool test = e.modifierEmp();
+
+        if(test){
+            QMessageBox::information(nullptr, QObject::tr("update status"),QObject::tr("employe updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        }
+        else {
+            QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("employe not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
+        }
+    }else {
+        QMessageBox::critical(nullptr, QObject::tr("invalid email"),QObject::tr("email not valid.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }
+}
+
+void GestionEmp::on_me_deleteBtn_clicked()
+{
+    Employees e;
+    bool test = e.supprimerEmp(currentEmp.getCin());
+//    qDebug()<< cin;
+
+    if(test){
+        QMessageBox::information(nullptr, QObject::tr("delete status"),QObject::tr("employe deleted.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        on_logoutBtn_clicked();
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("employe not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }
+}
+
+void GestionEmp::refreshCurrentEmp()
+{
+    Employees e;
+    QSqlQuery emp = e.afficherEmp(currentEmp.getCin());
+    emp.next();
+    Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
+    currentEmp = test;
+
+    ui->fullnameLabel->setText( emp.value(1).toString() +" "+ emp.value(2).toString() );
 }

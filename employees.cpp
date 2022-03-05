@@ -34,9 +34,9 @@ bool Employees::ajouterEmp()
         query.bindValue(":prenom",prenom);
         query.bindValue(":tel",tel);
         query.bindValue(":salaire",salaire);
-        query.bindValue(":role",role);
+        query.bindValue(":role",role.toLower());
 
-        query.bindValue(":email",email);
+        query.bindValue(":email",email.toLower());
         query.bindValue(":password",password);
         query.bindValue(":num_card",numCard);
 
@@ -61,20 +61,27 @@ QSqlQuery Employees::afficherEmp(int cin)
 
 bool Employees::modifierEmp()
 {
-    QSqlQuery query,query2;
+    QSqlQuery query,query2,query3;
     query.prepare("update EMPLOYEES set nom=:nom, prenom=:prenom, tel=:tel, salaire=:salaire, role=:role  where cin=:cin");
     query.bindValue(":nom",nom);
     query.bindValue(":prenom",prenom);
     query.bindValue(":tel",tel);
     query.bindValue(":salaire",salaire);
-    query.bindValue(":role",role);
+    query.bindValue(":role",role.toLower());
     query.bindValue(":cin",cin);
 
     query2.prepare("update COMPTES set email=:email, password=:password, num_card=:num_card  where cin=:cin");
-    query2.bindValue(":email",email);
+    query2.bindValue(":email",email.toLower());
     query2.bindValue(":password",password);
     query2.bindValue(":num_card",numCard);
     query2.bindValue(":cin",cin);
+
+    query3.prepare("select * from employees inner join COMPTES on employees.cin = COMPTES.cin where employees.cin=:cin");
+    query3.bindValue(":cin",cin);
+    query3.exec();
+    if(!query3.next()){
+        return false;
+    }
 
     return query.exec() && query2.exec();
 }

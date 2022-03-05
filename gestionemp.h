@@ -33,8 +33,19 @@ private slots:
 
     void on_formationBtn_clicked();
 
-
     void on_logoutBtn_clicked();
+
+    void on_me_formationBtn_clicked();
+
+    void on_me_setForm_clicked();
+
+    void refreshAccountInfo();
+
+    void on_me_updateBtn_clicked();
+
+    void on_me_deleteBtn_clicked();
+
+    void refreshCurrentEmp();
 
 private:
     Ui::GestionEmp *ui;
