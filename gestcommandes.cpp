@@ -19,6 +19,10 @@ Gestcommandes::Gestcommandes(QWidget *parent) :
     ui(new Ui::Gestcommandes)
 {
     ui->setupUi(this);
+    ui->comboBox_7->addItem("par défaut");
+        ui->comboBox_7->addItem("date");
+        ui->comboBox_7->addItem("etat");
+        ui->comboBox_7->addItem("quantiteCouleur");
 QString descreption="";
 QString etat="";
 QString quantiteCouleur="";
@@ -27,7 +31,7 @@ QString quantiteSansCouleur="";
 ui->scrollArea->setWidget( ui->scrollAreaWidgetContents );
  ui->scrollAreaWidgetContents ->setLayout( layoutt );
 
-Commandes c("","","","");
+Commandes c("","",0,"");
 
  QSqlQuery commandeList = c.afficherCommande();
 
@@ -44,7 +48,7 @@ Commandes c("","","","");
     //timer->start(500);
 
     connect(timer2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
-    timer2->start(3000);
+    timer2->start(500);
 
 
 
@@ -106,7 +110,7 @@ void Gestcommandes::on_ajouter_clicked()
 {
    QString descreption=ui->descreption->text();
    QString etat=ui->eta->text();
- QString quantiteCouleur=ui->Qc->text();
+ int quantiteCouleur=ui->Qc->text().toInt();
  QString quantiteSansCouleur=ui->Qsc->text();
 
 Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
@@ -152,7 +156,7 @@ int commandesid = buttonSender->whatsThis().toInt();
 
 QString descreption="";
 QString etat="";
-QString quantiteCouleur="";
+int quantiteCouleur=0;
 QString quantiteSansCouleur="";
 Commandes c( descreption,etat,quantiteCouleur,  quantiteSansCouleur );
 c.supprimerCommandes(commandesid);
@@ -166,7 +170,7 @@ void Gestcommandes::on_modifier_commande_clicked()
 {
     QString descreption=ui->descreption->text();
     QString etat=ui->eta->text();
-  QString quantiteCouleur=ui->Qc->text();
+  int quantiteCouleur=ui->Qc->text().toInt();
   QString quantiteSansCouleur=ui->Qsc->text();
 
  Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
@@ -198,15 +202,16 @@ void Gestcommandes::on_refreshBtn_clicked()
 
     QString descreption=ui->descreption->text();
     QString etat=ui->eta->text();
-    QString quantiteCouleur=ui->Qc->text();
+    int quantiteCouleur=ui->Qc->text().toInt();
     QString quantiteSansCouleur=ui->Qsc->text();
 
     Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
 
 
-    QSqlQuery commandeList = c.afficherCommande();
+    QString trieOption = ui->comboBox_7->currentText();
+    QSqlQuery commandeList = c.triCommande(trieOption);
     while (commandeList.next()) {
-         commandes_row_table *row = new commandes_row_table(ui->scrollArea,commandeList.value(1).toString(),commandeList.value(2).toString(),commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(5).toString(),commandeList.value(0).toString());
+         commandes_row_table *row = new commandes_row_table(ui->scrollArea,commandeList.value(1).toString(),commandeList.value(2).toString().split("T")[0],commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(5).toString(),commandeList.value(0).toString());
          row->setMinimumHeight(34);
          layoutt->addWidget( row );
     }
@@ -220,7 +225,7 @@ void Gestcommandes::setFormulaire()
 
         QString descreption="";
         QString etat="";
-        QString quantiteCouleur="";
+        int quantiteCouleur=0;
         QString quantiteSansCouleur="";
 
         Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
@@ -231,9 +236,9 @@ void Gestcommandes::setFormulaire()
         commandeInfo.next();
 
         ui->descreption->setText(commandeInfo.value(1).toString());
-        ui->eta->setText(commandeInfo.value(2).toString());
-        ui->Qc->setText(commandeInfo.value(3).toString());
-        ui->Qsc->setText(commandeInfo.value(4).toString());
+        ui->eta->setText(commandeInfo.value(3).toString());
+        ui->Qc->setText(commandeInfo.value(4).toString());
+        ui->Qsc->setText(commandeInfo.value(5).toString());
 
         bool inputsFocus = ui->descreption->hasFocus() || ui->eta->hasFocus() || ui->Qc->hasFocus() || ui->Qsc->hasFocus() ;
         if(inputsFocus){
@@ -263,3 +268,6 @@ void Gestcommandes::on_clear_commande_clicked()
     ui->Qc->setText("");
     ui->Qsc->setText("");
 }
+
+
+

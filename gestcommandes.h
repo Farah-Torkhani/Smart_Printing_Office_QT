@@ -33,6 +33,8 @@ private slots:
 
     void on_clear_commande_clicked();
 
+    void on_comboBox_7_activated(const QString &arg1);
+
 private:
     Ui::Gestcommandes *ui;
 };

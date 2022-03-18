@@ -8,11 +8,11 @@ class Commandes
 {
 public:
     Commandes();
-    Commandes(QString descreption, QString etat, QString quantiteCouleur, QString quantiteSansCouleur);
+    Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur);
 
     QString getDescreption(){return descreption;}
     QString getEtat(){return etat;}
-    QString getQuantiteCouleur(){return  quantiteCouleur;}
+    int getQuantiteCouleur(){return  quantiteCouleur;}
     QString getQuantiteSansCouleur(){return quantiteSansCouleur;}
     bool ajouterCommandes();
      QSqlQuery afficherCommande();
@@ -20,11 +20,12 @@ public:
 
          QSqlQuery afficherCommande(int id);
          bool modifierCommande(int id);
+        QSqlQuery triCommande(QString test);
 private:
 
     QString descreption;
     QString etat;
-    QString quantiteCouleur;
+    int quantiteCouleur;
     QString quantiteSansCouleur;
 
 

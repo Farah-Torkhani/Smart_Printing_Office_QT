@@ -2,7 +2,7 @@
 #include <QSqlQuery>
 
 
-Commandes::Commandes(QString descreption, QString etat, QString quantiteCouleur, QString quantiteSansCouleur)
+Commandes::Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur)
 {
 
     this->descreption=descreption;
@@ -75,4 +75,23 @@ bool Commandes::modifierCommande(int Commandeid)
 
 }
 
+
+QSqlQuery Commandes::triCommande(QString test)
+{
+    QSqlQuery query;
+    if(test == "par défaut"){
+         query.exec("select * from commandes");
+       }
+    else if(test == "date"){
+           query.exec("select * from commandes order by date_commande desc");
+    }
+    else if(test == "etat"){
+           query.exec("select * from commandes order by etat");
+    }
+    else if(test == "quantiteCouleur"){
+           query.exec("select * from commandes order by QUANTITECOULEUR desc");
+    }
+
+    return query;
+}
 

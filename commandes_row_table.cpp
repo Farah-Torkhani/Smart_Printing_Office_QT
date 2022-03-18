@@ -21,7 +21,7 @@ commandes_row_table::commandes_row_table(QWidget *parent,QString descreption,QSt
 
 
           etat_label->setParent(row_container);
-              etat_label->setGeometry(191,0,141,34);
+              etat_label->setGeometry(141,0,141,34);
                etat_label->setText(etat);
                etat_label->setStyleSheet("color: #585856;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
                etat_label->setMinimumHeight(34);
@@ -47,7 +47,7 @@ commandes_row_table::commandes_row_table(QWidget *parent,QString descreption,QSt
           QuantiteSansCouleur_label->setMinimumHeight(31);
 
            editBtn->setParent(row_container);
-            editBtn->setGeometry(690,0,44,34);
+            editBtn->setGeometry(730,0,44,34);
             editBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/img/ressources/img/edit-icon.png);qproperty-iconSize: 19px;}QPushButton::hover {background-color: #D6DBFD;}");
             editBtn->setCursor(QCursor(Qt::PointingHandCursor));
             editBtn->setWhatsThis(id);
