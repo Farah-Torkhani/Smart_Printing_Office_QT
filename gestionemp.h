@@ -55,6 +55,8 @@ private slots:
 
     void on_chercheInput_textChanged(const QString &arg1);
 
+    void chartEmp();
+
 private:
     Ui::GestionEmp *ui;
 };

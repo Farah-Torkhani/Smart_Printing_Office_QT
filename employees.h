@@ -34,6 +34,8 @@ public:
     bool authEmp();
     QSqlQuery afficherEmp(QString email);
 
+    int statEmp(int month);
+
     int getCin(){
         return cin;
     }

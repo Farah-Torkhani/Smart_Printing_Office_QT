@@ -149,3 +149,21 @@ QSqlQuery Employees::afficherEmp(QString email)
     query.exec();
     return query;
 }
+
+
+int Employees::statEmp(int month)
+{
+    QSqlQuery query;
+    query.prepare("select count(*) from employees where extract(month from date_emb)=:month ");
+    query.bindValue(":month",month);
+    query.exec();
+
+    int count;
+
+    while(query.next())
+    {
+        count=query.value(0).toString().toInt() ;
+    }
+
+    return count;
+}

@@ -15,6 +15,10 @@
 #include <QDebug>
 #include <QProcess>
 #include <QCompleter>
+#include <QtCharts>
+#include <QChartView>
+#include <QBarSet>
+#include <QBarSeries>
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
@@ -24,6 +28,7 @@ QTimer *timerCherche = new QTimer();
 QTimer *timerAccountInfo = new QTimer();
 QTimer *timerCurrentEmp = new QTimer();
 QTimer *timerChercheTest = new QTimer();
+QTimer *timerChartEmp = new QTimer();
 //QTimer *timerTrie = new QTimer();
 int cin = 0;
 
@@ -32,7 +37,7 @@ GestionEmp::GestionEmp(QWidget *parent) :
     ui(new Ui::GestionEmp)
 {
 
-    qDebug()<< "ahla ahla";
+//    qDebug()<< "ahla ahla";
     ui->setupUi(this);
     ui->trieOption->addItem("par défaut");
     ui->trieOption->addItem("nom");
@@ -73,6 +78,8 @@ GestionEmp::GestionEmp(QWidget *parent) :
 
 //    qDebug()<< currentEmp.nom;
 
+    chartEmp();
+
     on_refreshBtn_clicked();
     connect(timerRefresh, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
     timerRefresh->start(2000);
@@ -80,6 +87,10 @@ GestionEmp::GestionEmp(QWidget *parent) :
     on_chercheBtn_clicked();
     connect(timerFormulaire, SIGNAL(timeout()), this, SLOT(setFormulaire()));
     connect(timerCherche, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
+//    connect(timerChartEmp, SIGNAL(timeout()), this, SLOT(chartEmp()));
+//    timerChartEmp->start(3000);
+
+
 //    connect(timerTrie, SIGNAL(timeout()), this, SLOT(on_trieBtn_clicked()));
 //    testChercheInput();
 //    connect(timerChercheTest, SIGNAL(timeout()), this, SLOT(testChercheInput()));
@@ -151,7 +162,6 @@ void GestionEmp::on_addBtn_clicked()
 
 void GestionEmp::on_refreshBtn_clicked()
 {
-
     while(!layoutt->isEmpty()){
         QLayoutItem* item = layoutt->itemAt(0);
         layoutt->removeItem(item);
@@ -328,13 +338,14 @@ void GestionEmp::on_logoutBtn_clicked()
     timerCherche->stop();
     timerAccountInfo->stop();
     timerCurrentEmp->stop();
-
+    timerChartEmp->stop();
 
     disconnect(timerCurrentEmp, SIGNAL(timeout()), this, SLOT(refreshCurrentEmp()));
     disconnect(timerRefresh, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
     disconnect(timerFormulaire, SIGNAL(timeout()), this, SLOT(setFormulaire()));
     disconnect(timerCherche, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
     disconnect(timerAccountInfo, SIGNAL(timeout()), this, SLOT(refreshAccountInfo()));
+    disconnect(timerChartEmp, SIGNAL(timeout()), this, SLOT(chartEmp()));
 
     this->close();
 
@@ -484,4 +495,67 @@ void GestionEmp::testChercheInput(){
 void GestionEmp::on_chercheInput_textChanged(const QString &arg1)
 {
     on_chercheBtn_clicked();
+}
+
+void GestionEmp::chartEmp()
+{
+    Employees e;
+    QChart *chart = new QChart();
+    chart->setAnimationDuration(0);
+    QChartView *chartView = new QChartView(chart);
+    QBarSet *set1 = new QBarSet("Nombre d'employees par mois");
+
+
+    *set1 << e.statEmp(1)
+          << e.statEmp(2)
+          << e.statEmp(3)
+          << e.statEmp(4)
+          << e.statEmp(5)
+          << e.statEmp(6)
+          << e.statEmp(7)
+          << e.statEmp(8)
+          << e.statEmp(9)
+          << e.statEmp(10)
+          << e.statEmp(11)
+          << e.statEmp(12);
+
+    QColor color(0x6568F3);
+    set1->setColor(color);
+
+        QBarSeries *series = new QBarSeries();
+        series->append(set1);
+
+
+        chart->addSeries(series);
+        chart->setTitle("");
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        chart->setBackgroundVisible(false);
+
+
+        QStringList categories;
+        categories << "Jan" << "Fiv" << "Mar" << "Avr" << "Mai" << "Juin" << "Jui" <<"Aou" << "sep" << "Oct" << "Nov" << "Dec" ;
+        QBarCategoryAxis *axis = new QBarCategoryAxis();
+        axis->append(categories);
+        chart->createDefaultAxes();
+        chart->setAxisX(axis, series);
+
+
+        chart->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+
+
+        chartView->setRenderHint(QPainter::Antialiasing);
+        QPalette pal = qApp->palette();
+        pal.setColor(QPalette::WindowText, QRgb(0x6568F3));
+        pal.setColor(QPalette::Window, QRgb(0x6568F3));
+        qApp->setPalette(pal);
+
+        chartView->setMaximumWidth(560);
+        chartView->setMaximumHeight(240);
+
+
+        chartView->setParent(ui->chartContainer);
+        chart->setParent(ui->adminInterface);
+
+        chartView->show();
 }
