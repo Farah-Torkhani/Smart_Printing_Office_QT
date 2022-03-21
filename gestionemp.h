@@ -15,6 +15,8 @@ public:
     explicit GestionEmp(QWidget *parent = nullptr);
     ~GestionEmp();
     bool is_email_valid(QString email);
+    void test();
+
 
 private slots:
     void on_chatBtn_clicked();
@@ -48,6 +50,10 @@ private slots:
     void refreshCurrentEmp();
 
     void on_me_chatBtn_clicked();
+
+    void testChercheInput();
+
+    void on_chercheInput_textChanged(const QString &arg1);
 
 private:
     Ui::GestionEmp *ui;

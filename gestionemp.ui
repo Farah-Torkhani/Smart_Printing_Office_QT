@@ -768,7 +768,7 @@ color: #F5F1F6;
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>251</width>
+       <width>311</width>
        <height>39</height>
       </rect>
      </property>
@@ -791,7 +791,7 @@ color: rgb(52, 23, 99);
       <string/>
      </property>
      <property name="placeholderText">
-      <string>Chercher (nom)</string>
+      <string>Chercher (nom&amp;prenom)</string>
      </property>
     </widget>
     <widget class="QPushButton" name="formationBtn">
@@ -957,7 +957,7 @@ color: #F5F1F6;
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>20</y>
+       <y>200000</y>
        <width>101</width>
        <height>38</height>
       </rect>
@@ -1174,12 +1174,28 @@ color: #F5F1F6;
       <string>Salaire</string>
      </property>
     </widget>
+    <widget class="QLabel" name="seachIcon">
+     <property name="geometry">
+      <rect>
+       <x>282</x>
+       <y>21</y>
+       <width>37</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/resource/img/search.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="userInterface">
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>100</y>
+      <y>10000</y>
       <width>911</width>
       <height>521</height>
      </rect>

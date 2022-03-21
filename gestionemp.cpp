@@ -14,6 +14,7 @@
 #include "login.h"
 #include <QDebug>
 #include <QProcess>
+#include <QCompleter>
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
@@ -22,6 +23,7 @@ QTimer *timerFormulaire = new QTimer();
 QTimer *timerCherche = new QTimer();
 QTimer *timerAccountInfo = new QTimer();
 QTimer *timerCurrentEmp = new QTimer();
+QTimer *timerChercheTest = new QTimer();
 //QTimer *timerTrie = new QTimer();
 int cin = 0;
 
@@ -29,6 +31,7 @@ GestionEmp::GestionEmp(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GestionEmp)
 {
+
     qDebug()<< "ahla ahla";
     ui->setupUi(this);
     ui->trieOption->addItem("par défaut");
@@ -36,12 +39,23 @@ GestionEmp::GestionEmp(QWidget *parent) :
     ui->trieOption->addItem("date_emb");
     ui->trieOption->addItem("salaire");
 
+//    test();
+
     ui->scrollArea->setWidget( ui->scrollAreaContents );
     ui->scrollAreaContents ->setLayout( layoutt );
 
     ui->fullnameLabel->setText(currentEmp.getNom()+" "+ currentEmp.getPrenom());
 
     refreshAccountInfo();
+
+    ui->cinInput->setValidator(new QIntValidator (0,99999999,ui->cinInput));
+    ui->nomInput->setValidator(new QRegExpValidator(  QRegExp("[A-Za-z]*")  ));
+    ui->prenomInput->setValidator(new QRegExpValidator(  QRegExp("[A-Za-z]*")  ));
+    ui->salaireInput->setValidator(new QIntValidator (0,99999999,ui->cinInput));
+    ui->numCarteInput->setValidator(new QIntValidator (0,999999999,ui->cinInput));
+    ui->telnput->setValidator(new QIntValidator (0,99999999,ui->cinInput));
+    ui->roleInput->setValidator(new QRegExpValidator(  QRegExp("[A-Za-z]*")  ));
+
 
     if(currentEmp.getRole() != "admin"){
         ui->adminInterface->hide();
@@ -63,9 +77,13 @@ GestionEmp::GestionEmp(QWidget *parent) :
     connect(timerRefresh, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
     timerRefresh->start(2000);
 
+    on_chercheBtn_clicked();
     connect(timerFormulaire, SIGNAL(timeout()), this, SLOT(setFormulaire()));
     connect(timerCherche, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
 //    connect(timerTrie, SIGNAL(timeout()), this, SLOT(on_trieBtn_clicked()));
+//    testChercheInput();
+//    connect(timerChercheTest, SIGNAL(timeout()), this, SLOT(testChercheInput()));
+//    timerChercheTest->start(500);
 
 
 }
@@ -266,7 +284,7 @@ void GestionEmp::on_chercheBtn_clicked()
 
     if(recherche != ""){
         timerRefresh->stop();
-        timerCherche->start(3000);
+        timerCherche->start(1000);
 
         while(!layoutt->isEmpty()){
         QLayoutItem* item = layoutt->itemAt(0);
@@ -436,4 +454,34 @@ void GestionEmp::on_me_chatBtn_clicked()
 {
     Chat *chat = new Chat();
     chat->show();
+}
+
+
+
+void GestionEmp::test(){
+    QStringList CompletionList;
+                  Employees e;
+                  QSqlQuery test = e.afficherAllEmp();
+                  while (test.next()) {
+                        CompletionList.push_back(test.value(1).toString());
+                        CompletionList.push_back(test.value(2).toString());
+                  }
+
+                 QCompleter *stringCompleter = new QCompleter(CompletionList,this);
+                 stringCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+
+                 ui->chercheInput->setCompleter(stringCompleter);
+}
+
+void GestionEmp::testChercheInput(){
+    QString recherche = ui->chercheInput->text();
+
+    if(recherche != ""){
+        timerCherche->start(1000);
+    }
+}
+
+void GestionEmp::on_chercheInput_textChanged(const QString &arg1)
+{
+    on_chercheBtn_clicked();
 }

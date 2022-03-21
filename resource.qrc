@@ -19,5 +19,6 @@
         <file>img/logout.png</file>
         <file>img/user.png</file>
         <file>img/delete_white.png</file>
+        <file>img/search.png</file>
     </qresource>
 </RCC>
