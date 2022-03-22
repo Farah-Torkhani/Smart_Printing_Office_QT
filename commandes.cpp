@@ -95,3 +95,76 @@ QSqlQuery Commandes::triCommande(QString test)
     return query;
 }
 
+
+
+//**************************recherche*****************************
+QSqlQuery Commandes::rechercherCommande(QString chaine)
+{
+
+    QSqlQuery query;
+
+
+    query.exec("SELECT * from commandes where CommandeId LIKE'%"+chaine+"%' OR descreption LIKE'%"+chaine+"%'   ");
+    return query;
+
+
+}
+
+QStringList Commandes::rechercherCommandes()
+{
+
+    QSqlQuery query;
+    QStringList cblist;
+
+    query.prepare("select * from clients ");
+    query.exec();
+
+    QString n;
+    while(query.next())
+            {
+               // if (query.isValid())
+                cblist.push_back(query.value(0).toString() );
+                cblist.push_back(query.value(1).toString() );
+               // cblist.push_back(query.value(2).toString() );
+               // cblist.push_back(query.value(3).toString() );
+               // cblist.push_back(query.value(4).toString() );
+             //   qDebug() << "test";
+
+            }
+
+
+    return  cblist;
+
+
+}
+
+//**************************recherche*****************************
+
+
+//*******************************statistique Commande********************************************************
+
+int Commandes::statistiqueCommande(int month)
+{
+    QSqlQuery query;
+    query.prepare("select count(*) from commandes where extract(month from date_commande)=:month ");
+    query.bindValue(":month",month);
+    query.exec();
+
+    int count =50;
+
+
+
+        QString cblist;
+
+            while(query.next())
+                    {
+                        cblist=query.value(0).toString() ;
+
+                        count = cblist.toInt();
+//                        qDebug() << "count=" << count ;
+                    }
+
+    return count;
+
+}
+

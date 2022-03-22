@@ -4,15 +4,19 @@
 #include "connection.h"
 #include <QMessageBox>
 #include <QApplication>
-
+#include <QTranslator>
+#include <QInputDialog>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+QTranslator T;
     Gestcommandes w;
+
     w.show();
     Connection c;
     bool test=c.createconnect();
+
     if(test)
     {w.show();
         QMessageBox::critical(nullptr, QObject::tr("database is open"),

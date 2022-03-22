@@ -6,10 +6,14 @@
 #include "commandes_row_table.h"
 #include <QDebug>
 #include <QTimer>
+#include <qtranslator.h>
 
 int id = 0;
+
 QTimer *timer = new QTimer();
 QTimer *timer2 = new QTimer();
+QTimer *timer3 = new QTimer(); //recher
+QTimer *timer4 = new QTimer(); //stat
 
 
 
@@ -51,52 +55,17 @@ Commandes c("","",0,"");
     timer2->start(500);
 
 
-
-    QBarSet *set0 = new QBarSet("Youssef");
-    QBarSet *set1 = new QBarSet("Nombre de clients par mois");
-    QBarSet *set2 = new QBarSet("Farah");
-
-    *set1 << 20 << 10 << 40 << 15 << 20 << 30 << 100 << 40 << 10 << 77 << 91 << 13;
-
-    *set2 << 20 << 10 << 40 << 15 << 20 << 30 << 10 << 40 << 10 << 17 << 11 << 13;
-    *set0 << 20 << 10 << 40 << 15 << 20 << 30 << 10 << 40 << 10 << 17 << 11 << 13;
-
-    QBarSeries *series = new QBarSeries();
-    series->append(set1);
-
-    QColor color(0x6568F3);
-    set1->setColor(color);
-
-    QChart *chart = new QChart();
-    chart->addSeries(series);
-    chart->setTitle("");
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->setBackgroundVisible(false);
-
-    QStringList categories;
-    categories << "Jan" << "Fev" << "Mar" << "Avr" << "Mai" << "Juin" << "Jui" <<"Aou" << "sep" << "Oct" << "Nov" << "Dec" ;
-    QBarCategoryAxis *axis = new QBarCategoryAxis();
-    axis->append(categories);
-    chart->createDefaultAxes();
-    chart->setAxisX(axis, series);
-
-    chart->setVisible(true);
+    connect(timer3, SIGNAL(timeout()), this, SLOT(on_search_commandeBtn_clicked()));
+//    timer3->start(3000);
 
 
-    chart->legend()->setAlignment(Qt::AlignBottom);
+  //  afficherStatistique();
 
-    QChartView *chartView = new QChartView(chart);
+        connect(timer4, SIGNAL(timeout()), this, SLOT(on_statCommande_clicked()));
+        timer4->start(500);
 
-    chartView->setRenderHint(QPainter::Antialiasing);
-    QPalette pal = qApp->palette();
-    pal.setColor(QPalette::WindowText, QRgb(0x6568F3));
-    pal.setColor(QPalette::Window, QRgb(0x6568F3));
-    qApp->setPalette(pal);
 
-    chartView->setMaximumWidth(550);
-    chartView->setMaximumHeight(290);
 
-    chartView->setParent(ui->horizontalFrame);
 }
 
 Gestcommandes::~Gestcommandes()
@@ -120,6 +89,7 @@ Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
         QMessageBox::information(nullptr,QObject::tr("ok"),
                                QObject::tr(" effectue\n"
                                            "click cancel to exit."),QMessageBox::Cancel);
+        timer4->start(100);
     }
     else  QMessageBox::critical(nullptr,QObject::tr("Not ok"),
                                    QObject::tr("non effectue\n"
@@ -161,7 +131,7 @@ QString quantiteSansCouleur="";
 Commandes c( descreption,etat,quantiteCouleur,  quantiteSansCouleur );
 c.supprimerCommandes(commandesid);
 
-
+timer4->start(100);
 
 }
 
@@ -215,6 +185,15 @@ void Gestcommandes::on_refreshBtn_clicked()
          row->setMinimumHeight(34);
          layoutt->addWidget( row );
     }
+
+    QStringList CompletionList;
+
+     CompletionList = c.rechercherCommandes();
+
+    stringCompleter = new QCompleter(CompletionList,this);
+    stringCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->chercher_commande->setCompleter(stringCompleter);
+
 }
 
 
@@ -268,6 +247,189 @@ void Gestcommandes::on_clear_commande_clicked()
     ui->Qc->setText("");
     ui->Qsc->setText("");
 }
+
+
+
+
+void Gestcommandes::on_search_commandeBtn_clicked()
+{
+    QString chaine_c=ui->chercher_commande->text();
+
+    if(chaine_c !="")
+    {
+        timer2->stop();
+        timer3->start(100);
+
+
+     while(!layoutt->isEmpty()){
+     QLayoutItem* item = layoutt->itemAt(0);
+     layoutt->removeItem(item);
+     QWidget* widgett = item->widget();
+     if(widgett)
+         {
+             delete widgett;
+         }
+     }
+
+
+     QString descreption="";
+     QString etat="";
+     int quantiteCouleur=0;
+     QString quantiteSansCouleur="";
+
+     Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+
+
+     QSqlQuery commandeList = c.rechercherCommande(chaine_c);
+     while (commandeList.next()) {
+          commandes_row_table *row = new commandes_row_table(ui->scrollArea,commandeList.value(1).toString(),commandeList.value(2).toString().split("T")[0],commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(5).toString(),commandeList.value(0).toString());
+          row->setMinimumHeight(34);
+          layoutt->addWidget( row );
+     }
+
+     }
+    else
+    {
+        timer3->stop();
+        timer2->start(100);
+
+    }
+
+}
+
+void Gestcommandes::on_chercher_commande_textChanged(const QString &arg1)
+{
+      on_search_commandeBtn_clicked();
+}
+
+
+
+
+
+//********************************afficher statistique graphe***************************************************
+
+
+void Gestcommandes::on_statCommande_clicked()
+{
+
+    QBarSet *set1 = new QBarSet("Nombre de commandes par mois");
+
+    QString descreption="";
+    QString etat="";
+    int quantiteCouleur=0;
+    QString quantiteSansCouleur="";
+
+    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+
+//        set1->insert(1,c.statistiqueCilents(2));
+    *set1 <<  c.statistiqueCommande(1)
+          <<  c.statistiqueCommande(2)
+          <<  c.statistiqueCommande(3)
+          <<  c.statistiqueCommande(4)
+          << c.statistiqueCommande(5)
+          << c.statistiqueCommande(6)
+          << c.statistiqueCommande(7)
+          << c.statistiqueCommande(8)
+          << c.statistiqueCommande(9)
+          << c.statistiqueCommande(10)
+          << c.statistiqueCommande(11)
+          << c.statistiqueCommande(12) ;
+
+    //    qDebug()<< c.statistiqueCommande(2);
+
+
+
+        QBarSeries *series = new QBarSeries();
+
+       // set1->remove(0);
+       // series->deleteLater();
+        //series->append(set1);
+
+        //series->deleteLater();
+
+        series->append(set1);
+
+        QColor color(0x6568F3);
+        set1->setColor(color);
+
+
+        QChart *chart = new QChart();
+
+
+
+
+            chart->addSeries(series);
+            chart->setTitle("");
+          //  chart->setAnimationOptions(QChart::SeriesAnimations);
+
+               QColor bgColor(0xF4DCD3);
+               chart->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+               chart->setBackgroundVisible(true);
+               //i=0;
+
+
+           //    chart->setBackgroundVisible(false);
+
+
+
+
+            QStringList categories;
+            categories << "Jan" << "Fiv" << "Mar" << "Avr" << "Mai" << "Juin" << "Jui" <<"Aou" << "sep" << "Oct" << "Nov" << "Dec" ;
+            QBarCategoryAxis *axis = new QBarCategoryAxis();
+
+
+            axis->append(categories);
+
+            chart->createDefaultAxes();
+            chart->setAxisX(axis, series);
+
+
+            chart->setVisible(true);
+            chart->legend()->setAlignment(Qt::AlignBottom);
+
+
+
+          //  series->remove(0);//*****************
+          //  chart->removeAxis(axis);//******************
+           // chart->removeSeries(series);//****************
+
+            QChartView *chartView = new QChartView(chart);
+
+            chartView->setRenderHint(QPainter::Antialiasing);
+            QPalette pal = qApp->palette();
+            pal.setColor(QPalette::WindowText, QRgb(0x6568F3));
+            pal.setColor(QPalette::Window, QRgb(0x6568F3));
+            qApp->setPalette(pal);
+
+            chartView->setMaximumWidth(650);
+            chartView->setMaximumHeight(290);
+
+
+
+            chartView->setParent(ui->horizontalFrame);
+         //   chartView->update();
+            chartView->show();
+
+                if(NULL != chart){
+                       series->remove(0);
+
+                    }
+timer4->stop();
+
+//                chart->removeSeries(series);
+
+//                delete chartView;
+//
+
+//                chart->update();
+
+
+     //end statistique
+
+
+}
+
 
 
 

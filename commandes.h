@@ -21,6 +21,10 @@ public:
          QSqlQuery afficherCommande(int id);
          bool modifierCommande(int id);
         QSqlQuery triCommande(QString test);
+        QSqlQuery rechercherCommande(QString chaine);
+        QStringList rechercherCommandes();
+        int statistiqueCommande(int month);
+
 private:
 
     QString descreption;

@@ -10,4 +10,7 @@
         <file>ressources/img/sort.png</file>
         <file>ressources/img/trash-icon.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>anglais.qm</file>
+    </qresource>
 </RCC>

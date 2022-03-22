@@ -536,7 +536,7 @@ border-radius:10px;</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_110">
+    <widget class="QLineEdit" name="chercher_commande">
      <property name="geometry">
       <rect>
        <x>750</x>
@@ -550,7 +550,7 @@ border-radius:10px;</string>
 border-radius:10px;</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_58">
+    <widget class="QPushButton" name="search_commandeBtn">
      <property name="geometry">
       <rect>
        <x>920</x>
@@ -575,33 +575,6 @@ border-radius:10px;
      <property name="icon">
       <iconset>
        <normaloff>D:/search.png</normaloff>D:/search.png</iconset>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_295">
-     <property name="geometry">
-      <rect>
-       <x>760</x>
-       <y>20</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat Light</family>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="mouseTracking">
-      <bool>true</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color:#4A5BCF;
-</string>
-     </property>
-     <property name="text">
-      <string>chercher......</string>
      </property>
     </widget>
     <widget class="QPushButton" name="valider_21">
@@ -787,8 +760,8 @@ font-size:15px;</string>
     <widget class="QCheckBox" name="checkBox_7">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>600</y>
+       <x>90</x>
+       <y>580</y>
        <width>171</width>
        <height>51</height>
       </rect>

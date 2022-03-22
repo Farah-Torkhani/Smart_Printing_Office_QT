@@ -33,10 +33,20 @@ private slots:
 
     void on_clear_commande_clicked();
 
-    void on_comboBox_7_activated(const QString &arg1);
+   // void on_comboBox_7_activated(const QString &arg1);
+
+    void on_chercher_commande_textChanged(const QString &arg1);
+
+    void on_search_commandeBtn_clicked();
+    void on_statCommande_clicked();
+
+    void on_checkBox_7_stateChanged(int arg1);
 
 private:
     Ui::Gestcommandes *ui;
+
+    QCompleter *stringCompleter;
+    QCompleter *ModelCompleter;
 };
 
 #endif // GESTCOMMANDES_H
