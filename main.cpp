@@ -11,14 +11,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 QTranslator T;
-    Gestcommandes w;
 
-    w.show();
+
+
     Connection c;
     bool test=c.createconnect();
 
     if(test)
-    {w.show();
+    {//w.show();
         QMessageBox::critical(nullptr, QObject::tr("database is open"),
                     QObject::tr("connection successful.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
@@ -29,9 +29,19 @@ QTranslator T;
                     QObject::tr("connection failed.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
 
+    QStringList languages;
+      languages <<"English"<<"French";
+      const QString lang=QInputDialog::getItem(NULL,"Select language ","Language",languages);
+    if (lang == "English")
+    {
+         T.load(":/anglais.qm");
+    }
+    if (lang !="French")
+    {
+        a.installTranslator(&T);
+    }
 
-
-
-
+    Gestcommandes w;
+    w.show();
     return a.exec();
 }

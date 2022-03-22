@@ -9,12 +9,11 @@
 #include <qtranslator.h>
 
 int id = 0;
-
+QTranslator T;
 QTimer *timer = new QTimer();
 QTimer *timer2 = new QTimer();
 QTimer *timer3 = new QTimer(); //recher
 QTimer *timer4 = new QTimer(); //stat
-
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
@@ -22,6 +21,9 @@ Gestcommandes::Gestcommandes(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Gestcommandes)
 {
+
+
+
     ui->setupUi(this);
     ui->comboBox_7->addItem("par défaut");
         ui->comboBox_7->addItem("date");
