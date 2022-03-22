@@ -1,18 +1,6 @@
 <RCC>
-    <qresource prefix="/Machine_resources">
-        <file>img_m/bg.png</file>
-        <file>img_m/edit-icon.png</file>
-        <file>img_m/email.png</file>
-        <file>img_m/eraser.png</file>
-        <file>img_m/pdf.png</file>
-        <file>img_m/refresh.png</file>
-        <file>img_m/refresh-button.png</file>
-        <file>img_m/search.png</file>
-        <file>img_m/sort.png</file>
-        <file>img_m/trash-icon.png</file>
-        <file>img_m/eye.png</file>
-        <file>img_m/spanner.png</file>
-        <file>img_m/excel.png</file>
-        <file>img_m/upload.png</file>
+    <qresource prefix="/Client_resources/img">
+        <file>edit-icon.png</file>
+        <file>client_img/edit-icon.png</file>
     </qresource>
 </RCC>

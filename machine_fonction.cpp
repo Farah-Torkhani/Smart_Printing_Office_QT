@@ -1,37 +1,37 @@
- #include "machine_fonction.h"
+#include "machine_fonction.h"
 #include "connection.h"
 
 #include <QSqlQuery>
 
-
-Machine_fonction::Machine_fonction(QString nomMachine, QString machineImg, int prixMachine, int etatMachine)
+machine_fonction::machine_fonction(int machineID, QString nomMachine, QString etat, int prix)
 {
+    this->machineID = machineID;
     this->nomMachine = nomMachine;
-    this->machineImg = machineImg;
-    this->prixMachine = prixMachine;
-    this->etatMachine = etatMachine;
+    this->etat = etat;
+    this->prix = prix;
 
 }
 
-bool Machine_fonction::ajouter()
+bool machine_fonction::ajouter()
 {
     QSqlQuery query;
 
 
 
-    query.prepare("Insert into machines(nomMachine, machineImg, prixMachine, etatMachine)"
-                  "Values( :nomMachine, :machineImg, :prixMachine, :etatMachine)");
+    query.prepare("Insert into machines(machineID, prix, etat, nomMachine, emailmachine)"
+                  "Values( :machineID, :prix, :etat, :nomMachine, :emailmachine)");
+    query.bindValue(":machineID", machineID);
     query.bindValue(":nomMachine", nomMachine);
-    query.bindValue(":machineImg", machineImg);
-    query.bindValue(":prixMachine", prixMachine);
-    query.bindValue(":etatMachine", etatMachine);
+    query.bindValue(":etat", etat);
+    query.bindValue(":emailmachine", emailmachine);
+    query.bindValue(":prix", prix);
 
     return query.exec();
 
 }
 
 
-QSqlQuery Machine_fonction::afficherMachines()
+QSqlQuery machine_fonction::affichermachine()
 {
     QSqlQuery query;
     query.exec("select * from machines");
@@ -39,53 +39,15 @@ QSqlQuery Machine_fonction::afficherMachines()
 }
 
 
-bool Machine_fonction::supprimerMachine(int machineId)
+
+bool machine_fonction::supprimermachine(int machineID)
 {
 QSqlQuery query;
 
-QString id = QString::number(machineId);
+QString id = QString::number(machineID);
 
-query.prepare("Delete from machines where machineId=:machineId");
-query.bindValue(":machineId",id);
+query.prepare("Delete from machines where machineID=:machineID");
+query.bindValue(":machineID",id);
 return query.exec();
 }
-
-
-QSqlQuery Machine_fonction::afficherMachine(int machineId)
-{
-    QSqlQuery query;
-    query.prepare("select * from machines where machineId=:machineId");
-    query.bindValue(":machineId",machineId);
-
-    query.exec();
-    return query;
-}
-
-bool Machine_fonction::modifierMachine(int machineId)
-{
-    QSqlQuery query;
-    query.prepare("update machines set nomMachine=:nomMachine, machineImg=:machineImg, prixMachine=:prixMachine, etatMachine=:etatMachine where machineId=:machineId");
-    query.bindValue(":nomMachine",nomMachine);
-    query.bindValue(":machineImg",machineImg);
-    query.bindValue(":prixMachine",prixMachine);
-    query.bindValue(":etatMachine",etatMachine);
-    query.bindValue(":machineId",machineId);
-
-    return query.exec();
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
