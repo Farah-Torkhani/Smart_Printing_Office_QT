@@ -1,40 +1,32 @@
-#ifndef machine_FONCTION_H
-#define machine_FONCTION_H
+#ifndef MACHINE_FONCTION_H
+#define MACHINE_FONCTION_H
 #include <QString>
 #include <QDateEdit>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlQueryModel>
 
-
-class machine_fonction
+class Machine_fonction
 {
 private:
-    int machineID;
+    int machineId;
     QString nomMachine;
-    QString etat;
-    QString emailmachine;
-    int prix;
-    QDate date_entretin;
-
+    QString machineImg;
+    int prixMachine;
+    int etatMachine;
+    QDate date_achat;
+ //   QDate date_entretien;
 
 public:
-    machine_fonction();
-    machine_fonction(int machineID, QString nomMachine, QString etat,int prix);
-
-    int getmachineID(){return machineID;}
-    QString getnomMachine(){return nomMachine;}
-    QString getetat(){return etat;}
-    int getprix(){return prix;}
-   // QDate getdate_entretin(){return date_entretin;}
+    Machine_fonction();
+    Machine_fonction(QString nomMachine, QString machineImg, int prixMachine, int etatMachine);
 
     bool ajouter();
-    QSqlQuery affichermachine();
-    bool supprimermachine(int machineID);
+    QSqlQuery afficherMachines();
+    bool supprimerMachine(int machineId);
 
-
+    QSqlQuery afficherMachine(int machineId);
+    bool modifierMachine(int machineId);
 
 };
 
-#endif // machine_FONCTION_H
-
-
+#endif // MACHINE_FONCTION_H

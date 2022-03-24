@@ -1,30 +1,32 @@
-#ifndef machine_ROW_TABLE_H
-#define machine_ROW_TABLE_H
+#ifndef MACHINE_ROW_TABLE_H
+#define MACHINE_ROW_TABLE_H
+
 
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
 
-
-class machine_row_table : public QLabel
+class Machine_row_table : public QLabel
 {
     Q_OBJECT
 public:
-    explicit machine_row_table(QWidget *parent,QString machineID, QString nomMachine, QString etat, QString prix);
+    explicit Machine_row_table(QWidget *parent,QString machineId,QString nomMachine, QString machineImg, QString prixMachine, QString etatMachine);
 
     QLabel *row_container = new QLabel(this);
+    QLabel *img_label = new QLabel();
     QLabel *nom_label = new QLabel();
-    QLabel *etat_label = new QLabel();
-    QLabel *id_label = new QLabel();
     QLabel *prix_label = new QLabel();
+    QLabel *etat_label = new QLabel();
+
+    QPushButton *repaireBtn = new QPushButton();
+    QPushButton *historiqueBtn = new QPushButton();
     QPushButton *editBtn = new QPushButton();
     QPushButton *deleteBtn = new QPushButton();
 
 private slots:
     void deleteBtn_clicked();
-
-
+    void updateBtn_clicked();
 
 };
 
-#endif // machine_ROW_TABLE_H
+#endif // MACHINE_ROW_TABLE_H
