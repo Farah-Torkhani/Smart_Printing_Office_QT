@@ -9,6 +9,8 @@
 #include <QBarSeries>
 
 #include <QVBoxLayout>
+#include <QCompleter>
+#include <QDirModel>
 
 namespace Ui {
 class Machines;
@@ -33,8 +35,23 @@ private slots:
 
     void on_clear_machine_clicked();
 
+    void on_search_machine_clicked();
+
+    void on_search_input_machine_textChanged(const QString &arg1);
+
+    void on_trier_machine_clicked();
+
+    void on_statMachine_clicked();
+
+    void on_excel_btn_clicked();
+
+    void on_add_imageBtn_clicked();
+
 private:
     Ui::Machines *ui;
+
+    QCompleter *stringCompleter;
+    QCompleter *ModelCompleter;
 };
 
 #endif // MACHINES_H

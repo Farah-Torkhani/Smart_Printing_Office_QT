@@ -26,6 +26,16 @@ public:
 
     QSqlQuery afficherMachine(int machineId);
     bool modifierMachine(int machineId);
+    QSqlQuery trierMachines(QString test);
+    QStringList rechercherMachines_completer();
+    QSqlQuery rechercherMachine(QString chaine);
+    int statistiqueMachine(int etat);
+
+    QSqlQueryModel *afficherMachineForExcel();
+    bool entretienMachine(int machineId);
+
+    QSqlQuery afficherHistorique(int machineId);
+    int historiqueCount(int machineId);
 
 };
 

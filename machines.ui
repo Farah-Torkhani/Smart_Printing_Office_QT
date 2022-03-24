@@ -324,9 +324,9 @@ outline:none;
        <property name="geometry">
         <rect>
          <x>21</x>
-         <y>130</y>
+         <y>140</y>
          <width>47</width>
-         <height>14</height>
+         <height>18</height>
         </rect>
        </property>
        <property name="font">
@@ -341,46 +341,13 @@ outline:none;
         <string>Etat</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="Etat_f">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>150</y>
-         <width>128</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#Etat_f{
-background-color: #F9FDFF;
-border:1px solid rgba(222, 226, 230, 0.8);
-padding-left:5px;
-border-radius:10px;
-color:#585856;
-}
-#Etat_f:focus{
-border:1px solid #6568f3;
-outline:none;
-}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_15">
        <property name="geometry">
         <rect>
          <x>54</x>
-         <y>130</y>
+         <y>140</y>
          <width>47</width>
-         <height>14</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -397,34 +364,13 @@ outline:none;
         <string>*</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>158</x>
-         <y>220</y>
-         <width>131</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Montserrat</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Ajouter image</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="img_f">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>190</y>
-         <width>128</width>
-         <height>91</height>
+         <x>50</x>
+         <y>210</y>
+         <width>51</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="font">
@@ -455,7 +401,7 @@ outline:none;
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>230</y>
+         <y>220</y>
          <width>47</width>
          <height>14</height>
         </rect>
@@ -491,6 +437,9 @@ outline:none;
          <bold>true</bold>
         </font>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">#ajouter_machine{
 color:white;
@@ -522,6 +471,9 @@ background-color:#4144f1;
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">#modifier_machine{
@@ -575,6 +527,9 @@ border: 2px solid rgba(222, 226, 230, 0.8);
          <bold>false</bold>
         </font>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">#clear_machine{
 color:white;
@@ -603,14 +558,17 @@ background-color:#4144f1;
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>202</y>
-         <width>91</width>
-         <height>71</height>
+         <x>20</x>
+         <y>184</y>
+         <width>125</width>
+         <height>98</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">
+border:1px solid rgba(222, 226, 230, 0.8);
+padding-left:5px;
+border-radius:10px;</string>
        </property>
        <property name="text">
         <string/>
@@ -626,6 +584,133 @@ background-color:#4144f1;
         </size>
        </property>
       </widget>
+      <widget class="QPushButton" name="add_imageBtn">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>212</y>
+         <width>121</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+#add_imageBtn{
+color:black;
+background-color:transparent;
+}
+
+#add_imageBtn:hover{
+color:#FF7244;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Ajouter image</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblBkImge">
+       <property name="geometry">
+        <rect>
+         <x>16</x>
+         <y>183</y>
+         <width>130</width>
+         <height>100</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_panne">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>140</y>
+         <width>101</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:#f53e00;</string>
+       </property>
+       <property name="text">
+        <string>En panne</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_bon">
+       <property name="geometry">
+        <rect>
+         <x>79</x>
+         <y>140</y>
+         <width>111</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:#03BF8A;</string>
+       </property>
+       <property name="text">
+        <string>En bon etat</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <zorder>Nom_f</zorder>
+      <zorder>label</zorder>
+      <zorder>label_2</zorder>
+      <zorder>label_13</zorder>
+      <zorder>label_3</zorder>
+      <zorder>Prix_f</zorder>
+      <zorder>label_14</zorder>
+      <zorder>label_4</zorder>
+      <zorder>label_15</zorder>
+      <zorder>img_f</zorder>
+      <zorder>label_17</zorder>
+      <zorder>ajouter_machine</zorder>
+      <zorder>modifier_machine</zorder>
+      <zorder>line_2</zorder>
+      <zorder>clear_machine</zorder>
+      <zorder>pushButton</zorder>
+      <zorder>lblBkImge</zorder>
+      <zorder>add_imageBtn</zorder>
+      <zorder>radioButton_panne</zorder>
+      <zorder>radioButton_bon</zorder>
      </widget>
      <widget class="QLabel" name="label_7">
       <property name="geometry">
@@ -706,7 +791,7 @@ border-top-right-radius:10px;</string>
        <string>     #</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_4">
+     <widget class="QLineEdit" name="search_input_machine">
       <property name="geometry">
        <rect>
         <x>920</x>
@@ -741,6 +826,9 @@ font-weight:bold;
         <height>32</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true">#search_machine{
 background-color:white;
@@ -760,7 +848,7 @@ background-color:#D6DBFD;
         <normaloff>:/Machine_resources/img_m/search.png</normaloff>:/Machine_resources/img_m/search.png</iconset>
       </property>
      </widget>
-     <widget class="QPushButton" name="trier_client_2">
+     <widget class="QPushButton" name="trier_machine">
       <property name="geometry">
        <rect>
         <x>770</x>
@@ -777,14 +865,17 @@ background-color:#D6DBFD;
         <bold>true</bold>
        </font>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
-       <string notr="true">#trier_client_2{
+       <string notr="true">#trier_machine{
 color:white;
 background-color:#FF7244;
 border-radius:15px;
 }
 
-#trier_client_2:hover{
+#trier_machine:hover{
 background-color:#ff531a;
 }</string>
       </property>
@@ -850,7 +941,7 @@ font-size:18px;</string>
        <string> Trier par</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="machine_combo">
       <property name="geometry">
        <rect>
         <x>550</x>
@@ -875,23 +966,8 @@ color:#585856;</string>
        <bool>true</bool>
       </property>
       <property name="currentText">
-       <string>Etat</string>
+       <string/>
       </property>
-      <item>
-       <property name="text">
-        <string>Etat</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Date entretien</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Nom</string>
-       </property>
-      </item>
      </widget>
      <widget class="Line" name="line">
       <property name="geometry">
@@ -918,7 +994,7 @@ border: 2px solid rgba(222, 226, 230, 0.8);
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QPushButton" name="pdf_b">
+     <widget class="QPushButton" name="excel_btn">
       <property name="geometry">
        <rect>
         <x>620</x>
@@ -927,13 +1003,16 @@ border: 2px solid rgba(222, 226, 230, 0.8);
         <height>38</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
-       <string notr="true">#pdf_b{
+       <string notr="true">#excel_btn{
 background-color:transparent;
 border-radius:15px;
 }
 
-#pdf_b:hover{
+#excel_btn:hover{
 background-color:#FF7244;
 
 }</string>
@@ -989,6 +1068,9 @@ background-color:#FF7244;
         <width>75</width>
         <height>32</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">#refreshBtn{
@@ -1139,12 +1221,12 @@ padding:6px;</string>
        <rect>
         <x>-50</x>
         <y>400</y>
-        <width>411</width>
+        <width>431</width>
         <height>241</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true">background-color:#F4DCD3;</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2"/>
      </widget>

@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     connection.cpp \
+    historiques_machine.cpp \
     machine_fonction.cpp \
     machine_row_table.cpp \
     machines.cpp \
@@ -25,12 +26,14 @@ SOURCES += \
 
 HEADERS += \
     connection.h \
+    historiques_machine.h \
     machine_fonction.h \
     machine_row_table.h \
     machines.h \
     mainwindow.h
 
 FORMS += \
+    historiques_machine.ui \
     machines.ui \
     mainwindow.ui
 

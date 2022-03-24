@@ -26,6 +26,10 @@ public:
 private slots:
     void deleteBtn_clicked();
     void updateBtn_clicked();
+    void repaireBtn_clicked();
+    void historiqueBtn_clicked();
+
+
 
 };
 

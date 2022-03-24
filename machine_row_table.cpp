@@ -1,5 +1,7 @@
 #include "machine_row_table.h"
 #include <QLabel>
+#include <QPainter>
+#include <QDebug>
 
 Machine_row_table::Machine_row_table(QWidget *parent ,QString machineId,QString nomMachine, QString machineImg, QString prixMachine, QString etatMachine) : QLabel(parent)
 {
@@ -18,9 +20,13 @@ Machine_row_table::Machine_row_table(QWidget *parent ,QString machineId,QString 
 
    img_label->setParent(row_container);
    img_label->setGeometry(0,0,121,64);
-   //img_label->setText(machineImg);
-   img_label->setText("Img-test");
-   img_label->setStyleSheet("color: #585856;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
+
+   QPixmap image (machineImg);
+   img_label->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+   image = image.scaled(121,64,Qt::IgnoreAspectRatio,Qt::FastTransformation);
+
+   img_label->setPixmap(image);
+
    img_label->setMinimumHeight(64);
 
    nom_label->setParent(row_container);
@@ -37,8 +43,17 @@ Machine_row_table::Machine_row_table(QWidget *parent ,QString machineId,QString 
 
    etat_label->setParent(row_container);
    etat_label->setGeometry(340,0,181,64);
-   etat_label->setText(etatMachine);
-   etat_label->setStyleSheet("color: #585856;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
+ //  qDebug() <<"etatMachine="<< etatMachine;
+   if(etatMachine.toInt() == 1)
+   {
+       etat_label->setText("bon");
+       etat_label->setStyleSheet("color: #03BF8A;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
+   }
+   else if(etatMachine.toInt() == 0)
+   {
+       etat_label->setText("panne");
+       etat_label->setStyleSheet("color: #f53e00;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
+   }
    etat_label->setMinimumHeight(64);
 
    repaireBtn->setParent(row_container);
@@ -71,6 +86,8 @@ Machine_row_table::Machine_row_table(QWidget *parent ,QString machineId,QString 
 
    connect(deleteBtn, &QPushButton::clicked, this, &Machine_row_table::deleteBtn_clicked);
    connect(editBtn, &QPushButton::clicked, this, &Machine_row_table::updateBtn_clicked);
+   connect(repaireBtn, &QPushButton::clicked, this, &Machine_row_table::repaireBtn_clicked);
+   connect(historiqueBtn, &QPushButton::clicked, this, &Machine_row_table::historiqueBtn_clicked);
 
 
 }
