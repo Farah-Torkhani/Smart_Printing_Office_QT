@@ -54,6 +54,26 @@ Clients::Clients(QWidget *parent) :
     //scroll area
     ui->scrollArea->setWidget( ui->scrollAreaWidgetContents );
     ui->scrollAreaWidgetContents ->setLayout( layoutt );
+
+    int cinClient = 0 ;
+    QString nomClient="";
+    QString prenomClient="";
+    QString emailClient="";
+    int telClient = 0;
+
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+    //Client_fonction cl ;
+
+
+    QSqlQuery clientList = c.afficherCilents();
+    while (clientList.next()) {
+        Client_row_table *row = new Client_row_table(ui->scrollArea,clientList.value(0).toString(), clientList.value(1).toString(), clientList.value(2).toString(), clientList.value(3).toString(), clientList.value(4).toString());
+        row->setMinimumHeight(34);
+        layoutt->addWidget( row );
+    }
+
     //end scroll area
 
 
@@ -199,7 +219,8 @@ void Clients::on_refreshBtn_clicked()
         layoutt->addWidget( row );
     }
     QStringList CompletionList;
-
+   // CompletionList <<"ali" <<"ahmed" << "amor" << "arij" << "assma" ;
+  //  CompletionList <<"nabil" ;
      CompletionList = c.rechercherClients();
 
     stringCompleter = new QCompleter(CompletionList,this);
@@ -298,7 +319,6 @@ void Clients::on_clear_client_clicked()
     ui->Phone_f->setText("");
 }
 
-
 void Clients::on_pdfBtn_clicked()
 {
     QPdfWriter pdf("C:/Users/ALI/Desktop/Pdf/Liste_Client.pdf");
@@ -361,3 +381,62 @@ void Clients::on_pdfBtn_clicked()
           QMessageBox::information(this, QObject::tr("PDF Enregistré!"),
           QObject::tr("PDF Enregistré!.\n" "Click Cancel to exit."), QMessageBox::Cancel);
 }
+
+void Clients::on_search_client_clicked()
+{
+
+       QString chaine_c=ui->search_input->text();
+
+       if(chaine_c !="")
+       {
+           timer2->stop();
+           timer3->start(100);
+
+
+        while(!layoutt->isEmpty()){
+        QLayoutItem* item = layoutt->itemAt(0);
+        layoutt->removeItem(item);
+        QWidget* widgett = item->widget();
+        if(widgett)
+            {
+                delete widgett;
+            }
+        }
+
+
+        int cinClient=0;
+        QString nomClient="";
+        QString prenomClient="";
+        QString emailClient="";
+        int telClient=0;
+
+
+        Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+
+
+        QSqlQuery clientList = c.rechercherClient(chaine_c);
+        while (clientList.next()) {
+            Client_row_table *row = new Client_row_table(ui->scrollArea,clientList.value(0).toString(),clientList.value(1).toString(),clientList.value(2).toString(),clientList.value(3).toString(),clientList.value(4).toString());
+            row->setMinimumHeight(34);
+            layoutt->addWidget( row );
+        }
+
+        }
+       else
+       {
+           timer3->stop();
+           timer2->start(100);
+
+       }
+
+timer3->stop();
+
+}
+
+void Clients::on_search_input_textChanged(const QString &arg1)
+{
+    on_search_client_clicked();
+}
+
+

@@ -44,10 +44,6 @@ private slots:
 
     void on_search_input_textChanged(const QString &arg1);
 
-    void on_stat_clicked();
-
-
-    void on_trie_client_clicked();
 
 private:
     Ui::Clients *ui;

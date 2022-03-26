@@ -85,3 +85,49 @@ bool Client_fonction::modifierClient()
 
 }
 
+
+//**************************recherche*****************************
+QSqlQuery Client_fonction::rechercherClient(QString chaine)
+{
+
+    QSqlQuery query;
+
+
+    query.exec("SELECT * from clients where nomClient LIKE'%"+chaine+"%' OR prenomClient LIKE'%"+chaine+"%' OR emailClient LIKE'%"+chaine+"%' OR telClient LIKE'%"+chaine+"%'   ");
+    return query;
+
+
+}
+
+
+QStringList Client_fonction::rechercherClients()
+{
+
+    QSqlQuery query;
+    QStringList cblist;
+
+    query.prepare("select * from clients ");
+    query.exec();
+
+    QString n;
+    while(query.next())
+            {
+               // if (query.isValid())
+                cblist.push_back(query.value(0).toString() );
+                cblist.push_back(query.value(1).toString() );
+                cblist.push_back(query.value(2).toString() );
+                cblist.push_back(query.value(3).toString() );
+                cblist.push_back(query.value(4).toString() );
+             //   qDebug() << "test";
+
+            }
+
+
+    return  cblist;
+
+
+}
+
+//**************************recherche*****************************
+
+
