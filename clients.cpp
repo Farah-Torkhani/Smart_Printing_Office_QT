@@ -578,3 +578,17 @@ void Clients::on_trie_client_clicked()
 {
     on_refreshBtn_clicked();
 }
+
+
+void Client_row_table::emailBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    cinClient = buttonSender->whatsThis().toInt();
+
+    Email *email = new Email();
+    email->cinClient = cinClient;
+
+    email->show();
+
+
+}
