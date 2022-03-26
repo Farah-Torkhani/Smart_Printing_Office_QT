@@ -572,3 +572,9 @@ timer4->stop();
 
 
 }
+
+
+void Clients::on_trie_client_clicked()
+{
+    on_refreshBtn_clicked();
+}

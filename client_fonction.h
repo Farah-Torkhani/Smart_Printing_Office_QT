@@ -39,7 +39,7 @@ public:
 
 
     QSqlQuery rechercherClient(QString chaine);
-
+    QSqlQuery trierCilent(QString test);
 
     QStringList rechercherClients();
     bool is_email_valid(QString email);

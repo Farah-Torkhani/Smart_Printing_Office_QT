@@ -131,3 +131,62 @@ QStringList Client_fonction::rechercherClients()
 //**************************recherche*****************************
 
 
+
+
+QSqlQuery Client_fonction::trierCilent(QString test)
+{
+    QSqlQuery query;
+    if(test == "par défaut"){
+        query.exec("select * from clients");
+    }
+    else if(test =="nom")
+    {
+        query.exec("select * from clients order by nomClient asc");
+    }
+    else if(test =="date_ajout")
+    {
+        query.exec("select * from clients order by date_ajout desc");
+    }
+    else if(test =="prenom")
+    {
+        query.exec("select * from clients order by prenomClient asc");
+    }
+    return query;
+}
+
+//**********************************controle de saisie email*****************************************
+bool Client_fonction::is_email_valid(QString email)
+{
+    QRegularExpression regex("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+
+    return regex.match(email).hasMatch();
+}
+
+
+//*******************************statistique Client********************************************************
+
+int Client_fonction::statistiqueCilents(int month)
+{
+    QSqlQuery query;
+    query.prepare("select count(*) from clients where extract(month from date_ajout)=:month ");
+    query.bindValue(":month",month);
+    query.exec();
+
+    int count =50;
+
+
+
+        QString cblist;
+
+            while(query.next())
+                    {
+                        cblist=query.value(0).toString() ;
+                     //   qDebug() << "test";
+                        count = cblist.toInt();
+//                        qDebug() << "count=" << count ;
+                    }
+
+    return count;
+
+}
+

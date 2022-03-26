@@ -46,6 +46,7 @@ private slots:
 
     void on_stat_clicked();
 
+    void on_trie_client_clicked();
 
 private:
     Ui::Clients *ui;
