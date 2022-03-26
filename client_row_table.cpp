@@ -70,6 +70,7 @@ Client_row_table::Client_row_table(QWidget *parent,QString cinClient, QString no
 
     connect(deleteBtn, &QPushButton::clicked, this, &Client_row_table::deleteBtn_clicked);
     connect(editBtn, &QPushButton::clicked, this, &Client_row_table::updateBtn_clicked);
+    connect(emailBtn, &QPushButton::clicked, this, &Client_row_table::emailBtn_clicked);
 
 
 }

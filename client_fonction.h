@@ -19,6 +19,8 @@ private:
 
 public:
     Client_fonction();
+    Client_fonction(QString nomClient);
+
     Client_fonction(int cinClient, QString nomClient, QString prenomClient, QString emailClient, int telClient);
 
     int getcinClient(){return cinClient;}
@@ -34,6 +36,16 @@ public:
 
     QSqlQuery afficherCilent(int cinClient);
     bool modifierClient();
+
+
+    QSqlQuery rechercherClient(QString chaine);
+    QSqlQuery trierCilent(QString test);
+
+    QStringList rechercherClients();
+    bool is_email_valid(QString email);
+
+    int statistiqueCilents(int month);
+
 
 
 

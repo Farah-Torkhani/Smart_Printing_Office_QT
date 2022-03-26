@@ -6,7 +6,7 @@ DuScene::DuScene(QObject *parent)
      :QGraphicsScene(parent)
 {
     mGifAnimation = new GifAnimation(this);
-    mGifAnimation->setFileName("C:/Users/ALI/Desktop/projet c++/gif.gif");
+    mGifAnimation->setFileName(":/Resources/client_img/gif.gif");
     mGifAnimation->startMovie();
     addWidget(mGifAnimation->getWidget());
 }

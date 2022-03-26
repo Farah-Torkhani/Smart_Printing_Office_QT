@@ -25,6 +25,7 @@ public:
 private slots:
     void deleteBtn_clicked();
     void updateBtn_clicked();
+    void emailBtn_clicked();
 
 };
 

@@ -10,5 +10,8 @@
         <file>client_img/refresh.png</file>
         <file>client_img/refresh-button.png</file>
         <file>client_img/eraser.png</file>
+        <file>client_img/gif.gif</file>
+        <file>client_img/send_icon.png</file>
+        <file>client_img/logo.png</file>
     </qresource>
 </RCC>

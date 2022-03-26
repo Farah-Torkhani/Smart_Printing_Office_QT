@@ -1,6 +1,7 @@
-QT       += core gui charts sql
+QT       += core gui charts sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 
 CONFIG += c++11
 
@@ -21,9 +22,11 @@ SOURCES += \
     clients.cpp \
     connection.cpp \
     duscene.cpp \
+    email.cpp \
     gifanimation.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    smtp.cpp
 
 HEADERS += \
     client_fonction.h \
@@ -31,11 +34,14 @@ HEADERS += \
     clients.h \
     connection.h \
     duscene.h \
+    email.h \
     gifanimation.h \
-    mainwindow.h
+    mainwindow.h \
+    smtp.h
 
 FORMS += \
     clients.ui \
+    email.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -45,3 +51,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Client_resources.qrc
+
+DISTFILES += \
+    client_img/send_icon.png

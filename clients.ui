@@ -32,7 +32,7 @@
     </font>
    </property>
    <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="mouseTracking">
     <bool>false</bool>
@@ -91,7 +91,7 @@ border-radius:10px;
      </property>
      <property name="styleSheet">
       <string notr="true">#gClientBg{
-background-image:url(C:/Users/ALI/Desktop/bg);
+background-image:url(:/Resources/client_img/bg.png);
 }</string>
      </property>
      <property name="title">
@@ -554,6 +554,9 @@ outline:none;
          <bold>true</bold>
         </font>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">#ajouter_client{
 color:white;
@@ -585,6 +588,9 @@ background-color:#4144f1;
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">#modifier_client{
@@ -637,6 +643,9 @@ border: 2px solid rgba(222, 226, 230, 0.8);
          <weight>50</weight>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">#clear_client{
@@ -743,7 +752,7 @@ border-top-right-radius:10px;</string>
        <string>     #</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_4">
+     <widget class="QLineEdit" name="search_input">
       <property name="geometry">
        <rect>
         <x>920</x>
@@ -778,6 +787,9 @@ font-weight:bold;
         <height>32</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true">#search_client{
 background-color:white;
@@ -795,38 +807,6 @@ background-color:#D6DBFD;
       <property name="icon">
        <iconset resource="Client_resources.qrc">
         <normaloff>:/Resources/client_img/search.png</normaloff>:/Resources/client_img/search.png</iconset>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="trier_client_2">
-      <property name="geometry">
-       <rect>
-        <x>800</x>
-        <y>360</y>
-        <width>71</width>
-        <height>33</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Montserrat</family>
-        <pointsize>11</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#trier_client_2{
-color:white;
-background-color:#FF7244;
-border-radius:15px;
-}
-
-#trier_client_2:hover{
-background-color:#ff531a;
-}</string>
-      </property>
-      <property name="text">
-       <string>Trier</string>
       </property>
      </widget>
      <widget class="QPushButton" name="trier_client">
@@ -853,8 +833,8 @@ border-radius:5px;
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../sort.png</normaloff>../sort.png</iconset>
+       <iconset resource="Client_resources.qrc">
+        <normaloff>:/Resources/client_img/sort.png</normaloff>:/Resources/client_img/sort.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -887,13 +867,13 @@ font-size:18px;</string>
        <string> Trier par</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="clien_combo">
       <property name="geometry">
        <rect>
         <x>580</x>
         <y>361</y>
         <width>210</width>
-        <height>29</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="font">
@@ -912,23 +892,8 @@ color:#585856;</string>
        <bool>true</bool>
       </property>
       <property name="currentText">
-       <string>Date d'ajout dans le système</string>
+       <string/>
       </property>
-      <item>
-       <property name="text">
-        <string>Date d'ajout dans le système</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Nombre de commandes</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Date de commande</string>
-       </property>
-      </item>
      </widget>
      <widget class="Line" name="line">
       <property name="geometry">
@@ -955,7 +920,7 @@ border: 2px solid rgba(222, 226, 230, 0.8);
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QPushButton" name="pdf_b">
+     <widget class="QPushButton" name="pdfBtn">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -964,13 +929,16 @@ border: 2px solid rgba(222, 226, 230, 0.8);
         <height>38</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
-       <string notr="true">#pdf_b{
+       <string notr="true">#pdfBtn{
 background-color:transparent;
 border-radius:15px;
 }
 
-#pdf_b:hover{
+#pdfBtn:hover{
 background-color:#FF7244;
 
 }</string>
@@ -979,8 +947,8 @@ background-color:#FF7244;
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../pdf.png</normaloff>../pdf.png</iconset>
+       <iconset resource="Client_resources.qrc">
+        <normaloff>:/Resources/client_img/pdf.png</normaloff>:/Resources/client_img/pdf.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1055,6 +1023,9 @@ border:none;</string>
         <width>75</width>
         <height>32</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">#refreshBtn{
@@ -1174,19 +1145,53 @@ padding:6px;</string>
        <string>Phone</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="trie_client">
+      <property name="geometry">
+       <rect>
+        <x>806</x>
+        <y>361</y>
+        <width>58</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Montserrat</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#trie_client{
+color:white;
+background-color:#FF7244;
+border-radius:15px;
+}
+
+#trie_client:hover{
+background-color:#6568F3;
+}</string>
+      </property>
+      <property name="text">
+       <string>Trier</string>
+      </property>
+     </widget>
      <zorder>graphicsView</zorder>
      <zorder>groupBox</zorder>
      <zorder>label_7</zorder>
      <zorder>label_8</zorder>
      <zorder>label_18</zorder>
-     <zorder>lineEdit_4</zorder>
+     <zorder>search_input</zorder>
      <zorder>search_client</zorder>
-     <zorder>trier_client_2</zorder>
      <zorder>trier_client</zorder>
      <zorder>label_40</zorder>
-     <zorder>comboBox</zorder>
+     <zorder>clien_combo</zorder>
      <zorder>line</zorder>
-     <zorder>pdf_b</zorder>
+     <zorder>pdfBtn</zorder>
      <zorder>horizontalFrame</zorder>
      <zorder>scrollArea</zorder>
      <zorder>refreshBtn</zorder>
@@ -1194,6 +1199,7 @@ padding:6px;</string>
      <zorder>label_10</zorder>
      <zorder>label_11</zorder>
      <zorder>label_12</zorder>
+     <zorder>trie_client</zorder>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">

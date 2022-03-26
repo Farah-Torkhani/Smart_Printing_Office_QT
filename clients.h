@@ -10,6 +10,11 @@
 
 #include <QVBoxLayout>
 
+
+#include <QCompleter>
+#include <QDirModel>
+
+
 namespace Ui {
 class Clients;
 }
@@ -23,6 +28,7 @@ public:
     explicit Clients(QWidget *parent = nullptr);
     ~Clients();
 
+
 private slots:
     void on_ajouter_client_clicked();
     void on_refreshBtn_clicked();
@@ -32,9 +38,23 @@ private slots:
 
     void on_clear_client_clicked();
 
+    void on_pdfBtn_clicked();
+
+    void on_search_client_clicked();
+
+    void on_search_input_textChanged(const QString &arg1);
+
+    void on_stat_clicked();
+
+
+    void on_trie_client_clicked();
+
 private:
     Ui::Clients *ui;
     DuScene *mScene;
+
+    QCompleter *stringCompleter;
+    QCompleter *ModelCompleter;
 };
 
 #endif // CLIENTS_H

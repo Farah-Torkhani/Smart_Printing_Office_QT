@@ -2,6 +2,7 @@
 #include "connection.h"
 
 #include <QSqlQuery>
+#include <QDebug>
 
 Client_fonction::Client_fonction(int cinClient, QString nomClient, QString prenomClient, QString emailClient, int telClient)
 {
@@ -11,6 +12,11 @@ Client_fonction::Client_fonction(int cinClient, QString nomClient, QString preno
     this->emailClient = emailClient;
     this->telClient = telClient;
 
+}
+
+Client_fonction::Client_fonction(QString nomClient)
+{
+    this->nomClient = nomClient;
 }
 
 bool Client_fonction::ajouter()
@@ -78,3 +84,4 @@ bool Client_fonction::modifierClient()
 
 
 }
+
