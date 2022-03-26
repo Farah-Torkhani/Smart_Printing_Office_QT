@@ -440,3 +440,135 @@ void Clients::on_search_input_textChanged(const QString &arg1)
 }
 
 
+
+//********************************afficher statistique graphe***************************************************
+
+
+void Clients::on_stat_clicked()
+{
+    j++;
+
+
+    QBarSet *set1 = new QBarSet("Nombre de clients par mois");
+
+    int cinClient=0;
+    QString nomClient="";
+    QString prenomClient="";
+    QString emailClient="";
+    int telClient=0;
+
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+//        set1->insert(1,c.statistiqueCilents(2));
+    *set1 <<  c.statistiqueCilents(1)
+          <<  c.statistiqueCilents(2)
+          <<  c.statistiqueCilents(3)
+          <<  c.statistiqueCilents(4)
+          << c.statistiqueCilents(5)
+          << c.statistiqueCilents(6)
+          << c.statistiqueCilents(7)
+          << c.statistiqueCilents(8)
+          << c.statistiqueCilents(9)
+          << c.statistiqueCilents(10)
+          << c.statistiqueCilents(11)
+          << c.statistiqueCilents(12) ;
+
+        qDebug()<< c.statistiqueCilents(2);
+
+
+
+        QBarSeries *series = new QBarSeries();
+
+       // set1->remove(0);
+       // series->deleteLater();
+        //series->append(set1);
+
+        //series->deleteLater();
+
+        series->append(set1);
+
+        QColor color(0x6568F3);
+        set1->setColor(color);
+
+
+        QChart *chart = new QChart();
+
+
+
+
+            chart->addSeries(series);
+            chart->setTitle("");
+          //  chart->setAnimationOptions(QChart::SeriesAnimations);
+           i++;
+            if(i!=0)
+           {
+               QColor bgColor(0xF4DCD3);
+               chart->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+               chart->setBackgroundVisible(true);
+               //i=0;
+
+           }
+           else
+           {
+               chart->setBackgroundVisible(false);
+           }
+
+
+
+            QStringList categories;
+            categories << "Jan" << "Fiv" << "Mar" << "Avr" << "Mai" << "Juin" << "Jui" <<"Aou" << "sep" << "Oct" << "Nov" << "Dec" ;
+            QBarCategoryAxis *axis = new QBarCategoryAxis();
+
+
+            axis->append(categories);
+
+            chart->createDefaultAxes();
+            chart->setAxisX(axis, series);
+
+
+            chart->setVisible(true);
+            chart->legend()->setAlignment(Qt::AlignBottom);
+
+
+
+          //  series->remove(0);//*****************
+          //  chart->removeAxis(axis);//******************
+           // chart->removeSeries(series);//****************
+
+            QChartView *chartView = new QChartView(chart);
+
+            chartView->setRenderHint(QPainter::Antialiasing);
+            QPalette pal = qApp->palette();
+            pal.setColor(QPalette::WindowText, QRgb(0x6568F3));
+            pal.setColor(QPalette::Window, QRgb(0x6568F3));
+            qApp->setPalette(pal);
+
+            chartView->setMaximumWidth(650);
+            chartView->setMaximumHeight(290);
+
+
+
+            chartView->setParent(ui->horizontalFrame);
+         //   chartView->update();
+            chartView->show();
+
+                if(NULL != chart){
+                       series->remove(0);
+
+                    }
+timer4->stop();
+
+//                chart->removeSeries(series);
+
+//                delete chartView;
+//
+
+//                chart->update();
+
+
+     //end statistique
+
+
+}

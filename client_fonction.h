@@ -44,7 +44,7 @@ public:
     QStringList rechercherClients();
     bool is_email_valid(QString email);
 
-
+    int statistiqueCilents(int month);
 
 
 
