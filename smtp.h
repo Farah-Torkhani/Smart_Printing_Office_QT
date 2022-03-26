@@ -35,7 +35,7 @@ private slots:
     void errorReceived(QAbstractSocket::SocketError socketError);
     void disconnected();
     void connected();
-
+    void readyRead();
 
 private:
     int timeout;
