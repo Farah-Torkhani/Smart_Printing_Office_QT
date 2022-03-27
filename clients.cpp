@@ -54,26 +54,6 @@ Clients::Clients(QWidget *parent) :
     //scroll area
     ui->scrollArea->setWidget( ui->scrollAreaWidgetContents );
     ui->scrollAreaWidgetContents ->setLayout( layoutt );
-
-    int cinClient = 0 ;
-    QString nomClient="";
-    QString prenomClient="";
-    QString emailClient="";
-    int telClient = 0;
-
-
-    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
-
-    //Client_fonction cl ;
-
-
-    QSqlQuery clientList = c.afficherCilents();
-    while (clientList.next()) {
-        Client_row_table *row = new Client_row_table(ui->scrollArea,clientList.value(0).toString(), clientList.value(1).toString(), clientList.value(2).toString(), clientList.value(3).toString(), clientList.value(4).toString());
-        row->setMinimumHeight(34);
-        layoutt->addWidget( row );
-    }
-
     //end scroll area
 
 
@@ -98,13 +78,6 @@ Clients::Clients(QWidget *parent) :
         connect(timer4, SIGNAL(timeout()), this, SLOT(on_stat_clicked()));
         timer4->start(500);
 
-
-
-
-
-
-
-
 }
 
 
@@ -112,6 +85,7 @@ Clients::~Clients()
 {
     delete ui;
 }
+
 
 void Clients::on_ajouter_client_clicked()
 {
@@ -168,8 +142,6 @@ void Client_row_table::deleteBtn_clicked()
 
     Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
 
-//    Client_fonction c;
-
     bool test = c.supprimerClient(cinClient);
 
     if(test){
@@ -180,8 +152,6 @@ void Client_row_table::deleteBtn_clicked()
     else {
         QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("Client not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
     }
-//    connect(timer4, SIGNAL(timeout()), this, SLOT(afficherStatistique()));
-//    timer4->start(3000);
 
 }
 
@@ -219,8 +189,7 @@ void Clients::on_refreshBtn_clicked()
         layoutt->addWidget( row );
     }
     QStringList CompletionList;
-   // CompletionList <<"ali" <<"ahmed" << "amor" << "arij" << "assma" ;
-  //  CompletionList <<"nabil" ;
+
      CompletionList = c.rechercherClients();
 
     stringCompleter = new QCompleter(CompletionList,this);
@@ -460,7 +429,6 @@ void Clients::on_stat_clicked()
 
     Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
 
-//        set1->insert(1,c.statistiqueCilents(2));
     *set1 <<  c.statistiqueCilents(1)
           <<  c.statistiqueCilents(2)
           <<  c.statistiqueCilents(3)
@@ -480,12 +448,6 @@ void Clients::on_stat_clicked()
 
         QBarSeries *series = new QBarSeries();
 
-       // set1->remove(0);
-       // series->deleteLater();
-        //series->append(set1);
-
-        //series->deleteLater();
-
         series->append(set1);
 
         QColor color(0x6568F3);
@@ -500,22 +462,11 @@ void Clients::on_stat_clicked()
             chart->addSeries(series);
             chart->setTitle("");
           //  chart->setAnimationOptions(QChart::SeriesAnimations);
-           i++;
-            if(i!=0)
-           {
                QColor bgColor(0xF4DCD3);
                chart->setBackgroundBrush(QBrush(QColor(bgColor)));
 
                chart->setBackgroundVisible(true);
-               //i=0;
-
-           }
-           else
-           {
-               chart->setBackgroundVisible(false);
-           }
-
-
+//               chart->setBackgroundVisible(false);
 
             QStringList categories;
             categories << "Jan" << "Fiv" << "Mar" << "Avr" << "Mai" << "Juin" << "Jui" <<"Aou" << "sep" << "Oct" << "Nov" << "Dec" ;
@@ -532,11 +483,6 @@ void Clients::on_stat_clicked()
             chart->legend()->setAlignment(Qt::AlignBottom);
 
 
-
-          //  series->remove(0);//*****************
-          //  chart->removeAxis(axis);//******************
-           // chart->removeSeries(series);//****************
-
             QChartView *chartView = new QChartView(chart);
 
             chartView->setRenderHint(QPainter::Antialiasing);
@@ -551,25 +497,10 @@ void Clients::on_stat_clicked()
 
 
             chartView->setParent(ui->horizontalFrame);
-         //   chartView->update();
             chartView->show();
 
-                if(NULL != chart){
-                       series->remove(0);
 
-                    }
-timer4->stop();
-
-//                chart->removeSeries(series);
-
-//                delete chartView;
-//
-
-//                chart->update();
-
-
-     //end statistique
-
+            timer4->stop();
 
 }
 

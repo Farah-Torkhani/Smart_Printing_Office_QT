@@ -172,18 +172,11 @@ int Client_fonction::statistiqueCilents(int month)
     query.bindValue(":month",month);
     query.exec();
 
-    int count =50;
-
-
-
-        QString cblist;
+    int count =-1;
 
             while(query.next())
                     {
-                        cblist=query.value(0).toString() ;
-                     //   qDebug() << "test";
-                        count = cblist.toInt();
-//                        qDebug() << "count=" << count ;
+                        count = query.value(0).toInt();
                     }
 
     return count;

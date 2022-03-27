@@ -29,7 +29,7 @@ Email::~Email()
 
 void Email::sendMail()
 {
-    Smtp* smtp = new Smtp("iLearn.contact.tn@gmail.com", "ilearn123", "smtp.gmail.com", 465);
+    Smtp* smtp = new Smtp("printini.contact.tn@gmail.com", "printini123", "smtp.gmail.com", 465);
    // connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
 
