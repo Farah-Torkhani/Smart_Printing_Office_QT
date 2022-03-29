@@ -39,7 +39,8 @@ private slots:
 
     void on_excel_clicked();
     void on_pushButton_clicked();
-
+    void on_statP_clicked();
+    void on_statP1_clicked();
 
 
 

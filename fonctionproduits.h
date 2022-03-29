@@ -47,7 +47,7 @@ public:
     QStringList rechercherP();
     QSqlQueryModel * afficherProduitForExcel();
     int statistiqueProduits(int nom);
-    int statistiquesProduits(QString month);
+    int statistiquesProduits(int month);
 
     bool supprimerTout();
 

@@ -144,28 +144,25 @@ int Produits::statistiqueProduits(int nom)
     query.bindValue(":nom",nom);
     return query.exec();
 
-    int count =0;
+    int count =-1;
 
 
 
-        QString cblist;
+
 
             while(query.next())
                     {
-                        cblist=query.value(0).toString() ;
-                     //   qDebug() << "test";
-                        count = cblist.toInt();
-                     //     qDebug() << "count=" << count ;
+                        count=query.value(0).toInt() ;
                     }
 
     return count;
 
 }
-int Produits::statistiquesProduits(QString month)
+int Produits::statistiquesProduits(int month)
 {
     QSqlQuery query;
-    query.prepare("select count(*) from PRODUITS where DATEP like '%"+month+"%' ");
-    query.bindValue(":DATEP",month);
+    query.prepare("select count(*) from produits where extract(month from DATEP)=:month ");
+    query.bindValue(":month",month);
     query.exec();
     query.next();
 

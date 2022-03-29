@@ -14,6 +14,8 @@ QVBoxLayout *layoutt = new QVBoxLayout();
 QTimer *timer = new QTimer();
 QTimer *timer2 = new QTimer();
 QTimer *timer3 = new QTimer();
+QTimer *timer4 = new QTimer();
+QTimer *timer5 = new QTimer();
 int id=0,idd=0;
 using qrcodegen::QrCode;
 using qrcodegen::QrSegment;
@@ -48,98 +50,15 @@ produits::produits(QWidget *parent)  :
 
     connect(timer2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
     timer2->start(200);
+    connect(timer4, SIGNAL(timeout()), this, SLOT(on_statP_clicked()));
+    timer4->start(100);
+    connect(timer5, SIGNAL(timeout()), this, SLOT(on_statP1_clicked()));
+    timer5->start(100);
 
     connect(timer3, SIGNAL(timeout()), this, SLOT(setQR()));
     //timer->start(500);
 
 
-    QBarSet *set0 = new QBarSet("Quantité des produits a consommés");
-int a=p.statistiquesProduits("MAR");
-    *set0 << a << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") <<p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR");
-
-
-    QColor color(0x6568F3);
-    set0->setColor(color);
-
-    QBarSeries *series = new QBarSeries();
-    series->append(set0);
-
-
-
-
-    QChart *chart = new QChart();
-    chart->addSeries(series);
-    chart->setTitle("");
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->setBackgroundVisible(false);
-
-    QStringList categories;
-    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun" << "Jui" << "Aou" << "Sep" << "Oct" << "Nov" << "Dec";
-    QBarCategoryAxis *axis = new QBarCategoryAxis();
-    axis->append(categories);
-    chart->createDefaultAxes();
-    chart->setAxisX(axis, series);
-
-    QChartView *chartView = new QChartView(chart);
-
-    chartView->setMaximumWidth(631);
-    chartView->setMaximumHeight(300);
-    chartView->setParent(ui->horizontalFrame);
-    chart->legend()->setAlignment(Qt::AlignBottom);
-Produits c;
-    QPieSeries *series1 = new QPieSeries();
-    series1->append("Feuilles A4", .40);
-    series1->append("Encres", .100);
-    series1->append("Agrafeuse", .30);
-    series1->append("Spirals", .12);
-    series1->append("Feuilles A3", .75);
-
-    QPieSlice *slice0 = series1->slices().at(0);
-    slice0->setLabelVisible();
-
-    QPieSlice *slice1 = series1->slices().at(1);
-   // slice1->setExploded();
-    slice1->setLabelVisible();
-   // slice1->setPen(QPen(Qt::color1, 0));
-   // slice1->setBrush(Qt::color1);
-
-    QPieSlice *slice2 = series1->slices().at(2);
-    slice2->setLabelVisible();
-
-    QPieSlice *slice3 = series1->slices().at(3);
-    slice3->setLabelVisible();
-
-    QPieSlice *slice4 = series1->slices().at(4);
-    slice4->setLabelVisible();
-
-    QColor color0(0x6568F3);
-    slice0->setColor(color);
-
-    QColor color1(0x341763);
-    slice1->setColor(color1);
-
-    QColor color2(0xFF7244);
-    slice2->setColor(color2);
-
-    QColor color3(0x585856);
-    slice3->setColor(color3);
-
-    QColor color4(0x6568F3);
-    slice4->setColor(color4);
-
-
-    QChart *chart1 = new QChart();
-    chart1->addSeries(series1);
-    chart1->setTitle("Quantité des produits en stock");
-    chart1->legend()->hide();
-    chart1->setBackgroundVisible(false);
-
-
-    QChartView *chartView1 = new QChartView(chart1);
-
-    chartView1->setMaximumWidth(500);
-    chartView1->setMaximumHeight(260);
-    chartView1->setParent(ui->circleFrame);
 
 
 
@@ -165,8 +84,114 @@ produits::~produits()
 
     delete ui;
 }
+void produits::on_statP_clicked(){
+
+    Produits p;
+    QBarSet *set0 = new QBarSet("Quantité des produits a consommés");
+
+    *set0 << p.statistiquesProduits(1) << p.statistiquesProduits(2) << p.statistiquesProduits(3) << p.statistiquesProduits(4) << p.statistiquesProduits(5) << p.statistiquesProduits(6) << p.statistiquesProduits(7) << p.statistiquesProduits(8) << p.statistiquesProduits(9) << p.statistiquesProduits(10) <<p.statistiquesProduits(11) << p.statistiquesProduits(12);
 
 
+    QColor color(0x6568F3);
+    set0->setColor(color);
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set0);
+
+
+
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->setBackgroundVisible(false);
+
+    QColor bgColor(0xF4DCD3);
+                   chart->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+                   chart->setBackgroundVisible(true);
+
+    QStringList categories;
+    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun" << "Jui" << "Aou" << "Sep" << "Oct" << "Nov" << "Dec";
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(categories);
+    chart->createDefaultAxes();
+    chart->setAxisX(axis, series);
+
+    QChartView *chartView = new QChartView(chart);
+
+    chartView->setMaximumWidth(631);
+    chartView->setMaximumHeight(300);
+    chartView->setParent(ui->horizontalFrame);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    chartView->show();
+    timer4->stop();
+}
+void produits::on_statP1_clicked(){
+    Produits c;
+
+    QPieSeries *series1 = new QPieSeries();
+    series1->append("Feuilles A4", c.statistiqueProduits(150));
+    series1->append("Encres", c.statistiqueProduits(50));
+    series1->append("Agrafeuse", c.statistiqueProduits(500));
+    series1->append("Spirals", c.statistiqueProduits(100));
+    series1->append("Feuilles A3", c.statistiqueProduits(150));
+
+    QPieSlice *slice0 = series1->slices().at(0);
+    slice0->setLabelVisible();
+
+    QPieSlice *slice1 = series1->slices().at(1);
+   // slice1->setExploded();
+    slice1->setLabelVisible();
+   // slice1->setPen(QPen(Qt::color1, 0));
+   // slice1->setBrush(Qt::color1);
+
+    QPieSlice *slice2 = series1->slices().at(2);
+    slice2->setLabelVisible();
+
+    QPieSlice *slice3 = series1->slices().at(3);
+    slice3->setLabelVisible();
+
+    QPieSlice *slice4 = series1->slices().at(4);
+    slice4->setLabelVisible();
+    QColor color(0x6568F3);
+    QColor color0(0x6568F3);
+    slice0->setColor(color);
+
+    QColor color1(0x341763);
+    slice1->setColor(color1);
+
+    QColor color2(0xFF7244);
+    slice2->setColor(color2);
+
+    QColor color3(0x585856);
+    slice3->setColor(color3);
+
+    QColor color4(0x6568F3);
+    slice4->setColor(color4);
+
+
+    QChart *chart1 = new QChart();
+    chart1->addSeries(series1);
+    chart1->setTitle("Quantité des produits en stock");
+    chart1->legend()->hide();
+    chart1->setBackgroundVisible(false);
+
+    QColor bgColor(0xF4DCD3);
+                   chart1->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+                   chart1->setBackgroundVisible(true);
+
+    QChartView *chartView1 = new QChartView(chart1);
+
+    chartView1->setMaximumWidth(500);
+    chartView1->setMaximumHeight(260);
+    chartView1->setParent(ui->circleFrame);
+    chartView1->show();
+    timer5->stop();
+
+                                  }
 void produits::on_valider_b_clicked()
 {
 
@@ -210,6 +235,8 @@ void produits::on_valider_b_clicked()
        popUp->setPopupText(nomProduits+" est bien ajouter");
 
        popUp->show();
+       timer4->start();
+       timer5->start();
 }
 
 void row_table_produits::deleteBtn_clicked()
@@ -231,7 +258,8 @@ void row_table_produits::deleteBtn_clicked()
         }
     }
 
-
+timer4->start();
+timer5->start();
 
 }
 void row_table_produits::editBtn_clicked()
