@@ -21,10 +21,13 @@ public:
     QLabel *prixU_label = new QLabel();
     QPushButton *editBtn = new QPushButton();
     QPushButton *deleteBtn = new QPushButton();
+    QPushButton *qrGBtn = new QPushButton();
 
 private slots:
     void deleteBtn_clicked();
     void editBtn_clicked();
+    void qrGBtn_clicked();
+
 
 signals:
 

@@ -45,6 +45,14 @@ row_table_produits::row_table_produits(QWidget *parent,QString id,QString nomP,Q
 
 
 
+    qrGBtn->setParent(row_container);
+    qrGBtn->setGeometry(515,0,31,31);
+    qrGBtn->setStyleSheet("QPushButton {background-color: #F5F1F6;border:none;border-radius:15px;qproperty-icon: url(:/resources/img/update.png);qproperty-iconSize: 17px;}QPushButton::hover {background-color: rgb(254, 129, 75);qproperty-icon: url(:/resource/img/update.png);qproperty-iconSize: 17px;}");
+    qrGBtn->setCursor(QCursor(Qt::PointingHandCursor));
+    qrGBtn->setWhatsThis(id);
+
+
+
     editBtn->setParent(row_container);
     editBtn->setGeometry(600,0,31,31);
     editBtn->setStyleSheet("QPushButton {background-color: #F5F1F6;border:none;border-radius:15px;qproperty-icon: url(:/resources/img/update.png);qproperty-iconSize: 17px;}QPushButton::hover {background-color: rgb(254, 129, 75);qproperty-icon: url(:/resource/img/update.png);qproperty-iconSize: 17px;}");
@@ -62,6 +70,7 @@ row_table_produits::row_table_produits(QWidget *parent,QString id,QString nomP,Q
 
     connect(deleteBtn, &QPushButton::clicked, this, &row_table_produits::deleteBtn_clicked);
     connect(editBtn, &QPushButton::clicked, this, &row_table_produits::editBtn_clicked);
+    connect(qrGBtn, &QPushButton::clicked, this, &row_table_produits::qrGBtn_clicked);
 
 
 }

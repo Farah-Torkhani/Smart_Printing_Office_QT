@@ -6,26 +6,32 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QScrollArea>
-
-
+#include "qrcode.h"
+#include <QtSvg/QSvgRenderer>
+#include <fstream>
 
 QVBoxLayout *layoutt = new QVBoxLayout();
 QTimer *timer = new QTimer();
 QTimer *timer2 = new QTimer();
-int id=0;
-
+QTimer *timer3 = new QTimer();
+int id=0,idd=0;
+using qrcodegen::QrCode;
+using qrcodegen::QrSegment;
 produits::produits(QWidget *parent)  :
       QMainWindow(parent),
       ui(new Ui::produits)
 
 {
     ui->setupUi(this);
+    ui->edit_prix->setValidator(new QIntValidator (0,99999999,ui->edit_prix));
+    ui->edit_qu->setValidator(new QIntValidator (0,99999999,ui->edit_qu));
+    Produits p;
 
+    ui->tab_produits->setModel(p.affichertr());
     ui->scrollArea->setWidget( ui->scrollAreaContents );
 
     ui->scrollAreaContents ->setLayout( layoutt );
 
-    Produits p;
     qDebug()<< "aaaaaaaaaa";
 
     QSqlQuery pro_liste = p.afficherAll();
@@ -43,10 +49,13 @@ produits::produits(QWidget *parent)  :
     connect(timer2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
     timer2->start(200);
 
+    connect(timer3, SIGNAL(timeout()), this, SLOT(setQR()));
+    //timer->start(500);
+
 
     QBarSet *set0 = new QBarSet("Quantité des produits a consommés");
-
-    *set0 << 100 << 70 << 120 << 300 << 50 << 200 << 210 << 90 << 160 << 10 <<140 << 200;
+int a=p.statistiquesProduits("MAR");
+    *set0 << a << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR") <<p.statistiquesProduits("MAR") << p.statistiquesProduits("MAR");
 
 
     QColor color(0x6568F3);
@@ -77,22 +86,22 @@ produits::produits(QWidget *parent)  :
     chartView->setMaximumHeight(300);
     chartView->setParent(ui->horizontalFrame);
     chart->legend()->setAlignment(Qt::AlignBottom);
-
+Produits c;
     QPieSeries *series1 = new QPieSeries();
     series1->append("Feuilles A4", .40);
-    series1->append("Encres", .20);
-    series1->append("Agrafeuse", .15);
-    series1->append("Spirals", .10);
-    series1->append("Feuilles A3", .15);
+    series1->append("Encres", .100);
+    series1->append("Agrafeuse", .30);
+    series1->append("Spirals", .12);
+    series1->append("Feuilles A3", .75);
 
     QPieSlice *slice0 = series1->slices().at(0);
     slice0->setLabelVisible();
 
     QPieSlice *slice1 = series1->slices().at(1);
-    slice1->setExploded();
+   // slice1->setExploded();
     slice1->setLabelVisible();
-    slice1->setPen(QPen(Qt::color1, 0));
-    slice1->setBrush(Qt::color1);
+   // slice1->setPen(QPen(Qt::color1, 0));
+   // slice1->setBrush(Qt::color1);
 
     QPieSlice *slice2 = series1->slices().at(2);
     slice2->setLabelVisible();
@@ -137,10 +146,20 @@ produits::produits(QWidget *parent)  :
 
 
 
+
+    popUp = new PopUp();
+
+
 }
+/*
+void produits::on_pushButton_clicked()
+{
 
+    popUp->setPopupText("ui->edit_nom->toPlainText()");
 
-
+    popUp->show();
+}
+*/
 produits::~produits()
 {
 
@@ -188,6 +207,9 @@ void produits::on_valider_b_clicked()
            row->setMinimumHeight(34);
            layoutt->addWidget( row );
        }
+       popUp->setPopupText(nomProduits+" est bien ajouter");
+
+       popUp->show();
 }
 
 void row_table_produits::deleteBtn_clicked()
@@ -219,9 +241,31 @@ void row_table_produits::editBtn_clicked()
     id = buttonSender->whatsThis().toInt();
     timer->start(500);
 }
+void row_table_produits::qrGBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    idd = buttonSender->whatsThis().toInt();
+    timer3->start(500);
+}
+void produits::setQR()
+{
+    int reference=idd;
+    const QrCode qr = QrCode::encodeText(std::to_string(reference).c_str(), QrCode::Ecc::LOW);
+    std::ofstream myfile;
+    myfile.open ("qrcode.svg") ;
+    myfile << qr.toSvgString(1);
+    myfile.close();
+    QSvgRenderer svgRenderer(QString("qrcode.svg"));
+    QPixmap pix( QSize(120, 120) );
+    QPainter pixPainter( &pix );
+    svgRenderer.render( &pixPainter );
+    ui->QRCODE_3->setPixmap(pix);
+    bool inputsFocus = ui->QRCODE_3->hasFocus();
+    if(inputsFocus){
+        timer3->stop();
 
-
-
+    }
+}
 
 void produits::setFormulaire()
 {
@@ -235,8 +279,21 @@ void produits::setFormulaire()
         ui->edit_qu->setText(emp.value(2).toString()); //salaire 4
 
         bool inputsFocus = ui->edit_nom->hasFocus() || ui->edit_type->hasFocus() || ui->edit_prix->hasFocus() || ui->edit_qu->hasFocus();
+        int reference=id;
+        const QrCode qr = QrCode::encodeText(std::to_string(reference).c_str(), QrCode::Ecc::LOW);
+        std::ofstream myfile;
+        myfile.open ("qrcode.svg") ;
+        myfile << qr.toSvgString(1);
+        myfile.close();
+        QSvgRenderer svgRenderer(QString("qrcode.svg"));
+        QPixmap pix( QSize(120, 120) );
+        QPainter pixPainter( &pix );
+        svgRenderer.render( &pixPainter );
+        ui->QRCODE_3->setPixmap(pix);
+
         if(inputsFocus){
             timer->stop();
+
         }
     }
 }
@@ -285,3 +342,101 @@ void produits::on_modifier_b_clicked()
 
 
 }
+
+void produits::on_b_searsh_clicked()
+{
+    QString chaine_r=ui->edit_r->text();
+
+
+    while(!layoutt->isEmpty()){
+    QLayoutItem* item = layoutt->itemAt(0);
+    layoutt->removeItem(item);
+    QWidget* widgett = item->widget();
+    if(widgett)
+        {
+            delete widgett;
+        }
+    }
+
+Produits P;
+    QSqlQuery pro_liste = P.rechercher(chaine_r);
+    while (pro_liste.next()) {
+        row_table_produits *r = new row_table_produits(ui->scrollArea,pro_liste.value(0).toString(),pro_liste.value(1).toString(),pro_liste.value(2).toString(),pro_liste.value(3).toString(),pro_liste.value(4).toString());
+        r->setMinimumHeight(34);
+        layoutt->addWidget( r );
+    }
+    connect(timer, SIGNAL(timeout()), this, SLOT(setFormulaire()));
+    //timer->start(500);
+
+    connect(timer2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
+    timer2->start(5000);
+
+}
+void produits::on_edit_r_textChanged(const QString &arg1)
+{
+    on_b_searsh_clicked();
+}
+
+void produits::on_excel_clicked()
+{
+
+
+    QString nomMachine="";
+    QString machineImg="";
+    int etatMachine=0;
+    int prixMachine=0;
+
+
+    Produits m;
+
+    QTableView *table=new QTableView;
+    table->setModel(m.afficherProduitForExcel());
+
+
+
+               QString filters("CSV files (*.csv);;All files (.*)");
+               QString defaultFilter("CSV files (*.csv)");//
+               QString fileName = QFileDialog::getSaveFileName(0, "Save file", QCoreApplication::applicationDirPath(),
+                                  filters, &defaultFilter);//d:fenetre d'enrgtr
+               QFile file(fileName);
+
+               QAbstractItemModel *model =  table->model();
+               if (file.open(QFile::WriteOnly | QFile::Truncate)) {//tc:type de fch
+                   QTextStream data(&file);
+                   QStringList strList;//separation des chaines
+
+
+                   for (int i = 0; i < model->columnCount(); i++)
+                   {
+                       if (model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString().length() > 0)
+                           strList.append("\"" + model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString() + "\"");
+                       else
+                           strList.append("");
+                   }
+
+                   data << strList.join(";") << "\n";
+
+
+                   for (int i = 0; i < model->rowCount(); i++)
+                   {
+                       strList.clear();
+                       for (int j = 0; j < model->columnCount(); j++)
+                       {
+
+                           if (model->data(model->index(i, j)).toString().length() > 0)
+                               strList.append("\"" + model->data(model->index(i, j)).toString() + "\"");
+                           else
+                               strList.append("");
+                       }
+                   data << strList.join(";") + "\n";
+                   }
+                   file.close();
+                   QMessageBox::information(nullptr, QObject::tr("Export excel"),
+                                             QObject::tr("Export avec succes .\n"
+                                                         "Click OK to exit."), QMessageBox::Ok);
+               }
+}
+
+
+
+

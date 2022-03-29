@@ -94,3 +94,82 @@ bool Produits::supprimerTout()
 
   return query.exec();
 }
+
+QSqlQuery Produits::rechercher(QString chaine)
+{
+
+    QSqlQuery query;
+
+    query.exec("SELECT * from PRODUITS where PRODUITID LIKE'"+chaine+"%' OR NOMPRODUIT LIKE'"+chaine+"%' OR QUANTITE LIKE'"+chaine+"%' OR TYPE LIKE'"+chaine+"%' OR PRIXUNITAIRE LIKE'"+chaine+"%' ");
+    return query;
+
+
+}
+QStringList Produits::rechercherP()
+{
+    QSqlQuery query;
+    query.exec("SELECT * from PRODUITS");
+    QStringList CompletionList;
+    while(query.next())
+    {
+    CompletionList << query.value(0).toString();
+    return CompletionList;
+    }
+}
+
+QSqlQueryModel * Produits::affichertr()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT * from PRODUITS");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("PRODUITID"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("NOMPRODUIT"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("QUANTITE"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("TYPE"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("PRIXUNITAIRE"));
+    return model;
+}
+QSqlQueryModel * Produits::afficherProduitForExcel()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("select * from PRODUITS");
+
+    return model ;
+}
+
+
+int Produits::statistiqueProduits(int nom)
+{
+    QSqlQuery query;
+    query.prepare("select count(*) from PRODUITS where PRIXUNITAIRE=:nom ");
+    query.bindValue(":nom",nom);
+    return query.exec();
+
+    int count =0;
+
+
+
+        QString cblist;
+
+            while(query.next())
+                    {
+                        cblist=query.value(0).toString() ;
+                     //   qDebug() << "test";
+                        count = cblist.toInt();
+                     //     qDebug() << "count=" << count ;
+                    }
+
+    return count;
+
+}
+int Produits::statistiquesProduits(QString month)
+{
+    QSqlQuery query;
+    query.prepare("select count(*) from PRODUITS where DATEP like '%"+month+"%' ");
+    query.bindValue(":DATEP",month);
+    query.exec();
+    query.next();
+
+    return query.value(0).toInt();
+
+}
+

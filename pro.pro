@@ -1,6 +1,12 @@
-QT       += core gui
-QT       += core gui charts
-QT       += sql
+QT       += core gui serialport
+
+QT       += core gui sql
+QT       += core gui multimedia multimediawidgets
+QT       +=widgets
+QT +=svg
+QT       += core gui sql charts
+QT +=charts
+QT +=printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,14 +28,22 @@ SOURCES += \
     fonctionproduits.cpp \
     main.cpp \
     mainwindow.cpp \
+    popup.cpp \
     produits.cpp \
+    qrcode.cpp \
+    qrcodegeneratordemo.cpp \
+    qrcodegeneratorworker.cpp \
+    qrwidget.cpp \
     row_table_produits.cpp
 
 HEADERS += \
     connection.h \
     fonctionproduits.h \
     mainwindow.h \
+    popup.h \
     produits.h \
+    qrcode.h \
+    qrwidget.h \
     row_table_produits.h
 
 FORMS += \
@@ -43,4 +57,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Resources.qrc \
-    produits_res.qrc
+    produits_res.qrc \
+    res.qrc
+
+RC_ICONS = myappico.ico
+QMAKE_CXXFLAGS += -std=gnu++14

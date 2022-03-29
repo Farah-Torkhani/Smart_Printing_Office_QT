@@ -40,8 +40,14 @@ public:
     QSqlQuery  afficherAll();
     QSqlQuery afficherPr(int id);
     QSqlQueryModel * trier();
+    QSqlQuery rechercher(QString rech);
     bool supprimer(int);
     bool modifier(int id);
+    QSqlQueryModel * affichertr();
+    QStringList rechercherP();
+    QSqlQueryModel * afficherProduitForExcel();
+    int statistiqueProduits(int nom);
+    int statistiquesProduits(QString month);
 
     bool supprimerTout();
 
