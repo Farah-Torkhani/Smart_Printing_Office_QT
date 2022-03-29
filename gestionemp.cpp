@@ -87,7 +87,7 @@ GestionEmp::GestionEmp(QWidget *parent) :
     on_chercheBtn_clicked();
     connect(timerFormulaire, SIGNAL(timeout()), this, SLOT(setFormulaire()));
     connect(timerCherche, SIGNAL(timeout()), this, SLOT(on_chercheBtn_clicked()));
-//    connect(timerChartEmp, SIGNAL(timeout()), this, SLOT(chartEmp()));
+    connect(timerChartEmp, SIGNAL(timeout()), this, SLOT(chartEmp()));
 //    timerChartEmp->start(3000);
 
 
@@ -115,6 +115,7 @@ void GestionEmp::on_chatBtn_clicked()
 
 void GestionEmp::on_addBtn_clicked()
 {
+    timerChartEmp->start(3000);
     int cin = ui->cinInput->text().toInt();
     QString nom = ui->nomInput->text();
     QString prenom = ui->prenomInput->text();
@@ -259,6 +260,7 @@ void GestionEmp::on_updateBtn_clicked()
 
 void Row_table::deleteBtn_clicked()
 {
+    timerChartEmp->start(3000);
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     int cin2 = buttonSender->whatsThis().toInt();
     Employees e;
@@ -528,8 +530,15 @@ void GestionEmp::chartEmp()
 
         chart->addSeries(series);
         chart->setTitle("");
-        chart->setAnimationOptions(QChart::SeriesAnimations);
-        chart->setBackgroundVisible(false);
+//        chart->setAnimationOptions(QChart::SeriesAnimations);
+//        chart->setBackgroundVisible(false);
+
+        //  chart->setAnimationOptions(QChart::SeriesAnimations);
+        QColor bgColor(0xF4DCD3);
+        chart->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+        chart->setBackgroundVisible(true);
+        //  chart->setBackgroundVisible(false);
 
 
         QStringList categories;
@@ -558,4 +567,6 @@ void GestionEmp::chartEmp()
         chart->setParent(ui->adminInterface);
 
         chartView->show();
+
+        timerChartEmp->stop();
 }
