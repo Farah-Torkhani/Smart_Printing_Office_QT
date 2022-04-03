@@ -14,6 +14,10 @@ class imprimer_recu : public QDialog
 public:
     explicit imprimer_recu(QWidget *parent = nullptr);
     ~imprimer_recu();
+int idComm;
+private slots:
+void setRecuInfo();
+void on_valider_clicked();
 
 private:
     Ui::imprimer_recu *ui;

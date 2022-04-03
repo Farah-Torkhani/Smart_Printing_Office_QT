@@ -7,6 +7,13 @@
 #include <QDebug>
 #include <QTimer>
 #include <qtranslator.h>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlQueryModel>
+#include <QSqlQuery>
+
+#include <imprimer_recu.h>
 
 int id = 0;
 QTranslator T;
@@ -34,10 +41,11 @@ QString etat="";
 QString quantiteCouleur="";
 QString quantiteSansCouleur="";
 
+
 ui->scrollArea->setWidget( ui->scrollAreaWidgetContents );
  ui->scrollAreaWidgetContents ->setLayout( layoutt );
 
-Commandes c("","",0,"");
+Commandes c("","",0,"",0,0);
 
  QSqlQuery commandeList = c.afficherCommande();
 
@@ -79,12 +87,18 @@ Gestcommandes::~Gestcommandes()
 
 void Gestcommandes::on_ajouter_clicked()
 {
+   QString i=ui->Employee->currentText();
+   int val=i.toInt();
+
+   QString u=ui->Client->currentText();
+   int val2=u.toInt();
    QString descreption=ui->descreption->text();
    QString etat=ui->eta->text();
  int quantiteCouleur=ui->Qc->text().toInt();
  QString quantiteSansCouleur=ui->Qsc->text();
-
-Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+ int cinemp=val;
+ int cinclient=val2;
+Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
  bool test_ajout = c.ajouterCommandes();
  if(test_ajout)
     {
@@ -130,7 +144,9 @@ QString descreption="";
 QString etat="";
 int quantiteCouleur=0;
 QString quantiteSansCouleur="";
-Commandes c( descreption,etat,quantiteCouleur,  quantiteSansCouleur );
+int cinemp=0;
+int cinclient=0;
+Commandes c( descreption,etat,quantiteCouleur,  quantiteSansCouleur ,cinemp,cinclient);
 c.supprimerCommandes(commandesid);
 
 timer4->start(100);
@@ -144,8 +160,10 @@ void Gestcommandes::on_modifier_commande_clicked()
     QString etat=ui->eta->text();
   int quantiteCouleur=ui->Qc->text().toInt();
   QString quantiteSansCouleur=ui->Qsc->text();
+  int cinemp=0;
+  int cinclient=0;
 
- Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+ Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
 
 
  bool test = c.modifierCommande(id);
@@ -176,8 +194,10 @@ void Gestcommandes::on_refreshBtn_clicked()
     QString etat=ui->eta->text();
     int quantiteCouleur=ui->Qc->text().toInt();
     QString quantiteSansCouleur=ui->Qsc->text();
+    int cinemp=0;
+    int cinclient=0;
 
-    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur, cinemp, cinclient);
 
 
     QString trieOption = ui->comboBox_7->currentText();
@@ -208,8 +228,10 @@ void Gestcommandes::setFormulaire()
         QString etat="";
         int quantiteCouleur=0;
         QString quantiteSansCouleur="";
+        int cinemp=0;
+        int cinclient=0;
 
-        Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+        Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
 
 
         QSqlQuery commandeInfo = c.afficherCommande(id);
@@ -278,8 +300,10 @@ void Gestcommandes::on_search_commandeBtn_clicked()
      QString etat="";
      int quantiteCouleur=0;
      QString quantiteSansCouleur="";
+     int cinemp=0;
+     int cinclient=0;
 
-     Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+     Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
 
 
      QSqlQuery commandeList = c.rechercherCommande(chaine_c);
@@ -320,8 +344,10 @@ void Gestcommandes::on_statCommande_clicked()
     QString etat="";
     int quantiteCouleur=0;
     QString quantiteSansCouleur="";
+    int cinemp=0;
+    int cinclient=0;
 
-    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur);
+    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
 
 //        set1->insert(1,c.statistiqueCilents(2));
     *set1 <<  c.statistiqueCommande(1)
@@ -419,6 +445,13 @@ void Gestcommandes::on_statCommande_clicked()
                     }
 timer4->stop();
 
+
+}
+
+
+
+
+
 //                chart->removeSeries(series);
 
 //                delete chartView;
@@ -430,8 +463,41 @@ timer4->stop();
      //end statistique
 
 
+void commandes_row_table::imprimerBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+        int idComm = buttonSender->whatsThis().toInt();
+        imprimer_recu *recu = new imprimer_recu();
+        recu->idComm = idComm;
+        qDebug() << idComm;
+
+        recu->show();
 }
 
 
+void Gestcommandes::on_ajouter_2_clicked()
+{
+
+   QSqlQueryModel * modal=new QSqlQueryModel();
+
+    QSqlQuery query;
+     query.prepare("select cinclient from commandes  ");
+    query.exec();
+    modal->setQuery(query);
+    ui->Client->setModel(modal);
+}
 
 
+void Gestcommandes::on_LoadCinEmployee_clicked()
+{
+
+        QSqlQueryModel * modal=new QSqlQueryModel();
+
+         QSqlQuery query;
+          query.prepare("select cinemp from commandes  ");
+         query.exec();
+         modal->setQuery(query);
+         ui->Employee->setModel(modal);
+
+
+}

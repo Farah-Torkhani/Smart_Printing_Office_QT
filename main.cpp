@@ -32,7 +32,7 @@ QTranslator T;
     QStringList languages;
       languages <<"English"<<"French";
       const QString lang=QInputDialog::getItem(NULL,"Select language ","Language",languages);
-    if (lang == "English")
+
     {
          T.load(":/anglais.qm");
     }
@@ -42,6 +42,7 @@ QTranslator T;
     }
 
     Gestcommandes w;
+
     w.show();
     return a.exec();
 }

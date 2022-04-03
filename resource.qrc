@@ -9,6 +9,7 @@
         <file>ressources/img/search.png</file>
         <file>ressources/img/sort.png</file>
         <file>ressources/img/trash-icon.png</file>
+        <file>ressources/img/imprimante.png</file>
     </qresource>
     <qresource prefix="/">
         <file>anglais.qm</file>

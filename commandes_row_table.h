@@ -16,11 +16,12 @@ QLabel *dateC_label= new QLabel();
        QLabel *QuantiteSansCouleur_label = new QLabel();
        QPushButton *editBtn = new QPushButton();
        QPushButton *deleteBtn = new QPushButton();
+       QPushButton *imprimerBtn = new QPushButton();
 
 private slots:
     void deleteBtn_clicked();
     void updateBtn_clicked();
-
+    void imprimerBtn_clicked();
 };
 
 #endif // COMMANDES_ROW_TABLE_H

@@ -40,7 +40,17 @@ private slots:
     void on_search_commandeBtn_clicked();
     void on_statCommande_clicked();
 
-    void on_checkBox_7_stateChanged(int arg1);
+
+
+
+
+    void on_Client_currentIndexChanged(const QString &arg1);
+
+    void on_ajouter_2_clicked();
+
+    void on_ajouter_3_clicked();
+
+    void on_LoadCinEmployee_clicked();
 
 private:
     Ui::Gestcommandes *ui;

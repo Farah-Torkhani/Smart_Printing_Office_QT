@@ -2,14 +2,15 @@
 #include <QSqlQuery>
 
 
-Commandes::Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur)
+Commandes::Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur , int cinemp,int cinclient )
 {
 
     this->descreption=descreption;
     this->etat=etat;
     this->quantiteCouleur=quantiteCouleur;
     this->quantiteSansCouleur=quantiteSansCouleur;
-
+    this->cinemp=cinemp;
+    this->cinclient=cinclient;
 
 
 }
@@ -17,12 +18,14 @@ bool Commandes::ajouterCommandes()
 {
     QSqlQuery query;
 
-    query.prepare("Insert into commandes(descreption, etat, quantiteCouleur, quantiteSansCouleur)"
-                  "Values(:descreption, :etat, :quantiteCouleur, :quantiteSansCouleur)");
+    query.prepare("Insert into commandes(descreption, etat, quantiteCouleur, quantiteSansCouleur,cinemp,cinclient)"
+                  "Values(:descreption, :etat, :quantiteCouleur, :quantiteSansCouleur,:cinemp,:cinclient)");
     query.bindValue(":descreption", descreption);
     query.bindValue(":etat",etat);
     query.bindValue(":quantiteCouleur",quantiteCouleur);
     query.bindValue(":quantiteSansCouleur",quantiteSansCouleur);
+    query.bindValue(":cinemp",cinemp);
+    query.bindValue(":cinclient",cinclient);
     return query.exec();
 }
 
@@ -116,7 +119,7 @@ QStringList Commandes::rechercherCommandes()
     QSqlQuery query;
     QStringList cblist;
 
-    query.prepare("select * from clients ");
+    query.prepare("select * from commandes ");
     query.exec();
 
     QString n;

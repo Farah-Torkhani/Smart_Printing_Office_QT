@@ -8,7 +8,7 @@ class Commandes
 {
 public:
     Commandes();
-    Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur);
+    Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur , int cinemp,int cinclient );
 
     QString getDescreption(){return descreption;}
     QString getEtat(){return etat;}
@@ -24,6 +24,8 @@ public:
         QSqlQuery rechercherCommande(QString chaine);
         QStringList rechercherCommandes();
         int statistiqueCommande(int month);
+          QSqlQuery editview(QString);
+
 
 private:
 
@@ -31,6 +33,8 @@ private:
     QString etat;
     int quantiteCouleur;
     QString quantiteSansCouleur;
+    int cinemp;
+    int cinclient;
 
 
 };
