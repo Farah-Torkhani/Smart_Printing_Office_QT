@@ -5,6 +5,7 @@
 #include "employees.h"
 #include <QVBoxLayout>
 #include <QTimer>
+#include "arduino.h"
 
 extern Employees currentEmp;
 //extern QVBoxLayout *layoutt;
@@ -29,9 +30,14 @@ public:
 
 private slots:
     void on_loginButton_clicked();
+    void getCardUid();
+    void authRFID();
 
 private:
     Ui::Login *ui;
+    QByteArray data; // variable contenant les données reçu
+    Arduino A; // objet temporaire
 };
+
 
 #endif // LOGIN_H

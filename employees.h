@@ -23,6 +23,7 @@ public:
     Employees();
     Employees(int cin,QString nom,QString prenom,QString email,QString password,QString numCard,int tel,int salaire,QString role);
     Employees(QString email,QString password);
+    Employees(QString numCard);
 
     bool ajouterEmp();
     QSqlQuery afficherAllEmp();
@@ -32,7 +33,9 @@ public:
     QSqlQuery rechercheEmp(QString test);
     QSqlQuery trieEmp(QString test);
     bool authEmp();
+    bool authEmpCardRfid();
     QSqlQuery afficherEmp(QString email);
+    QSqlQuery afficherEmpByCardNum(QString numCard);
 
     int statEmp(int month);
 
@@ -47,6 +50,9 @@ public:
     }
     QString getRole(){
         return role;
+    }
+    QString getCard(){
+        return numCard;
     }
 
 };

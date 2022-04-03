@@ -1,4 +1,5 @@
 #include "employees.h"
+#include <QDebug>
 
 Employees::Employees()
 {
@@ -22,6 +23,11 @@ Employees::Employees(QString email,QString password)
 {
     this->email = email;
     this->password = password;
+}
+
+Employees::Employees(QString numCard)
+{
+    this->numCard = numCard;
 }
 
 bool Employees::ajouterEmp()
@@ -141,11 +147,36 @@ bool Employees::authEmp()
     return test;
 }
 
+bool Employees::authEmpCardRfid()
+{
+    QSqlQuery query;
+    query.prepare("select COUNT(*) from COMPTES where NUM_CARD=:numCard");
+    query.bindValue(":numCard",numCard);
+
+    query.exec();
+    query.next();
+
+    if(query.value(0).toInt() == 1){
+        return true;
+    }else {
+        return false;
+    }
+}
+
 QSqlQuery Employees::afficherEmp(QString email)
 {
     QSqlQuery query;
     query.prepare("select * from employees inner join COMPTES on employees.cin = COMPTES.cin where COMPTES.email=:email");
     query.bindValue(":email",email);
+    query.exec();
+    return query;
+}
+
+QSqlQuery Employees::afficherEmpByCardNum(QString numCard)
+{
+    QSqlQuery query;
+    query.prepare("select * from employees inner join COMPTES on employees.cin = COMPTES.cin where COMPTES.num_card=:num_card");
+    query.bindValue(":num_card",numCard);
     query.exec();
     return query;
 }
