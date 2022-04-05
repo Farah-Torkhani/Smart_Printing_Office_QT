@@ -1,5 +1,10 @@
 #include "commandes.h"
+#include "date_fin.h"
 #include <QSqlQuery>
+#include <QDate>
+#include <QDebug>
+
+
 
 
 Commandes::Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur , int cinemp,int cinclient )
@@ -14,18 +19,20 @@ Commandes::Commandes(QString descreption, QString etat, int quantiteCouleur, QSt
 
 
 }
-bool Commandes::ajouterCommandes()
+bool Commandes::ajouterCommandes(QString date_fin)
 {
     QSqlQuery query;
 
-    query.prepare("Insert into commandes(descreption, etat, quantiteCouleur, quantiteSansCouleur,cinemp,cinclient)"
-                  "Values(:descreption, :etat, :quantiteCouleur, :quantiteSansCouleur,:cinemp,:cinclient)");
+
+    query.prepare("Insert into commandes(descreption, etat, quantiteCouleur, quantiteSansCouleur,cinemp,cinclient,date_fin)"
+                  "Values(:descreption, :etat, :quantiteCouleur, :quantiteSansCouleur,:cinemp,:cinclient,:date_fin)");
     query.bindValue(":descreption", descreption);
     query.bindValue(":etat",etat);
     query.bindValue(":quantiteCouleur",quantiteCouleur);
     query.bindValue(":quantiteSansCouleur",quantiteSansCouleur);
     query.bindValue(":cinemp",cinemp);
     query.bindValue(":cinclient",cinclient);
+    query.bindValue(":date_fin",date_fin);
     return query.exec();
 }
 
@@ -171,3 +178,28 @@ int Commandes::statistiqueCommande(int month)
 
 }
 
+
+int Commandes::dateFin(int idCommande)
+{
+    QSqlQuery query;
+    query.prepare("select date_fin, date_commande from commandes where Commandeid=:Commandeid");
+
+    query.bindValue(":Commandeid",idCommande);
+
+    query.exec();
+
+    query.next();
+
+   QString dateF=query.value(0).toString();
+   QDate dateff = QDate::fromString(dateF,"dd/MM/yyyy");
+
+    QDate dateFF(2022,4,7);
+    QDate dateD=query.value(1).toDate();
+
+
+
+   int c=dateD.daysTo(dateff);
+
+   qDebug() << dateff  <<dateD<<c;
+    return c;
+}

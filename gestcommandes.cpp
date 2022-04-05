@@ -13,6 +13,7 @@
 #include <QtSql/QSqlQueryModel>
 #include <QSqlQuery>
 
+#include "date_fin.h"
 #include <imprimer_recu.h>
 
 int id = 0;
@@ -21,7 +22,8 @@ QTimer *timer = new QTimer();
 QTimer *timer2 = new QTimer();
 QTimer *timer3 = new QTimer(); //recher
 QTimer *timer4 = new QTimer(); //stat
-
+QTimer *timer5 = new QTimer();
+QTimer *timer6 = new QTimer();
 
 QVBoxLayout *layoutt = new QVBoxLayout();
 Gestcommandes::Gestcommandes(QWidget *parent) :
@@ -73,6 +75,10 @@ Commandes c("","",0,"",0,0);
 
         connect(timer4, SIGNAL(timeout()), this, SLOT(on_statCommande_clicked()));
         timer4->start(500);
+        connect(timer5, SIGNAL(timeout()), this, SLOT(on_ajouter_2_clicked()));
+        timer5->start(500);
+        connect(timer6, SIGNAL(timeout()), this, SLOT(on_LoadCinEmployee_clicked()));
+        timer6->start(500);
 
 
 
@@ -87,6 +93,8 @@ Gestcommandes::~Gestcommandes()
 
 void Gestcommandes::on_ajouter_clicked()
 {
+
+
    QString i=ui->Employee->currentText();
    int val=i.toInt();
 
@@ -99,7 +107,8 @@ void Gestcommandes::on_ajouter_clicked()
  int cinemp=val;
  int cinclient=val2;
 Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
- bool test_ajout = c.ajouterCommandes();
+QString date_fin=ui->dateEdit->text();
+ bool test_ajout = c.ajouterCommandes(date_fin);
  if(test_ajout)
     {
         QMessageBox::information(nullptr,QObject::tr("ok"),
@@ -485,6 +494,7 @@ void Gestcommandes::on_ajouter_2_clicked()
     query.exec();
     modal->setQuery(query);
     ui->Client->setModel(modal);
+
 }
 
 
@@ -500,4 +510,19 @@ void Gestcommandes::on_LoadCinEmployee_clicked()
          ui->Employee->setModel(modal);
 
 
+}
+
+
+
+void commandes_row_table::etatBtn_clicked()
+{
+
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    int idComm = buttonSender->whatsThis().toInt();
+
+
+        Date_fin *date = new Date_fin();
+        date ->idCommande = idComm;
+
+        date->show();
 }

@@ -6,6 +6,19 @@
 #include <QPrinter>
 #include <QTextDocument>
 #include <QPrintDialog>
+#include <QtSql/QSqlQueryModel>
+#include <QPrintDialog>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlQueryModel>
+#include <QDialog>
+#include <QDebug>
+#include <QTimer>
+#include <qtranslator.h>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlQueryModel>
+#include <QSqlQuery>
 QTimer *timer_email = new QTimer();
 imprimer_recu::imprimer_recu(QWidget *parent) :
     QDialog(parent),
@@ -37,9 +50,18 @@ void imprimer_recu::setRecuInfo()
 
 
     QSqlQuery commandeInfo = c.afficherCommande(idComm);
+    QSqlQuery query;
+    QString nom;
+    query.prepare("select c.nomclient FROM client c,commandes com where com.cinclient= c.cinclient  ");
+   query.exec();
+   query.next();
+QString v=query.value(0).toString();
 
 
-
+query.prepare("select c.prenomclient FROM client c,commandes com where com.cinclient= c.cinclient  ");
+query.exec();
+query.next();
+QString v1=query.value(0).toString();
 
 
     commandeInfo.next();
@@ -50,6 +72,11 @@ void imprimer_recu::setRecuInfo()
     ui->descreption->setReadOnly(true);
     ui->date->setText(commandeInfo.value(2).toString().split("T")[0]);
     ui->date->setReadOnly(true);
+    ui->nomclient->setText(v);
+     ui->nomclient->setReadOnly(true);
+    ui->prenomclient->setText(v1);
+     ui->prenomclient->setReadOnly(true);
+  //   ui->nomclient->setReadOnly(true);
    // ui->nomclient->setText(commandeInfo.value(2).toString());
   //  ui->prix->setReadOnly(true);
 
@@ -62,7 +89,8 @@ void imprimer_recu::on_valider_clicked()
         QTextDocument doc;
         QString TE = ui->descreption->text();
         QString Date = ui->date->text();
-
+QString nomc=    ui->nomclient->text();
+QString prenomc=ui->prenomclient->text();
 
         QString strStream;
                        QTextStream out(&strStream);
@@ -76,10 +104,16 @@ void imprimer_recu::on_valider_clicked()
       "<body bgcolor=#ffffff link=#5000A0>\n"
                                "<h1 style=\"text-align: center;\"><strong> "+TT+"</strong></h1>"
                                                       "<h1 style=\"text-align: center;\"><strong> ******Recu  commandes ****** </strong></h1>";
-                                         out << QString("Descreption\n").arg((QString("&TE;")));
+                                         out << QString("<font size=\"+2\" color=\"red\"> Descreption\n</font>").arg((QString("<font size=\"+5\"&TE;</font>")));
                                          out <<TE;
-                                         out << QString("Date de commande\n").arg((QString("&Date;")));
+                                         out << QString("<br><font size=\"+2\" color=\"red\">Date de commande</font>\n").arg((QString("<font size=\"+5\"&Date;</font>")));
                                          out <<Date;
+                                           out << QString("<br><font size=\"+2\" color=\"red\">Nom du client</font>\n").arg((QString("<font size=\"+5\"&nomc;</font>")));
+                                         out <<nomc;
+                                         out << QString("<br><font size=\"+2\" color=\"red\">prenom du client</font>\n").arg((QString("<font size=\"+5\"&prenomc;</font>")));
+
+                                         out <<prenomc;
+
 
 
                                  out <<  "</table>\n"

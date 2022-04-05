@@ -414,14 +414,14 @@ border-radius:10px;
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">#comboBox_7{
+       <string notr="true">#Client{
 color:white;
 background-color:#FF7244;
 border-radius:10px;
 
 }
 
-#comboBox_7:hover{
+#Client:hover{
 background-color:#6568F3;
 border-radius:10px;
 
@@ -460,7 +460,7 @@ border-radius:10px;
      <widget class="QLabel" name="label_276">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>100</x>
         <y>280</y>
         <width>261</width>
         <height>20</height>
@@ -480,21 +480,21 @@ border-radius:10px;
      <widget class="QComboBox" name="Employee">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>100</x>
         <y>310</y>
         <width>141</width>
         <height>22</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">#comboBox_7{
+       <string notr="true">#Employee{
 color:white;
 background-color:#FF7244;
 border-radius:10px;
 
 }
 
-#comboBox_7:hover{
+#Employee:hover{
 background-color:#6568F3;
 border-radius:10px;
 
@@ -505,22 +505,22 @@ border-radius:10px;
      <widget class="QPushButton" name="ajouter_2">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>20</x>
         <y>250</y>
-        <width>93</width>
-        <height>28</height>
+        <width>61</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">#ajouter{
+       <string notr="true">#ajouter_2{
 color:white;
-background-color:#FF7244;
+background-color:transparent;
 border-radius:10px;
 
 }
 
-#ajouter:hover{
-background-color:#6568F3;
+#ajouter_2:hover{
+background-color:transparent;
 border-radius:10px;
 
 }
@@ -533,29 +533,35 @@ border-radius:10px;
      <widget class="QPushButton" name="LoadCinEmployee">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>270</x>
         <y>310</y>
-        <width>93</width>
-        <height>28</height>
+        <width>91</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">#ajouter{
+       <string notr="true">#LoadCinEmployee{
 color:white;
-background-color:#FF7244;
+background-color:transparent;
 border-radius:10px;
 
 }
 
-#ajouter:hover{
-background-color:#6568F3;
-border-radius:10px;
 
-}
 </string>
       </property>
       <property name="text">
        <string>Cin Employee</string>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="dateEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>360</y>
+        <width>110</width>
+        <height>22</height>
+       </rect>
       </property>
      </widget>
     </widget>

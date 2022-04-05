@@ -18,10 +18,13 @@ QLabel *dateC_label= new QLabel();
        QPushButton *deleteBtn = new QPushButton();
        QPushButton *imprimerBtn = new QPushButton();
 
+       QPushButton *etatBtn = new QPushButton();
+
 private slots:
     void deleteBtn_clicked();
     void updateBtn_clicked();
     void imprimerBtn_clicked();
+    void etatBtn_clicked();
 };
 
 #endif // COMMANDES_ROW_TABLE_H

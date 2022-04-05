@@ -10,8 +10,10 @@
         <file>ressources/img/sort.png</file>
         <file>ressources/img/trash-icon.png</file>
         <file>ressources/img/imprimante.png</file>
+        <file>ressources/img/clock.png</file>
     </qresource>
     <qresource prefix="/">
         <file>anglais.qm</file>
+        <file>anglais1.qm</file>
     </qresource>
 </RCC>

@@ -34,7 +34,7 @@ QTranslator T;
       const QString lang=QInputDialog::getItem(NULL,"Select language ","Language",languages);
 
     {
-         T.load(":/anglais.qm");
+         T.load(":/anglais1.qm");
     }
     if (lang !="French")
     {

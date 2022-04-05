@@ -14,7 +14,7 @@ public:
     QString getEtat(){return etat;}
     int getQuantiteCouleur(){return  quantiteCouleur;}
     QString getQuantiteSansCouleur(){return quantiteSansCouleur;}
-    bool ajouterCommandes();
+    bool ajouterCommandes(QString date_fin);
      QSqlQuery afficherCommande();
          bool supprimerCommandes(int Commandesid);
 
@@ -26,6 +26,9 @@ public:
         int statistiqueCommande(int month);
           QSqlQuery editview(QString);
 
+          int dateFin(int idCommande);
+
+
 
 private:
 
@@ -35,7 +38,6 @@ private:
     QString quantiteSansCouleur;
     int cinemp;
     int cinclient;
-
 
 };
 

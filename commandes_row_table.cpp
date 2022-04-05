@@ -20,18 +20,36 @@ commandes_row_table::commandes_row_table(QWidget *parent,QString descreption,QSt
 
 
 
-          etat_label->setParent(row_container);
+
+           etat_label->setParent(row_container);
               etat_label->setGeometry(191,0,141,34);
                etat_label->setText(etat);
                etat_label->setStyleSheet("color: #585856;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
                etat_label->setMinimumHeight(34);
 
 
-           dateC_label->setParent(row_container);
-               dateC_label->setGeometry(360,0,171,34);
-               dateC_label->setText(dateC);
-               dateC_label->setStyleSheet("color: #585856;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
-               dateC_label->setMinimumHeight(34);
+if(dateC.toInt() == 1)
+{
+           etatBtn->setParent(row_container);
+              etatBtn->setGeometry(360,0,171,34);
+               etatBtn->setText("terminee");
+              etatBtn->setStyleSheet("color: #585856;padding:6px;font: 63 10pt 'Montserrat SemiBold';");
+               etatBtn->setMinimumHeight(34);
+}
+
+
+if(dateC.toInt() == 0)
+{
+etatBtn->setObjectName("etatBtn");
+ etatBtn->setParent(row_container);
+ etatBtn->setGeometry(360,0,171,34);
+ etatBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/img/ressources/img/clock.png);qproperty-iconSize: 19px;}QPushButton::hover {background-color: #D6DBFD;}");
+ etatBtn->setCursor(QCursor(Qt::PointingHandCursor));
+ etatBtn->setWhatsThis(id);
+}
+
+
+
 
            QuantiteCouleur_label->setParent(row_container);
             QuantiteCouleur_label->setGeometry(510,0,131,34);
@@ -68,10 +86,15 @@ commandes_row_table::commandes_row_table(QWidget *parent,QString descreption,QSt
                  imprimerBtn->setWhatsThis(id);
 
 
+
+
+
            connect(deleteBtn, &QPushButton::clicked, this, &commandes_row_table::deleteBtn_clicked);
            connect(editBtn, &QPushButton::clicked, this, &commandes_row_table::updateBtn_clicked);
             connect(imprimerBtn, &QPushButton::clicked, this, &commandes_row_table::imprimerBtn_clicked);
          //  connect(imprimerBtn, &QPushButton::clicked, this, &commandes_row_table::farahBtn_clicked);
+
+            connect(etatBtn, &QPushButton::clicked, this, &commandes_row_table::etatBtn_clicked);
 
 
 }

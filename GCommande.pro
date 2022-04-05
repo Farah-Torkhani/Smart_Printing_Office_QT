@@ -19,6 +19,7 @@ SOURCES += \
     commandes.cpp \
     commandes_row_table.cpp \
     connection.cpp \
+    date_fin.cpp \
     gestcommandes.cpp \
     imprimer_recu.cpp \
     main.cpp \
@@ -28,11 +29,13 @@ HEADERS += \
     commandes.h \
     commandes_row_table.h \
     connection.h \
+    date_fin.h \
     gestcommandes.h \
     imprimer_recu.h \
     mainwindow.h
 
 FORMS += \
+    date_fin.ui \
     gestcommandes.ui \
     imprimer_recu.ui \
     mainwindow.ui
