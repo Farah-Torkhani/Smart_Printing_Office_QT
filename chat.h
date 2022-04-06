@@ -5,6 +5,8 @@
 #include <QString>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlQueryModel>
+#include <QTextEdit>
+
 
 namespace Ui {
 class Chat;
@@ -19,20 +21,18 @@ public:
     explicit Chat(QWidget *parent = nullptr);
     Chat(int cin, QString messageContent);
     ~Chat();
-    bool addMessage(int cin, QString message);
-    QSqlQuery afficherAllMessage();
-    void reject();
+
+signals:
+    void sendMessage(QString message);
+    void connectToChanged(QString address, QString port);
 
 private slots:
     void on_sendMessBtn_clicked();
-    void refreshMessageList();
+    void displayNewMessage(QString message, QString sender);
+    void connectionChange();
 
 private:
     Ui::Chat *ui;
-//    int messageId;
-//    QString messageContent;
-//    int cin;
-//    QString dateSend;
 };
 
 #endif // CHAT_H

@@ -19,6 +19,8 @@
 #include <QChartView>
 #include <QBarSet>
 #include <QBarSeries>
+#include "server.h"
+#include "chatclient.h"
 
 
 QVBoxLayout *layoutt = new QVBoxLayout();
@@ -106,10 +108,36 @@ GestionEmp::~GestionEmp()
 
 void GestionEmp::on_chatBtn_clicked()
 {
-    Chat *chat = new Chat();
+//    Chat *chat = new Chat();
+
 //    chat->setAttribute(Qt::WA_DeleteOnClose,true);
 //    connect(chat, &Chat::close, chat, &Chat::deleteLater);
+    Chat *chat = new Chat;
+
+
+    QInputDialog options;
+    options.setLabelText("Enter port for listening:");
+    options.setTextValue("12349");
+    options.exec();
+
+    Server server(options.textValue());
+    ChatClient chatClient;
+
+    chat->connect(&server, SIGNAL(messageRecieved(QString,QString)),
+                    chat, SLOT(displayNewMessage(QString,QString)));
+
+    chat->connect(chat, SIGNAL(connectToChanged(QString,QString)),
+                   &chatClient, SLOT(connectTo(QString,QString)));
+
+    chat->connect(chat, SIGNAL(sendMessage(QString)),
+                   &chatClient, SLOT(startTransfer(QString)));
+
     chat->show();
+    QEventLoop loop;
+
+    connect(chat, SIGNAL(closed()), &loop, SLOT(quit()));
+
+    loop.exec();
 
 }
 

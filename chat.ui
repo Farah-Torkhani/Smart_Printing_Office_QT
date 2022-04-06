@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>650</width>
-    <height>350</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@ background-image: url(:/resource/img/bg.png);
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>298</y>
+     <y>350</y>
      <width>51</width>
      <height>35</height>
     </rect>
@@ -59,11 +59,11 @@ QPushButton::hover {
     </size>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="messageQline">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>298</y>
+     <y>350</y>
      <width>541</width>
      <height>35</height>
     </rect>
@@ -87,41 +87,103 @@ padding: 5px 10px;
     <string>Message</string>
    </property>
   </widget>
-  <widget class="QScrollArea" name="scrollArea">
+  <widget class="QLineEdit" name="adressIp">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>120</x>
      <y>20</y>
-     <width>611</width>
-     <height>261</height>
+     <width>191</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(245, 241, 246);
+border-radius: 10px;
+padding: 5px 10px;
+
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>20</y>
+     <width>81</width>
+     <height>26</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Montserrat SemiBold</family>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Montserrat Medium</family>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
+   </property>
+   <property name="text">
+    <string>Adress ip:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="port">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>20</y>
+     <width>131</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(245, 241, 246);
+border-radius: 10px;
+padding: 5px 10px;
+
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>20</y>
+     <width>41</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat Medium</family>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Port:</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="chatBox">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>611</width>
+     <height>271</height>
+    </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(245, 241, 246);
 border-radius: 17px;
 padding: 5px 10px;
-</string>
+border:none;</string>
    </property>
-   <property name="widgetResizable">
+   <property name="readOnly">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="scrollAreaContents">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>591</width>
-      <height>241</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
  </widget>
  <resources>

@@ -1,4 +1,4 @@
-QT       += core gui sql charts serialport
+QT       += core gui sql charts serialport network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,23 +18,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arduino.cpp \
     chat.cpp \
+    chatclient.cpp \
     connection.cpp \
     employees.cpp \
     gestionemp.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    row_table.cpp
+    row_table.cpp \
+    server.cpp
 
 HEADERS += \
     arduino.h \
     chat.h \
+    chatclient.h \
     connection.h \
     employees.h \
     gestionemp.h \
     login.h \
     mainwindow.h \
-    row_table.h
+    row_table.h \
+    server.h
 
 FORMS += \
     chat.ui \
