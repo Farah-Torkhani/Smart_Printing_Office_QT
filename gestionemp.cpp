@@ -19,7 +19,6 @@
 #include <QChartView>
 #include <QBarSet>
 #include <QBarSeries>
-#include "server.h"
 #include "chatclient.h"
 
 

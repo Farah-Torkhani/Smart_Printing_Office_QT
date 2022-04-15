@@ -4,6 +4,7 @@
 #include "employees.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <integration.h>
 
 
 Employees currentEmp;
@@ -60,14 +61,15 @@ void Login::on_loginButton_clicked()
             Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
             currentEmp = test;
                 this->close();
-                GestionEmp gEmp;
-                gEmp.show();
+                //GestionEmp gEmp;
+                Integration integ;
+                integ.show();
                 QEventLoop loop;
 
                 disconnect(timerAuthRfid, SIGNAL(timeout()), this, SLOT(authRFID()));
                 yo=0;
 
-                connect(&gEmp, SIGNAL(closed()), &loop, SLOT(quit()));
+                connect(&integ, SIGNAL(closed()), &loop, SLOT(quit()));
 
                 loop.exec();
         }else {
@@ -117,10 +119,11 @@ void Login::authRFID()
         Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
         currentEmp = test;
             this->close();
-            GestionEmp gEmp;
-            gEmp.show();
+            //GestionEmp gEmp;
+            Integration integ;
+            integ.show();
             QEventLoop loop;
-            connect(&gEmp, SIGNAL(closed()), &loop, SLOT(quit()));
+            connect(&integ, SIGNAL(closed()), &loop, SLOT(quit()));
 
 
             loop.exec();

@@ -21,7 +21,6 @@ SOURCES += \
     chatservice.cpp \
     connection.cpp \
     employees.cpp \
-    gestionemp.cpp \
     integration.cpp \
     login.cpp \
     main.cpp \
@@ -34,7 +33,6 @@ HEADERS += \
     chatservice.h \
     connection.h \
     employees.h \
-    gestionemp.h \
     integration.h \
     login.h \
     mainwindow.h \
@@ -42,7 +40,6 @@ HEADERS += \
 
 FORMS += \
     chat.ui \
-    gestionemp.ui \
     integration.ui \
     login.ui \
     mainwindow.ui
