@@ -18,27 +18,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arduino.cpp \
     chat.cpp \
-    chatclient.cpp \
+    chatservice.cpp \
     connection.cpp \
     employees.cpp \
     gestionemp.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    row_table.cpp \
-    server.cpp
+    row_table.cpp
 
 HEADERS += \
     arduino.h \
     chat.h \
-    chatclient.h \
+    chatservice.h \
     connection.h \
     employees.h \
     gestionemp.h \
     login.h \
     mainwindow.h \
-    row_table.h \
-    server.h
+    row_table.h
 
 FORMS += \
     chat.ui \

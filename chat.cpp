@@ -1,140 +1,100 @@
 #include "chat.h"
 #include "ui_chat.h"
 #include <QtDebug>
-#include "login.h"
-#include <QMessageBox>
-#include <QVBoxLayout>
-#include <QTimer>
+
 #include <QLabel>
-#include "chatclient.h"
-#include <QTextEdit>
+#include "chatservice.h"
+#include <QDateTime>
+#include "login.h"
 
-
-
-QVBoxLayout layouttt ;
-//QTimer timerRefreshMessList;
 
 Chat::Chat(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Chat)
 {
     ui->setupUi(this);
+    connect(ui->btnSendMessage,SIGNAL(clicked()),this,SLOT(click_btnSendMessage()));
+    ui->localIP->setText("Your local IP: " + ChatService::getLocalIP());
 
-    connect(ui->adressIp, SIGNAL(textChanged(QString)), this, SLOT(connectionChange()));
-    connect(ui->port, SIGNAL(textChanged(QString)), this, SLOT(connectionChange()));
+    QFont font;
+    font.setPixelSize(DEFAULT_MESSAGE_FONT_SIZE);
+    ui->browserMessage->setFont(font);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout();
-    QHBoxLayout *testLayout = new QHBoxLayout();
+    chat = new ChatService;
 
 
-    mainLayout->addLayout(testLayout);
-    mainLayout->addWidget(ui->chatBox);
+    connect(chat,SIGNAL(messageShowReady(ChatService::message_t,QString,QString)),
+            this,SLOT(showMessage(ChatService::message_t,QString,QString)) );
 
-//    setLayout(mainLayout);
+    connect(chat,SIGNAL(onlineUsersUpdateReady(QSet<QString>)),
+            this,SLOT(updateOnlineUsers(QSet<QString>)) );
 
-    ui->adressIp->setText("127.0.0.1");
-    ui->port->setText("12349");
 
+    click_btnLogin();
 }
 
 Chat::~Chat()
 {
+    chat->sendJson(ChatService::MT_LOGOUT,currentEmp.getNom() +" "+ currentEmp.getPrenom());
     delete ui;
 }
 
 
-void Chat::on_sendMessBtn_clicked()
+void Chat::showMessage(ChatService::message_t type, QString hint, QString content)
 {
-    QString message(ui->messageQline->text());
-    emit sendMessage(message);
-    ui->chatBox->append("Me: " + message);
-
+    QDateTime now = QDateTime::currentDateTime();
+    if(type == ChatService::MT_LOGIN || type == ChatService::MT_LOGOUT || type == ChatService::MT_SYSTEM)
+    {
+        ui->browserMessage->setTextColor(QColor(190,190,190));
+        ui->browserMessage->append(hint + now.toString("  hh:mm:ss"));
+        ui->browserMessage->append(content);
+    }
+    else if(type == ChatService::MT_CHAT)
+    {
+        ui->browserMessage->setTextColor(QColor(70,130,180));
+        ui->browserMessage->append(hint + now.toString("  hh:mm:ss"));
+        ui->browserMessage->setTextColor(QColor(0,0,0));
+        ui->browserMessage->append(content);
+    }
 }
 
-void Chat::displayNewMessage(QString message, QString sender) {
-    QString msg("<b>" + sender + ":</b> ");
-
-    ui->chatBox->append("<b>" + sender + ":</b> "+message);
+void Chat::updateOnlineUsers(QSet<QString> set)
+{
+    ui->listOnlineUser->clear();
+    ui->listOnlineUser->insertItem(0,tr("Online Users:"));
+    int i = 1;
+    for(auto it = set.begin();it!= set.end() ;it++)
+        ui->listOnlineUser->insertItem(i++,*it);
 }
 
-void Chat::connectionChange() {
-    emit connectToChanged(ui->adressIp->text(), ui->port->text());
+void Chat::click_btnSendMessage()
+{
+    chat->setMask("255.255.255.255");
+    chat->sendJson(ChatService::MT_CHAT,currentEmp.getNom() +" "+ currentEmp.getPrenom(),ui->edtMessage->toPlainText());
+    ui->edtMessage->clear();
 }
 
+void Chat::click_btnLogin()
+{
+    chat->setMask("255.255.255.255");
+    chat->sendJson(ChatService::MT_LOGIN,currentEmp.getNom() +" "+ currentEmp.getPrenom());
+    chat->setStatus(ChatService::ST_OFFLINE);
+    chat->setUserName("nabil mersni");
+}
 
+void Chat::click_btnLogout()
+{
+        //setLocalUserEnable(false);
+        //setWidgetState(Remove);
 
+        chat->setMask("255.255.255.255");
+        chat->sendJson(ChatService::MT_LOGOUT,currentEmp.getNom() +" "+ currentEmp.getPrenom());
+        chat->setStatus(ChatService::ST_OFFLINE);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//void Chat::on_sendMessBtn_clicked()
-//{
-//    qDebug()<< currentEmp.getNom();
-//    QString message = ui->lineEdit_3->text();
-//    bool test = addMessage(currentEmp.getCin(),message);
-
-//    if(test){
-//        ui->lineEdit_3->setText("");
-//        refreshMessageList();
-//    }else {
-//        QMessageBox::critical(nullptr, QObject::tr("message status"),QObject::tr("message not sent.\nClick Cancel to exit."), QMessageBox::Cancel);
-//    }
-//}
-
-//bool Chat::addMessage(int cin, QString message)
-//{
-//    QSqlQuery query;
-//    query.prepare("INSERT INTO messages (MESSAGEID, messageContent, cin) VALUES (MESSAGEID.nextval, :messageContent, :cin) ");
-
-//    query.bindValue(":messageContent",message);
-//    query.bindValue(":cin",cin);
-//    return query.exec();
-//}
-
-//QSqlQuery Chat::afficherAllMessage()
-//{
-//    QSqlQuery query;
-//    query.exec("select * from messages inner join employees on messages.cin = employees.cin order by DATESEND");
-//    return query;
-//}
-
-//void Chat::refreshMessageList()
-//{
-//    while(!layouttt.isEmpty()){
-//        QLayoutItem* item = layouttt.itemAt(0);
-//        layouttt.removeItem(item);
-//        QWidget* widgett = item->widget();
-//        if(widgett)
-//            {
-//                delete widgett;
-//            }
-//    }
-
-//    QSqlQuery messList = afficherAllMessage();
-//    while (messList.next()) {
-//        QLabel *l = new QLabel();
-//        l->setText(messList.value(5).toString()+" "+messList.value(6).toString()+" :"+messList.value(2).toString() +">>"+ messList.value(1).toString());
-//        l->setMinimumHeight(40);
-//        layouttt.addWidget( l );
-//    }
-//}
-
-
-//void Chat::reject()
-//{
-//    disconnect(&timerRefreshMessList, SIGNAL(timeout()), this, SLOT(refreshMessageList()));
-//    QDialog::reject();
-//    this->hide();
-//}
+void Chat::reject()
+{
+    click_btnLogout();
+    QDialog::reject();
+    this->hide();
+}

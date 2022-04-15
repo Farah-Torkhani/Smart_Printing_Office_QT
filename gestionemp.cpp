@@ -112,32 +112,18 @@ void GestionEmp::on_chatBtn_clicked()
 
 //    chat->setAttribute(Qt::WA_DeleteOnClose,true);
 //    connect(chat, &Chat::close, chat, &Chat::deleteLater);
-    Chat *chat = new Chat;
+//    Chat *chat = new Chat;
 
 
-    QInputDialog options;
-    options.setLabelText("Enter port for listening:");
-    options.setTextValue("12349");
-    options.exec();
+//    chat->show();
+//    QEventLoop loop;
 
-    Server server(options.textValue());
-    ChatClient chatClient;
+//    connect(chat, SIGNAL(closed()), &loop, SLOT(quit()));
 
-    chat->connect(&server, SIGNAL(messageRecieved(QString,QString)),
-                    chat, SLOT(displayNewMessage(QString,QString)));
+//    loop.exec();
 
-    chat->connect(chat, SIGNAL(connectToChanged(QString,QString)),
-                   &chatClient, SLOT(connectTo(QString,QString)));
-
-    chat->connect(chat, SIGNAL(sendMessage(QString)),
-                   &chatClient, SLOT(startTransfer(QString)));
-
+    Chat *chat = new Chat();
     chat->show();
-    QEventLoop loop;
-
-    connect(chat, SIGNAL(closed()), &loop, SLOT(quit()));
-
-    loop.exec();
 
 }
 
@@ -493,6 +479,35 @@ void GestionEmp::refreshCurrentEmp()
 
 void GestionEmp::on_me_chatBtn_clicked()
 {
+//    Chat *chat = new Chat();
+//    chat->show();
+
+//    Chat *chatt = new Chat;
+
+
+//    QInputDialog options;
+//    options.setLabelText("Enter port for listening:");
+//    options.setTextValue("12349");
+//    options.exec();
+
+//    Server server(options.textValue());
+//    ChatClient chatClient;
+
+//    chatt->connect(&server, SIGNAL(messageRecieved(QString,QString)),
+//                    chatt, SLOT(displayNewMessage(QString,QString)));
+
+//    chatt->connect(chatt, SIGNAL(connectToChanged(QString,QString)),
+//                   &chatClient, SLOT(connectTo(QString,QString)));
+
+//    chatt->connect(chatt, SIGNAL(sendMessage(QString)),
+//                   &chatClient, SLOT(startTransfer(QString)));
+
+//    chatt->show();
+//    QEventLoop looop;
+
+//    connect(chatt, SIGNAL(closed()), &looop, SLOT(quit()));
+
+//    looop.exec();
     Chat *chat = new Chat();
     chat->show();
 }

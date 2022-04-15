@@ -8,12 +8,6 @@
 #include "arduino.h"
 
 extern Employees currentEmp;
-//extern QVBoxLayout *layoutt;
-//extern QTimer *timerRefresh;
-//extern QTimer *timerFormulaire;
-//extern QTimer *timerCherche;
-//extern QTimer *timerAccountInfo;
-//extern QTimer *timerCurrentEmp;
 
 
 namespace Ui {

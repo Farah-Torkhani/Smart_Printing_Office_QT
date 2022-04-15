@@ -1,26 +1,15 @@
 #ifndef CHATCLIENT_H
 #define CHATCLIENT_H
 
-#include <QObject>
-#include <QTcpSocket>
 
-class QTcpSocket;
-class QString;
-
-
-class ChatClient: public QObject
+class ChatClient : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    ChatClient(QObject *parent = 0);
-    ~ChatClient();
+    explicit ChatClient(QObject *parent = nullptr);
 
-public slots:
-    void startTransfer(QString message);
-    void connectTo(QString address, QString port);
+signals:
 
-private:
-    QTcpSocket socket;
 };
 
 #endif // CHATCLIENT_H

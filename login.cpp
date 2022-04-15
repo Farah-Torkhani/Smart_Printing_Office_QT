@@ -11,13 +11,6 @@ QString cardUID="";
 QString test="";
 int yo=1;
 
-//QVBoxLayout *layoutt = new QVBoxLayout();
-//QTimer *timerRefresh = new QTimer();
-//QTimer *timerFormulaire = new QTimer();
-//QTimer *timerCherche = new QTimer();
-//QTimer *timerAccountInfo = new QTimer();
-//QTimer *timerCurrentEmp = new QTimer();
-
 
 QTimer *timerAuthRfid = new QTimer();
 

@@ -6,6 +6,7 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlQueryModel>
 #include <QTextEdit>
+#include <chatservice.h>
 
 
 namespace Ui {
@@ -21,18 +22,23 @@ public:
     explicit Chat(QWidget *parent = nullptr);
     Chat(int cin, QString messageContent);
     ~Chat();
+    void click_btnLogin();
+    void click_btnLogout();
+    void reject();
 
 signals:
-    void sendMessage(QString message);
-    void connectToChanged(QString address, QString port);
+
 
 private slots:
-    void on_sendMessBtn_clicked();
-    void displayNewMessage(QString message, QString sender);
-    void connectionChange();
+    void showMessage(ChatService::message_t type,QString hint,QString content);
+    void updateOnlineUsers(QSet<QString> set);
+    void click_btnSendMessage();
+
 
 private:
     Ui::Chat *ui;
+    const qint8 DEFAULT_MESSAGE_FONT_SIZE = 14;
+    ChatService * chat;
 };
 
 #endif // CHAT_H
