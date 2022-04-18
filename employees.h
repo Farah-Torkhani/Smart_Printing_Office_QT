@@ -36,6 +36,7 @@ public:
     bool authEmpCardRfid();
     QSqlQuery afficherEmp(QString email);
     QSqlQuery afficherEmpByCardNum(QString numCard);
+    bool authRfidHistory();
 
     int statEmp(int month);
 

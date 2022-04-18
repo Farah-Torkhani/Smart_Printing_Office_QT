@@ -116,6 +116,7 @@ void Login::authRFID()
         qDebug()<< emp.value(0).toString();
         Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
         currentEmp = test;
+        e.authRfidHistory();
             this->close();
             GestionEmp gEmp;
             gEmp.show();

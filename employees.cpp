@@ -198,3 +198,12 @@ int Employees::statEmp(int month)
 
     return count;
 }
+
+
+bool Employees::authRfidHistory(){
+    QSqlQuery query;
+    query.prepare("INSERT INTO AUTH_RFID_HISTORY (AUTH_ID, CARD_NUM) VALUES (AUTH_ID.nextval, :CARD_NUM) ");
+
+    query.bindValue(":CARD_NUM",numCard);
+    return query.exec();
+}
