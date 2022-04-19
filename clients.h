@@ -13,7 +13,7 @@
 
 #include <QCompleter>
 #include <QDirModel>
-
+#include "arduino.h"
 
 namespace Ui {
 class Clients;
@@ -27,7 +27,9 @@ class Clients : public QDialog
 public:
     explicit Clients(QWidget *parent = nullptr);
     ~Clients();
+    QByteArray data; // variable contenant les données reçues
 
+    Arduino A; // objet temporaire
 
 private slots:
     void on_ajouter_client_clicked();
@@ -49,12 +51,23 @@ private slots:
 
     void on_trie_client_clicked();
 
+    void on_Alerte_btn_clicked();
+
+    void test_callArd();
+
+    void on_call_testBtn_clicked();
+
+
+    void on_recive_callBtnTimer_clicked();
+
 private:
     Ui::Clients *ui;
     DuScene *mScene;
 
     QCompleter *stringCompleter;
     QCompleter *ModelCompleter;
+
+
 };
 
 #endif // CLIENTS_H

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
-
+#include "arduino.h"
 
 class Client_row_table : public QLabel
 {
@@ -21,11 +21,22 @@ public:
     QPushButton *editBtn = new QPushButton();
     QPushButton *emailBtn = new QPushButton();
     QPushButton *deleteBtn = new QPushButton();
+    QPushButton *smsBtn = new QPushButton();
+    QPushButton *callBtn = new QPushButton();
 
 private slots:
     void deleteBtn_clicked();
     void updateBtn_clicked();
     void emailBtn_clicked();
+    void smsBtn_clicked();
+    void callBtn_clicked();
+
+
+private:
+
+    QByteArray data; // variable contenant les données reçues
+
+    Arduino A; // objet temporaire
 
 };
 

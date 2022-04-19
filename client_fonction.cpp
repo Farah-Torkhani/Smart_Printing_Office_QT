@@ -183,3 +183,65 @@ int Client_fonction::statistiqueCilents(int month)
 
 }
 
+
+//**************************listEmp******************************************
+QSqlQuery Client_fonction::afficherEmp_pourAlerte()
+{
+    QSqlQuery query;
+    query.exec("select * from employees");
+    return query;
+}
+QSqlQuery Client_fonction::afficherEmpArd(int cin)
+{
+    QSqlQuery query;
+    query.prepare("select tel from employees where cin=:cin");
+    query.bindValue(":cin",cin);
+    query.exec();
+    return query;
+}
+
+
+
+
+
+
+
+
+//**************tester si un num existe ou non ************************************************
+bool Client_fonction::clientExists(int telClient)
+{
+    bool exists = false;
+
+    QSqlQuery checkQuery;
+    checkQuery.prepare("select * from clients where telClient=:telClient");
+    checkQuery.bindValue(":telClient",telClient);
+
+
+    if (checkQuery.exec())
+    {
+        if (checkQuery.next())
+        {
+            exists = true;
+        }
+    }
+    else
+    {
+        qDebug() << "Client not found";
+    }
+
+    return exists;
+}//
+
+
+
+QSqlQuery Client_fonction::afficherClientsArd(int telClient)
+{
+    QSqlQuery query;
+    query.prepare("select nomClient,prenomClient from clients where telClient=:telClient");
+    query.bindValue(":telClient",telClient);
+    query.exec();
+    return query;
+}
+
+
+

@@ -6,13 +6,17 @@
 
 
 #include "email.h"
+#include "sms.h"
+#include "arduino_client.h"
+#include "arduino.h"
+#include "callard.h"
 
 #include <QVBoxLayout>
 #include <QScrollArea>
 
 #include <QTimer>
 #include <QDate>
-
+#include <QUrl>
 
 #include <QCoreApplication>
 #include <QDebug>
@@ -20,6 +24,9 @@
 int test = 0;
 int i =0;
 int j=0;
+
+int testnum=0;
+int etatReceiveCall=0;
 
 QVBoxLayout *layoutt = new QVBoxLayout();
 
@@ -29,6 +36,9 @@ QTimer *timer2 = new QTimer();//refresh
 QTimer *timer3 = new QTimer(); //recher
 QTimer *timer4 = new QTimer(); //stat
 
+
+QTimer *timerTestCall2 = new QTimer();//
+QString pch="",pch2="";
 
 Clients::Clients(QWidget *parent) :
     QDialog(parent),
@@ -78,6 +88,14 @@ Clients::Clients(QWidget *parent) :
         connect(timer4, SIGNAL(timeout()), this, SLOT(on_stat_clicked()));
         timer4->start(500);
 
+
+
+      //  QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(test_callArd())); // permet de lancer
+        //le slot update_label suite à la reception du signal readyRead (reception des données).
+
+        etatReceiveCall=1;
+        connect(timerTestCall2, SIGNAL(timeout()), this, SLOT(test_callArd()));
+        timerTestCall2->start(1500);
 }
 
 
@@ -522,4 +540,154 @@ void Client_row_table::emailBtn_clicked()
     email->show();
 
 
+}
+
+
+void Clients::on_Alerte_btn_clicked()
+{
+    ui->etatReceiveCall->setText("OFF");
+    timerTestCall2->stop();
+    A.close_arduino();
+ int c=   A.close_arduino();
+
+    Arduino_client *arduino = new Arduino_client();
+
+    arduino->show();
+
+}
+
+
+
+void Client_row_table::callBtn_clicked()
+{
+//
+}
+
+void Client_row_table::smsBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    cinClient = buttonSender->whatsThis().toInt();
+
+    Sms *sms = new Sms();
+    sms->setCinClient(cinClient);
+
+    sms->show();
+
+}
+
+
+
+
+
+
+
+void Clients::test_callArd()
+{
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    data=A.read_from_arduino();
+    qDebug() << data;
+
+
+    if(strstr(data,"AT+CLCC\r\n\r\n")!=NULL)
+    {
+        pch = strstr (data,"\"");
+      //  pch2 = strstr (data,"");
+        qDebug() <<pch<<  "****"  <<pch2;
+      //p= strstr(ch1,ch2);
+    }
+
+
+    if(strstr(data,"\r\n\r\nOK")!=NULL)
+    {
+        pch2 = strstr (data,"");
+        qDebug() <<pch<<  "****"  <<pch2;
+      //p= strstr(ch1,ch2);
+
+    }
+
+    if(data == "\r\nRING\r\n")
+    {
+        qDebug() << "vous aves un appel!";
+        A.write_to_arduino("a");
+
+        data=A.read_from_arduino();
+        qDebug() << data;
+
+
+    //    timerTestCall->stop();
+    }
+    //qDebug()<<"numeroooo=" << pch+pch2;
+    QString concat=pch+pch2;
+  //  QString numberCall = concat.substr(1, 3);
+    QString numberCall=concat.mid(1,8);
+    qDebug()<<"numeroooo=" << numberCall;
+
+
+    //if(data == "\r\nNO CARRIER\r\n")
+    if( (data == "\r\nRING\r\n\r\nNO CARRIER\r\n") || (data == "\r\nNO CARRIER\r\n") )
+    {
+        //quitter
+
+         numberCall="aa";
+         qDebug()<<"numeroooo=**********************" << numberCall;
+          timerTestCall2->stop();
+         //A.close_arduino();
+
+    }
+
+//if( (numberCall.length()<6)  )
+//{
+//    test=0;
+//}
+    if( (numberCall.length()>6)  )
+    {
+        ui->etatReceiveCall->setText("OFF");
+        A.close_arduino();
+        testnum=1;
+        timerTestCall2->stop();
+        CallArd *call = new CallArd();
+       // call->setCinClient(cinClient);
+        call->call_numIn = numberCall;
+
+        call->show();
+    }
+
+    if(numberCall.length()<6)
+    {
+        testnum=0;
+    }
+
+  //  if(data == "1")
+  //  {
+     //   ui->niveauEncre->setText("cv"); // si les données reçues de arduino via la liaison série sont sup à ...
+  //  }
+  //  else
+  //  {
+       // ui->niveauEncre->setText("faible");   // si les données reçues de arduino via la liaison série sont inf à ...
+  //  }
+
+//    timerTestCall2->stop();
+
+
+}
+
+
+
+
+void Clients::on_call_testBtn_clicked()
+{
+    ui->etatReceiveCall->setText("OFF");
+    CallArd *call = new CallArd();
+   // call->setCinClient(cinClient);
+    //call->call_numIn = numberCall;
+
+    call->show();
+
+
+}
+
+void Clients::on_recive_callBtnTimer_clicked()
+{
+    timerTestCall2->start(1500);
+    ui->etatReceiveCall->setText("ON");
 }

@@ -46,6 +46,13 @@ public:
 
     int statistiqueCilents(int month);
 
+    QSqlQuery afficherEmp_pourAlerte();
+
+    QSqlQuery afficherClientsArd(int telClient);
+
+    bool clientExists(int telClient);
+
+    QSqlQuery afficherEmpArd(int cin);
 
 
 

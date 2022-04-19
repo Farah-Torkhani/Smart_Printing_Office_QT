@@ -1,4 +1,4 @@
-QT       += core gui charts sql network
+QT       += core gui charts sql network serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,6 +17,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    arduino.cpp \
+    arduino_client.cpp \
+    arduino_sms_row_table.cpp \
+    callard.cpp \
     client_fonction.cpp \
     client_row_table.cpp \
     clients.cpp \
@@ -26,9 +30,14 @@ SOURCES += \
     gifanimation.cpp \
     main.cpp \
     mainwindow.cpp \
+    sms.cpp \
     smtp.cpp
 
 HEADERS += \
+    arduino.h \
+    arduino_client.h \
+    arduino_sms_row_table.h \
+    callard.h \
     client_fonction.h \
     client_row_table.h \
     clients.h \
@@ -37,12 +46,16 @@ HEADERS += \
     email.h \
     gifanimation.h \
     mainwindow.h \
+    sms.h \
     smtp.h
 
 FORMS += \
+    arduino_client.ui \
+    callard.ui \
     clients.ui \
     email.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    sms.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
