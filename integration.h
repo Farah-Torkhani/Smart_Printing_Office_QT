@@ -21,10 +21,31 @@
 #include <QBarSet>
 #include <QBarSeries>
 #include "chatclient.h"
+#include <QDirModel>
+
+#include "arduino.h"
+
+//Gestion Client***
+#include "client_fonction.h"
+#include "duscene.h"
+#include "client_row_table.h"
+#include "email.h"
+#include "sms.h"
+#include "arduino_client.h"
+#include "arduino.h"
+#include "callard.h"
+#include <QScrollArea>
+#include <QDate>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QSslSocket> //To use QSslSocket Class
+//Gestion Client***
 
 namespace Ui {
 class Integration;
 }
+
+class DuScene;
 
 class Integration : public QMainWindow
 {
@@ -38,6 +59,11 @@ public:
     bool is_email_valid(QString email);
     void test();
     //GESTION EMP***
+
+    //gestion Client***************
+    QByteArray data; // variable contenant les données reçues
+    Arduino A; // objet temporaire
+    //gestion Client***************
 
 private slots:
     //GESTION EMP***
@@ -61,9 +87,31 @@ private slots:
     void on_chercheInput_textChanged(const QString &arg1);
     void chartEmp();
     //GESTION EMP***
+//***************************************************************************************************************
+    //gestion Client***************
+    void on_ajouter_client_clicked();
+    void on_refreshClientBtn_clicked();//updated
+    void on_modifier_client_clicked();
+    void setClientFormulaire();//updated
+    void on_clear_client_clicked();
+    void on_pdfBtn_clicked();
+    void on_search_client_clicked();
+    void on_search_input_textChanged(const QString &arg1);
+    void on_stat_clicked();
+    void on_trie_client_clicked();
+    void on_Alerte_btn_clicked();
+    void test_callArd();
+    void on_call_testBtn_clicked();
+    void on_recive_callBtnTimer_clicked();
+    //gestion Client***************
 
 private:
     Ui::Integration *ui;
+    //gestion Client***************
+    DuScene *mScene;
+    //gestion Client***************
+    QCompleter *stringCompleter;
+    QCompleter *ModelCompleter;
 };
 
 #endif // INTEGRATION_H

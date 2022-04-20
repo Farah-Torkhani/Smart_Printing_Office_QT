@@ -2,8 +2,6 @@
 #include "ui_integration.h"
 
 
-
-
 //GESTION EMP***
 QVBoxLayout *layoutt = new QVBoxLayout();
 QTimer *timerRefresh = new QTimer();
@@ -16,13 +14,25 @@ QTimer *timerChartEmp = new QTimer();
 int cin = 0;
 //GESTION EMP***
 
+//GESTION Client***
+int testnum=0;
+QVBoxLayout *layouttClient = new QVBoxLayout();
+int cinClient = 0;
+QTimer *timer = new QTimer();//setFormulaire
+QTimer *timer2 = new QTimer();//refresh
+QTimer *timer3 = new QTimer(); //recher
+QTimer *timer4 = new QTimer(); //stat
+QTimer *timerTestCall2 = new QTimer();//
+QString pch="",pch2="";
+//GESTION Client***
+
 Integration::Integration(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Integration)
 {
     ui->setupUi(this);
 
-    //GESTION EMP:START***
+    //GESTION EMP:START***********************************************
     ui->trieOption->addItem("par défaut");
     ui->trieOption->addItem("nom");
     ui->trieOption->addItem("date_emb");
@@ -77,7 +87,50 @@ Integration::Integration(QWidget *parent) :
 //    connect(timerChercheTest, SIGNAL(timeout()), this, SLOT(testChercheInput()));
 //    timerChercheTest->start(500);
 
-    //GESTION EMP:END***
+    //GESTION EMP:END*******************************************************************************
+
+
+    //***********************************Gestion Client********************************************
+    //*******************trie options**************************
+        ui->clien_combo->addItem("par défaut");
+            ui->clien_combo->addItem("nom");
+            ui->clien_combo->addItem("prenom");
+            ui->clien_combo->addItem("date_ajout");
+    //*******************trie options***************************
+
+
+    //*******************controle de saisie*****************************
+        ui->Cin_f->setValidator(new QIntValidator (0,99999999,ui->Cin_f));
+        ui->Nom_f->setValidator(new QRegExpValidator(  QRegExp("[A-Za-z]*")  ));
+        ui->Prenom_f->setValidator(new QRegExpValidator(  QRegExp("[A-Za-z]*")  ));
+        ui->Phone_f->setValidator(new QIntValidator (0,99999999,ui->Phone_f));
+
+    //*******************controle de saisie*****************************
+
+        //scroll area
+        ui->scrollAreaClient->setWidget( ui->scrollAreaWidgetContentsClient );
+        ui->scrollAreaWidgetContentsClient ->setLayout( layouttClient );
+        //end scroll area
+
+    //***********************************Gestion Client********************************************
+        connect(timer, SIGNAL(timeout()), this, SLOT(setClientFormulaire()));
+        //timer->start(500);
+        connect(timer2, SIGNAL(timeout()), this, SLOT(on_refreshClientBtn_clicked()));
+        timer2->start(100);
+        connect(timer3, SIGNAL(timeout()), this, SLOT(on_search_client_clicked()));
+    //    timer3->start(3000);
+
+        mScene = new DuScene(this);
+        ui->graphicsView->setScene(mScene);
+
+        connect(timer4, SIGNAL(timeout()), this, SLOT(on_stat_clicked()));
+        timer4->start(500);
+
+    //  QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(test_callArd())); // permet de lancer
+    //le slot update_label suite à la reception du signal readyRead (reception des données).
+
+        connect(timerTestCall2, SIGNAL(timeout()), this, SLOT(test_callArd()));
+         //timerTestCall2->start(1500);
 
 }
 
@@ -449,8 +502,6 @@ void Integration::on_me_chatBtn_clicked()
     chat->show();
 }
 
-
-
 void Integration::test(){
     QStringList CompletionList;
                   Employees e;
@@ -551,7 +602,569 @@ void Integration::chartEmp()
         timerChartEmp->stop();
 }
 
-//GESTION EMP:END***
+//GESTION EMP:END************************************************************************************
+
+//********************************Gestion Client**********************************************************
+void Integration::on_ajouter_client_clicked()
+{
+    int cinClient=ui->Cin_f->text().toInt();
+    QString nomClient=ui->Nom_f->text();
+    QString prenomClient=ui->Prenom_f->text();
+    QString emailClient=ui->Email_f->text();
+    int telClient=ui->Phone_f->text().toInt();
+
+
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+    c.is_email_valid(emailClient);
+
+     if(c.is_email_valid(emailClient))
+     {
+           bool test_ajout = c.ajouter();
+
+        if(test_ajout)
+        {
+            QMessageBox::information(nullptr,QObject::tr("ok"),
+                                   QObject::tr(" effectue\n"
+                                               "click cancel to exit."),QMessageBox::Cancel);
+            timer2->start(100);
+            timer4->start(100);
+            on_clear_client_clicked();
+        }
+        else  QMessageBox::critical(nullptr,QObject::tr("Not ok"),
+                                       QObject::tr("non effectue\n"
+                                                   "click cancel to exit."),QMessageBox::Cancel);
+
+     }
+     else  QMessageBox::critical(nullptr,QObject::tr("invalid email"),
+                                    QObject::tr("invalid email\n"
+                                                "Click Cancel to exit."),QMessageBox::Cancel);
+
+
+}
+
+void Client_row_table::deleteBtn_clicked()
+{
+
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    int cinClient = buttonSender->whatsThis().toInt();
+//    qDebug()<< cin;
+
+    QString nomClient="";
+    QString prenomClient="";
+    QString emailClient="";
+    int telClient = 0;
+
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+    bool test = c.supprimerClient(cinClient);
+
+    if(test){
+        QMessageBox::information(nullptr, QObject::tr("delete status"),QObject::tr("Client deleted.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        timer2->start(100);
+        timer4->start(100);
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("Client not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }
+
+}
+
+void Integration::on_refreshClientBtn_clicked()
+{
+
+    while(!layouttClient->isEmpty()){
+    QLayoutItem* item = layouttClient->itemAt(0);
+    layouttClient->removeItem(item);
+    QWidget* widgett = item->widget();
+    if(widgett)
+        {
+            delete widgett;
+        }
+    }
+
+
+    int cinClient=ui->Cin_f->text().toInt();
+    QString nomClient=ui->Nom_f->text();
+    QString prenomClient=ui->Prenom_f->text();
+    QString emailClient=ui->Email_f->text();
+    int telClient=ui->Phone_f->text().toInt();
+
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+
+    QString triOption = ui->clien_combo->currentText();
+
+    QSqlQuery clientList = c.trierCilent(triOption);
+    while (clientList.next()) {
+        Client_row_table *row = new Client_row_table(ui->scrollArea,clientList.value(0).toString(),clientList.value(1).toString(),clientList.value(2).toString(),clientList.value(3).toString(),clientList.value(4).toString());
+        row->setMinimumHeight(34);
+        layouttClient->addWidget( row );
+    }
+    QStringList CompletionList;
+
+     CompletionList = c.rechercherClients();
+
+    stringCompleter = new QCompleter(CompletionList,this);
+    stringCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->search_input->setCompleter(stringCompleter);
+
+
+    //openSSl version
+
+    qDebug()<<QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString();
+
+
+
+
+
+timer2->stop();
+}
+
+void Integration::on_modifier_client_clicked()
+{
+    int cinClient = ui->Cin_f->text().toInt();
+    QString nomClient = ui->Nom_f->text();
+    QString prenomClient = ui->Prenom_f->text();
+    QString emailClient = ui->Email_f->text();
+    int telClient = ui->Phone_f->text().toInt();
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+    bool test = c.modifierClient();
+
+    if(test){
+        QMessageBox::information(nullptr, QObject::tr("update status"),QObject::tr("Client updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        timer2->start(100);
+        on_clear_client_clicked();
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("Client not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }
+
+}
+
+void Integration::setClientFormulaire()
+{
+    if(cinClient != -999999999){
+
+        //int cinClient=0;
+        QString nomClient="";
+        QString prenomClient="";
+        QString emailClient="";
+        int telClient=0;
+
+
+        Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+        QSqlQuery clientInfo = c.afficherCilent(cinClient);
+        clientInfo.next();
+        ui->Cin_f->setText(clientInfo.value(0).toString());
+        ui->Nom_f->setText(clientInfo.value(1).toString());
+        ui->Prenom_f->setText(clientInfo.value(2).toString());
+        ui->Email_f->setText(clientInfo.value(3).toString());
+        ui->Phone_f->setText(clientInfo.value(4).toString());
+
+        bool inputsFocus = ui->Cin_f->hasFocus() || ui->Nom_f->hasFocus() || ui->Prenom_f->hasFocus() || ui->Email_f->hasFocus() || ui->Phone_f->hasFocus() ;
+        if(inputsFocus){
+            timer->stop();
+        }
+    }
+}
+
+void Client_row_table::updateBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    cinClient = buttonSender->whatsThis().toInt();
+
+    QString nomClient="";
+    QString prenomClient="";
+    QString emailClient="";
+    int telClient=0;
+
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+    timer->start(100);
+}
+
+void Integration::on_clear_client_clicked()
+{
+    timer->stop();
+    ui->Cin_f->setText("");
+    ui->Nom_f->setText("");
+    ui->Prenom_f->setText("");
+    ui->Email_f->setText("");
+    ui->Phone_f->setText("");
+}
+
+void Integration::on_pdfBtn_clicked()
+{
+    QPdfWriter pdf("C:/Users/ALI/Desktop/Pdf/Liste_Client.pdf");
+
+   QPainter painter(&pdf);
+   int i = 4100;
+   const QImage image(":/Resources/client_img/logo.png");
+               const QPoint imageCoordinates(155,0);
+               int width1 = 1600;
+               int height1 = 1600;
+               QImage img=image.scaled(width1,height1);
+               painter.drawImage(imageCoordinates, img );
+
+
+          QColor dateColor(0x4a5bcf);
+          painter.setPen(dateColor);
+
+          painter.setFont(QFont("Montserrat SemiBold", 11));
+          QDate cd = QDate::currentDate();
+          painter.drawText(8400,250,cd.toString("Tunis"));
+          painter.drawText(8100,500,cd.toString("dd/MM/yyyy"));
+
+          QColor titleColor(0x341763);
+          painter.setPen(titleColor);
+          painter.setFont(QFont("Montserrat SemiBold", 25));
+
+          painter.drawText(3000,2700,"Liste des clients");
+
+          painter.setPen(Qt::black);
+          painter.setFont(QFont("Time New Roman", 15));
+          //painter.drawRect(100,100,9400,2500);
+          painter.drawRect(100,3300,9400,500);
+
+          painter.setFont(QFont("Montserrat SemiBold", 10));
+
+          painter.drawText(500,3600,"Cin");
+          painter.drawText(2000,3600,"Nom");
+          painter.drawText(3300,3600,"Prenom");
+          painter.drawText(4500,3600,"Email");
+          painter.drawText(7500,3600,"Phone");
+          painter.setFont(QFont("Montserrat", 10));
+          painter.drawRect(100,3300,9400,9000);
+
+          QSqlQuery query;
+          query.prepare("select * from clients");
+          query.exec();
+          int y=4300;
+          while (query.next())
+          {
+              painter.drawLine(100,y,9490,y);
+              y+=500;
+              painter.drawText(500,i,query.value(0).toString());
+              painter.drawText(2000,i,query.value(1).toString());
+              painter.drawText(3300,i,query.value(2).toString());
+              painter.drawText(4500,i,query.value(3).toString());
+              painter.drawText(7500,i,query.value(4).toString());
+
+             i = i + 500;
+          }
+          QMessageBox::information(this, QObject::tr("PDF Enregistré!"),
+          QObject::tr("PDF Enregistré!.\n" "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void Integration::on_search_client_clicked()
+{
+
+       QString chaine_c=ui->search_input->text();
+
+       if(chaine_c !="")
+       {
+           timer2->stop();
+           timer3->start(100);
+
+
+        while(!layouttClient->isEmpty()){
+        QLayoutItem* item = layouttClient->itemAt(0);
+        layouttClient->removeItem(item);
+        QWidget* widgett = item->widget();
+        if(widgett)
+            {
+                delete widgett;
+            }
+        }
+
+
+        int cinClient=0;
+        QString nomClient="";
+        QString prenomClient="";
+        QString emailClient="";
+        int telClient=0;
+
+
+        Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+
+
+        QSqlQuery clientList = c.rechercherClient(chaine_c);
+        while (clientList.next()) {
+            Client_row_table *row = new Client_row_table(ui->scrollArea,clientList.value(0).toString(),clientList.value(1).toString(),clientList.value(2).toString(),clientList.value(3).toString(),clientList.value(4).toString());
+            row->setMinimumHeight(34);
+            layouttClient->addWidget( row );
+        }
+
+        }
+       else
+       {
+           timer3->stop();
+           timer2->start(100);
+
+       }
+
+timer3->stop();
+
+}
+
+void Integration::on_search_input_textChanged(const QString &arg1)
+{
+    on_search_client_clicked();
+}
+
+void Integration::on_stat_clicked()
+{
+
+    QBarSet *set1 = new QBarSet("Nombre de clients par mois");
+
+    int cinClient=0;
+    QString nomClient="";
+    QString prenomClient="";
+    QString emailClient="";
+    int telClient=0;
+
+
+    Client_fonction c( cinClient, nomClient,  prenomClient,  emailClient,  telClient );
+
+    *set1 <<  c.statistiqueCilents(1)
+          <<  c.statistiqueCilents(2)
+          <<  c.statistiqueCilents(3)
+          <<  c.statistiqueCilents(4)
+          << c.statistiqueCilents(5)
+          << c.statistiqueCilents(6)
+          << c.statistiqueCilents(7)
+          << c.statistiqueCilents(8)
+          << c.statistiqueCilents(9)
+          << c.statistiqueCilents(10)
+          << c.statistiqueCilents(11)
+          << c.statistiqueCilents(12) ;
+
+        qDebug()<< c.statistiqueCilents(2);
+
+
+
+        QBarSeries *series = new QBarSeries();
+
+        series->append(set1);
+
+        QColor color(0x6568F3);
+        set1->setColor(color);
+
+
+        QChart *chart = new QChart();
+
+
+
+
+            chart->addSeries(series);
+            chart->setTitle("");
+          //  chart->setAnimationOptions(QChart::SeriesAnimations);
+               QColor bgColor(0xF4DCD3);
+               chart->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+               chart->setBackgroundVisible(true);
+//               chart->setBackgroundVisible(false);
+
+            QStringList categories;
+            categories << "Jan" << "Fiv" << "Mar" << "Avr" << "Mai" << "Juin" << "Jui" <<"Aou" << "sep" << "Oct" << "Nov" << "Dec" ;
+            QBarCategoryAxis *axis = new QBarCategoryAxis();
+
+
+            axis->append(categories);
+
+            chart->createDefaultAxes();
+            chart->setAxisX(axis, series);
+
+
+            chart->setVisible(true);
+            chart->legend()->setAlignment(Qt::AlignBottom);
+
+
+            QChartView *chartView = new QChartView(chart);
+
+            chartView->setRenderHint(QPainter::Antialiasing);
+            QPalette pal = qApp->palette();
+            pal.setColor(QPalette::WindowText, QRgb(0x6568F3));
+            pal.setColor(QPalette::Window, QRgb(0x6568F3));
+            qApp->setPalette(pal);
+
+            chartView->setMaximumWidth(650);
+            chartView->setMaximumHeight(290);
+
+
+
+            chartView->setParent(ui->horizontalFrame);
+            chartView->show();
+
+
+            timer4->stop();
+
+}
+
+void Integration::on_trie_client_clicked()
+{
+    on_refreshClientBtn_clicked();
+}
+
+void Client_row_table::emailBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    cinClient = buttonSender->whatsThis().toInt();
+
+    Email *email = new Email();
+    email->cinClient = cinClient;
+
+    email->show();
+
+
+}
+
+void Integration::on_Alerte_btn_clicked()
+{
+    ui->etatReceiveCall->setText("OFF");
+    timerTestCall2->stop();
+    A.close_arduino();
+ int c=   A.close_arduino();
+
+    Arduino_client *arduino = new Arduino_client();
+
+    arduino->show();
+
+}
+
+void Client_row_table::callBtn_clicked()
+{
+//
+}
+
+void Client_row_table::smsBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    cinClient = buttonSender->whatsThis().toInt();
+
+    Sms *sms = new Sms();
+    sms->setCinClient(cinClient);
+
+    sms->show();
+
+}
+
+void Integration::test_callArd()
+{
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    data=A.read_from_arduino();
+    qDebug() << data;
+
+
+    if(strstr(data,"AT+CLCC\r\n\r\n")!=NULL)
+    {
+        pch = strstr (data,"\"");
+      //  pch2 = strstr (data,"");
+        qDebug() <<pch<<  "****"  <<pch2;
+      //p= strstr(ch1,ch2);
+    }
+
+
+    if(strstr(data,"\r\n\r\nOK")!=NULL)
+    {
+        pch2 = strstr (data,"");
+        qDebug() <<pch<<  "****"  <<pch2;
+      //p= strstr(ch1,ch2);
+
+    }
+
+    if(data == "\r\nRING\r\n")
+    {
+        qDebug() << "vous aves un appel!";
+        A.write_to_arduino("a");
+
+        data=A.read_from_arduino();
+        qDebug() << data;
+
+
+    //    timerTestCall->stop();
+    }
+    //qDebug()<<"numeroooo=" << pch+pch2;
+    QString concat=pch+pch2;
+  //  QString numberCall = concat.substr(1, 3);
+    QString numberCall=concat.mid(1,8);
+    qDebug()<<"numeroooo=" << numberCall;
+
+
+    //if(data == "\r\nNO CARRIER\r\n")
+    if( (data == "\r\nRING\r\n\r\nNO CARRIER\r\n") || (data == "\r\nNO CARRIER\r\n") )
+    {
+        //quitter
+
+         numberCall="aa";
+         qDebug()<<"numeroooo=**********************" << numberCall;
+          timerTestCall2->stop();
+         //A.close_arduino();
+
+    }
+
+//if( (numberCall.length()<6)  )
+//{
+//    test=0;
+//}
+    if( (numberCall.length()>6)  )
+    {
+        ui->etatReceiveCall->setText("OFF");
+        A.close_arduino();
+        testnum=1;
+        timerTestCall2->stop();
+        CallArd *call = new CallArd();
+       // call->setCinClient(cinClient);
+        call->call_numIn = numberCall;
+
+        call->show();
+    }
+
+    if(numberCall.length()<6)
+    {
+        testnum=0;
+    }
+
+  //  if(data == "1")
+  //  {
+     //   ui->niveauEncre->setText("cv"); // si les données reçues de arduino via la liaison série sont sup à ...
+  //  }
+  //  else
+  //  {
+       // ui->niveauEncre->setText("faible");   // si les données reçues de arduino via la liaison série sont inf à ...
+  //  }
+
+//    timerTestCall2->stop();
+
+
+}
+
+void Integration::on_call_testBtn_clicked()
+{
+    ui->etatReceiveCall->setText("OFF");
+    CallArd *call = new CallArd();
+   // call->setCinClient(cinClient);
+    //call->call_numIn = numberCall;
+
+    call->show();
+
+
+}
+
+void Integration::on_recive_callBtnTimer_clicked()
+{
+    timerTestCall2->start(1500);
+    ui->etatReceiveCall->setText("ON");
+}
+
+//********************************Gestion Client**********************************************************
 
 
 

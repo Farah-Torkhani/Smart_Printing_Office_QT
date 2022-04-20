@@ -17,32 +17,56 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     arduino.cpp \
+    arduino_client.cpp \
+    arduino_sms_row_table.cpp \
+    callard.cpp \
     chat.cpp \
     chatservice.cpp \
+    client_fonction.cpp \
+    client_row_table.cpp \
     connection.cpp \
+    duscene.cpp \
+    email.cpp \
     employees.cpp \
+    gifanimation.cpp \
     integration.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    row_table.cpp
+    row_table.cpp \
+    sms.cpp \
+    smtp.cpp
 
 HEADERS += \
     arduino.h \
+    arduino_client.h \
+    arduino_sms_row_table.h \
+    callard.h \
     chat.h \
     chatservice.h \
+    client_fonction.h \
+    client_row_table.h \
     connection.h \
+    duscene.h \
+    email.h \
     employees.h \
+    gifanimation.h \
     integration.h \
     login.h \
     mainwindow.h \
-    row_table.h
+    row_table.h \
+    sms.h \
+    smtp.h
 
 FORMS += \
+    arduino_client.ui \
+    callard.ui \
     chat.ui \
+    email.ui \
     integration.ui \
     login.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    sms.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -50,4 +74,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    Resources.qrc \
+    Resources.qrc \
     resource.qrc
