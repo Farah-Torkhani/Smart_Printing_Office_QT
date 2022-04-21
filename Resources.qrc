@@ -20,4 +20,25 @@
         <file>client_img/telephone.png</file>
         <file>client_img/trash-icon.png</file>
     </qresource>
+    <qresource prefix="/Machine_resources">
+        <file>img_m/arduino.png</file>
+        <file>img_m/bg.png</file>
+        <file>img_m/customer-support.png</file>
+        <file>img_m/edit-icon.png</file>
+        <file>img_m/email.png</file>
+        <file>img_m/eraser.png</file>
+        <file>img_m/excel.png</file>
+        <file>img_m/eye.png</file>
+        <file>img_m/mute.png</file>
+        <file>img_m/pdf.png</file>
+        <file>img_m/refresh.png</file>
+        <file>img_m/refresh-button.png</file>
+        <file>img_m/search.png</file>
+        <file>img_m/sort.png</file>
+        <file>img_m/spanner.png</file>
+        <file>img_m/spanner2.png</file>
+        <file>img_m/trash-icon.png</file>
+        <file>img_m/upload.png</file>
+        <file>img_m/volume.png</file>
+    </qresource>
 </RCC>

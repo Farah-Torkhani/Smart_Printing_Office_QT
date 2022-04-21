@@ -41,6 +41,15 @@
 #include <QSslSocket> //To use QSslSocket Class
 //Gestion Client***
 
+
+//Gestion Machine***
+#include <QFileInfo>
+#include "machine_fonction.h"
+#include "machine_row_table.h"
+#include "historiques_machine.h"
+#include "arduino_machine.h"
+//Gestion Machine***
+
 namespace Ui {
 class Integration;
 }
@@ -104,6 +113,21 @@ private slots:
     void on_call_testBtn_clicked();
     void on_recive_callBtnTimer_clicked();
     //gestion Client***************
+//-----------------------------------------------------------------------------------------------------------------------
+    //gestion Machine********************************
+    void on_ajouter_machine_clicked();
+    void on_refreshBtnMachine_clicked();
+    void on_modifier_machine_clicked();
+    void setFormulaireMachine();
+    void on_clear_machine_clicked();
+    void on_search_machine_clicked();
+    void on_search_input_machine_textChanged(const QString &arg1);
+    void on_trier_machine_clicked();
+    void on_statMachine_clicked();
+    void on_excel_btn_clicked();
+    void on_add_imageBtn_clicked();
+    void on_arduinoM_btn_clicked();
+    //gestion Machine*********************************
 
 private:
     Ui::Integration *ui;

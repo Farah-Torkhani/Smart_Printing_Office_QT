@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arduino.cpp \
     arduino_client.cpp \
+    arduino_machine.cpp \
     arduino_sms_row_table.cpp \
     callard.cpp \
     chat.cpp \
@@ -29,8 +30,11 @@ SOURCES += \
     email.cpp \
     employees.cpp \
     gifanimation.cpp \
+    historiques_machine.cpp \
     integration.cpp \
     login.cpp \
+    machine_fonction.cpp \
+    machine_row_table.cpp \
     main.cpp \
     mainwindow.cpp \
     row_table.cpp \
@@ -40,6 +44,7 @@ SOURCES += \
 HEADERS += \
     arduino.h \
     arduino_client.h \
+    arduino_machine.h \
     arduino_sms_row_table.h \
     callard.h \
     chat.h \
@@ -51,8 +56,11 @@ HEADERS += \
     email.h \
     employees.h \
     gifanimation.h \
+    historiques_machine.h \
     integration.h \
     login.h \
+    machine_fonction.h \
+    machine_row_table.h \
     mainwindow.h \
     row_table.h \
     sms.h \
@@ -60,9 +68,11 @@ HEADERS += \
 
 FORMS += \
     arduino_client.ui \
+    arduino_machine.ui \
     callard.ui \
     chat.ui \
     email.ui \
+    historiques_machine.ui \
     integration.ui \
     login.ui \
     mainwindow.ui \
