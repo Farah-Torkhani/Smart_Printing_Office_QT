@@ -14,5 +14,9 @@
         <file>img_m/spanner.png</file>
         <file>img_m/excel.png</file>
         <file>img_m/upload.png</file>
+        <file>img_m/arduino.png</file>
+        <file>img_m/mute.png</file>
+        <file>img_m/volume.png</file>
+        <file>img_m/customer-support.png</file>
     </qresource>
 </RCC>

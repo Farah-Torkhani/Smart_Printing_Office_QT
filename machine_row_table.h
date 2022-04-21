@@ -22,12 +22,15 @@ public:
     QPushButton *historiqueBtn = new QPushButton();
     QPushButton *editBtn = new QPushButton();
     QPushButton *deleteBtn = new QPushButton();
+    QPushButton *arduinoBtn = new QPushButton();
 
 private slots:
     void deleteBtn_clicked();
     void updateBtn_clicked();
     void repaireBtn_clicked();
     void historiqueBtn_clicked();
+    void arduinoBtn_clicked();
+
 
 
 

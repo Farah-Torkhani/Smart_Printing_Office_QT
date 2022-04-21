@@ -47,6 +47,8 @@ private slots:
 
     void on_add_imageBtn_clicked();
 
+    void on_arduinoM_btn_clicked();
+
 private:
     Ui::Machines *ui;
 

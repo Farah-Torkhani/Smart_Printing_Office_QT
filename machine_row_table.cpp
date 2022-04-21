@@ -42,7 +42,7 @@ Machine_row_table::Machine_row_table(QWidget *parent ,QString machineId,QString 
    prix_label->setMinimumHeight(64);
 
    etat_label->setParent(row_container);
-   etat_label->setGeometry(340,0,181,64);
+   etat_label->setGeometry(330,0,181,64);
  //  qDebug() <<"etatMachine="<< etatMachine;
    if(etatMachine.toInt() == 1)
    {
@@ -57,21 +57,21 @@ Machine_row_table::Machine_row_table(QWidget *parent ,QString machineId,QString 
    etat_label->setMinimumHeight(64);
 
    repaireBtn->setParent(row_container);
-   repaireBtn->setGeometry(450,0,54,64);
+   repaireBtn->setGeometry(440,0,54,64);
    repaireBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/Machine_resources/img_m/spanner.png);qproperty-iconSize: 24px;}QPushButton::hover {background-color: #D6DBFD;}");
    repaireBtn->setCursor(QCursor(Qt::PointingHandCursor));
    repaireBtn->setWhatsThis(machineId);
    repaireBtn->setWhatsThis(machineId);
 
    historiqueBtn->setParent(row_container);
-   historiqueBtn->setGeometry(550,0,54,64);
+   historiqueBtn->setGeometry(540,0,54,64);
    historiqueBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/Machine_resources/img_m/eye.png);qproperty-iconSize: 24px;}QPushButton::hover {background-color: #D6DBFD;}");
    historiqueBtn->setCursor(QCursor(Qt::PointingHandCursor));
    historiqueBtn->setWhatsThis(machineId);
    historiqueBtn->setWhatsThis(machineId);
 
    editBtn->setParent(row_container);
-   editBtn->setGeometry(660,0,54,64);
+   editBtn->setGeometry(650,0,54,64);
    editBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/Machine_resources/img_m/edit-icon.png);qproperty-iconSize: 22px;}QPushButton::hover {background-color: #D6DBFD;}");
    editBtn->setCursor(QCursor(Qt::PointingHandCursor));
    editBtn->setWhatsThis(machineId);
@@ -79,15 +79,27 @@ Machine_row_table::Machine_row_table(QWidget *parent ,QString machineId,QString 
 
    deleteBtn->setObjectName("deleteBtn");
    deleteBtn->setParent(row_container);
-   deleteBtn->setGeometry(730,0,54,64);
+   deleteBtn->setGeometry(710,0,54,64);
    deleteBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/Machine_resources/img_m/trash-icon.png);qproperty-iconSize: 22px;}QPushButton::hover {background-color: #D6DBFD;}");
    deleteBtn->setCursor(QCursor(Qt::PointingHandCursor));
    deleteBtn->setWhatsThis(machineId);
+
+   arduinoBtn->setObjectName("arduinoBtn");
+   arduinoBtn->setParent(row_container);
+   arduinoBtn->setGeometry(770,0,54,64);
+   arduinoBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/Machine_resources/img_m/customer-support.png);qproperty-iconSize: 22px;}QPushButton::hover {background-color: #D6DBFD;}");
+   arduinoBtn->setCursor(QCursor(Qt::PointingHandCursor));
+   arduinoBtn->setWhatsThis(machineId);
+
+
+
+
 
    connect(deleteBtn, &QPushButton::clicked, this, &Machine_row_table::deleteBtn_clicked);
    connect(editBtn, &QPushButton::clicked, this, &Machine_row_table::updateBtn_clicked);
    connect(repaireBtn, &QPushButton::clicked, this, &Machine_row_table::repaireBtn_clicked);
    connect(historiqueBtn, &QPushButton::clicked, this, &Machine_row_table::historiqueBtn_clicked);
+   connect(arduinoBtn, &QPushButton::clicked, this, &Machine_row_table::arduinoBtn_clicked);
 
 
 }

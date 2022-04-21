@@ -3,6 +3,7 @@
 #include "ui_machines.h"
 #include "machine_row_table.h"
 #include "historiques_machine.h"
+#include "arduino_machine.h"
 
 #include <QVBoxLayout>
 #include <QScrollArea>
@@ -556,3 +557,41 @@ void Machine_row_table::historiqueBtn_clicked()
 
 
  }
+
+void Machines::on_arduinoM_btn_clicked()
+{
+    Arduino_machine *arduino = new Arduino_machine();
+
+    arduino->show();
+
+}
+
+
+
+
+
+//****************************************************************************************************
+void Machine_row_table::arduinoBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    int machineId =buttonSender->whatsThis().toInt();
+
+    QString nomMachine="";
+    QString machineImg="";
+    int etatMachine=0;
+    int prixMachine=0;
+
+
+    Machine_fonction m( nomMachine, machineImg,  prixMachine,  etatMachine);
+
+
+    QSqlQuery machineList = m.afficherMachine(machineId);
+    machineList.next();
+    //nomMachine = machineList.value(1).toString();
+
+    Arduino_machine *arduino = new Arduino_machine();
+    arduino->nomMachine = machineList.value(1).toString();
+
+    arduino->show();
+
+}

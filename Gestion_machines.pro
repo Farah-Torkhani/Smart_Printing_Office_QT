@@ -1,4 +1,4 @@
-QT       += core gui charts sql
+QT       += core gui charts sql serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    arduino.cpp \
+    arduino_machine.cpp \
     connection.cpp \
     historiques_machine.cpp \
     machine_fonction.cpp \
@@ -25,6 +27,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    arduino.h \
+    arduino_machine.h \
     connection.h \
     historiques_machine.h \
     machine_fonction.h \
@@ -33,6 +37,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    arduino_machine.ui \
     historiques_machine.ui \
     machines.ui \
     mainwindow.ui
