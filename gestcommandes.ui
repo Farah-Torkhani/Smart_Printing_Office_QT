@@ -1033,6 +1033,34 @@ border-radius:10px;
       <string>refreshBtn</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="arduinoM_btn">
+     <property name="geometry">
+      <rect>
+       <x>1210</x>
+       <y>300</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#arduinoM_btn{
+color:white;
+background-color:#FF7244;
+border-radius:10px;
+
+}
+
+#arduinoM_btn:hover{
+background-color:#6568F3;
+border-radius:10px;
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>arduino</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_21">
     <attribute name="title">

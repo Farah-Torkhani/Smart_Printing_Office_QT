@@ -52,6 +52,8 @@ private slots:
 
     void on_LoadCinEmployee_clicked();
 
+    void on_arduinoM_btn_clicked();
+
 private:
     Ui::Gestcommandes *ui;
 

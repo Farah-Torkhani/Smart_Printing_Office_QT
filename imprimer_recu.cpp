@@ -99,18 +99,18 @@ QString prenomc=ui->prenomclient->text();
                        out <<"<html>\n"
                                        "<head>\n"
                                          "<meta Content=\"Text/html; charset=Windows-1251\">\n"
-                          << "<title>ERP - COMmANDE recu<title>\n "
+                          << "<title>ERP - Commande recu<title>\n "
                             << "</head>\n"
       "<body bgcolor=#ffffff link=#5000A0>\n"
                                "<h1 style=\"text-align: center;\"><strong> "+TT+"</strong></h1>"
                                                       "<h1 style=\"text-align: center;\"><strong> ******Recu  commandes ****** </strong></h1>";
                                          out << QString("<font size=\"+2\" color=\"red\"> Descreption\n</font>").arg((QString("<font size=\"+5\"&TE;</font>")));
                                          out <<TE;
-                                         out << QString("<br><font size=\"+2\" color=\"red\">Date de commande</font>\n").arg((QString("<font size=\"+5\"&Date;</font>")));
+                                         out << QString("<br><font size=\"+2\" color=\"red\">Date de commande</font>\n").arg((QString("<font size=\"+10\"&Date;</font>")));
                                          out <<Date;
-                                           out << QString("<br><font size=\"+2\" color=\"red\">Nom du client</font>\n").arg((QString("<font size=\"+5\"&nomc;</font>")));
+                                           out << QString("<br><font size=\"+2\" color=\"red\">Nom du client</font>\n").arg((QString("<font size=\"+10\"&nomc;</font>")));
                                          out <<nomc;
-                                         out << QString("<br><font size=\"+2\" color=\"red\">prenom du client</font>\n").arg((QString("<font size=\"+5\"&prenomc;</font>")));
+                                         out << QString("<br><font size=\"+2\" color=\"red\">prenom du client</font>\n").arg((QString("<font size=\"+10\"&prenomc;</font>")));
 
                                          out <<prenomc;
 

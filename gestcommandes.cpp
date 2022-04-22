@@ -12,7 +12,7 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlQueryModel>
 #include <QSqlQuery>
-
+#include "arduino_machine.h"
 #include "date_fin.h"
 #include <imprimer_recu.h>
 
@@ -525,4 +525,11 @@ void commandes_row_table::etatBtn_clicked()
         date ->idCommande = idComm;
 
         date->show();
+}
+
+void Gestcommandes::on_arduinoM_btn_clicked()
+{
+    Arduino_machine *arduino = new Arduino_machine();
+
+    arduino->show();
 }

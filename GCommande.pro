@@ -1,4 +1,4 @@
-QT       += core gui charts sql  printsupport
+QT       += core gui charts sql  printsupport serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    arduino.cpp \
+    arduino_machine.cpp \
     commandes.cpp \
     commandes_row_table.cpp \
     connection.cpp \
@@ -26,6 +28,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    arduino.h \
+    arduino_machine.h \
     commandes.h \
     commandes_row_table.h \
     connection.h \
@@ -35,6 +39,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    arduino_machine.ui \
     date_fin.ui \
     gestcommandes.ui \
     imprimer_recu.ui \
