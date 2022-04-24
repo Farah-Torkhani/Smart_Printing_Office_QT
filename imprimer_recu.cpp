@@ -39,46 +39,47 @@ void imprimer_recu::setRecuInfo()
 {
 
 
-      QString descreption="";
-    QString etat="";
+    QString descreption="";
     int quantiteCouleur=0;
     QString quantiteSansCouleur="";
-    int cinemp=0;
     int cinclient=0;
-
-    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
+    QString date_Fin="";
+    Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
 
 
     QSqlQuery commandeInfo = c.afficherCommande(idComm);
-    QSqlQuery query;
-    QString nom;
-    query.prepare("select c.nomclient FROM client c,commandes com where com.cinclient= c.cinclient  ");
-   query.exec();
-   query.next();
-QString v=query.value(0).toString();
-
-
-query.prepare("select c.prenomclient FROM client c,commandes com where com.cinclient= c.cinclient  ");
-query.exec();
-query.next();
-QString v1=query.value(0).toString();
-
-
     commandeInfo.next();
-    ui->descreption->setText(commandeInfo.value(1).toString());
-    qDebug()<<"idComm=" << idComm;
 
-
+    ui->descreption->setPlainText(commandeInfo.value(1).toString());
     ui->descreption->setReadOnly(true);
-    ui->date->setText(commandeInfo.value(2).toString().split("T")[0]);
+
+    ui->date->setDate(commandeInfo.value(2).toDate());//.split("T")[0]
     ui->date->setReadOnly(true);
-    ui->nomclient->setText(v);
+
+    int cinClient = commandeInfo.value(6).toInt();
+    QString cin = commandeInfo.value(6).toString();
+
+    QSqlQuery query;
+    query.prepare("select nomclient,prenomClient from clients where CINCLIENT=:cinClient ");
+    query.bindValue(":cinClient",cinClient);
+    query.exec();
+    query.next();
+
+    QString nomClient = query.value(0).toString();
+    QString prenomClient = query.value(1).toString();
+
+    //qDebug()<<"idComm=" << idComm;
+
+
+    ui->nomclient->setText(nomClient);
      ui->nomclient->setReadOnly(true);
-    ui->prenomclient->setText(v1);
+
+    ui->prenomclient->setText(prenomClient);
      ui->prenomclient->setReadOnly(true);
-  //   ui->nomclient->setReadOnly(true);
-   // ui->nomclient->setText(commandeInfo.value(2).toString());
-  //  ui->prix->setReadOnly(true);
+
+     ui->cinclient->setReadOnly(true);
+    ui->cinclient->setText(cin);
+    ui->cinclient->setReadOnly(true);
 
 
 }
@@ -87,7 +88,7 @@ void imprimer_recu::on_valider_clicked()
 {
     QPrinter printer;
         QTextDocument doc;
-        QString TE = ui->descreption->text();
+        QString TE = ui->descreption->toPlainText();
         QString Date = ui->date->text();
 QString nomc=    ui->nomclient->text();
 QString prenomc=ui->prenomclient->text();

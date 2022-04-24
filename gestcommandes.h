@@ -22,37 +22,26 @@ public:
     ~Gestcommandes();
 
 private slots:
-
-
-    void setFormulaire();
-    void on_ajouter_clicked();
-
+    void setCommandeFormulaire();
+    void on_ajouter_commande_clicked();
     void on_modifier_commande_clicked();
-
-    void on_refreshBtn_clicked();
-
+    void on_refreshCommandeBtn_clicked();
     void on_clear_commande_clicked();
-
-   // void on_comboBox_7_activated(const QString &arg1);
 
     void on_chercher_commande_textChanged(const QString &arg1);
 
     void on_search_commandeBtn_clicked();
     void on_statCommande_clicked();
+    void setCinClient_combo();
+
+   // void on_ajouter_2_clicked();
+
+   // void on_ajouter_3_clicked();
+
+//    void on_LoadCinEmployee_clicked();
 
 
-
-
-
-    void on_Client_currentIndexChanged(const QString &arg1);
-
-    void on_ajouter_2_clicked();
-
-    void on_ajouter_3_clicked();
-
-    void on_LoadCinEmployee_clicked();
-
-    void on_arduinoM_btn_clicked();
+    void on_trie_commande_clicked();
 
 private:
     Ui::Gestcommandes *ui;

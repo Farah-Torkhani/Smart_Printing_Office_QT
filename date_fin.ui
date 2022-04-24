@@ -14,9 +14,8 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Date_fin
-{
-background-image:url(:/img/ressources/img/bg.png);
+   <string notr="true">#Date_fin{
+background-image:url(:/resource/imgCommande/bg.png);
 }</string>
   </property>
   <widget class="QLineEdit" name="dateFin">
@@ -33,11 +32,15 @@ background-image:url(:/img/ressources/img/bg.png);
      <pointsize>13</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">padding-left:10px;
+border-radius:10px;</string>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>60</x>
      <y>60</y>
      <width>241</width>
      <height>51</height>
@@ -52,7 +55,7 @@ background-image:url(:/img/ressources/img/bg.png);
    </property>
    <property name="styleSheet">
     <string notr="true">color:#341763;
-font-size:15px;</string>
+font-size:18px;</string>
    </property>
    <property name="text">
     <string>Il vous reste :</string>
@@ -69,11 +72,12 @@ font-size:15px;</string>
    </property>
    <property name="font">
     <font>
+     <family>Montserrat</family>
      <pointsize>13</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>jours</string>
+    <string>jours.</string>
    </property>
   </widget>
  </widget>

@@ -1,23 +1,24 @@
 <RCC>
-    <qresource prefix="/img">
-        <file>ressources/img/eng.png</file>
-        <file>ressources/img/fr.png</file>
-        <file>ressources/img/lang_icon.png</file>
-        <file>ressources/img/bg.png</file>
-        <file>ressources/img/edit-icon.png</file>
-        <file>ressources/img/eraser.png</file>
-        <file>ressources/img/search.png</file>
-        <file>ressources/img/sort.png</file>
-        <file>ressources/img/trash-icon.png</file>
-        <file>ressources/img/imprimante.png</file>
-        <file>ressources/img/clock.png</file>
-        <file>ressources/img/mute.png</file>
-        <file>ressources/img/refresh.png</file>
-        <file>ressources/img/refresh-button.png</file>
-        <file>ressources/img/volume.png</file>
-    </qresource>
-    <qresource prefix="/">
+    <qresource prefix="/resource">
         <file>anglais.qm</file>
         <file>anglais1.qm</file>
+        <file>imgCommande/bg.png</file>
+        <file>imgCommande/clock.png</file>
+        <file>imgCommande/edit-icon.png</file>
+        <file>imgCommande/eng.png</file>
+        <file>imgCommande/eraser.png</file>
+        <file>imgCommande/eye.png</file>
+        <file>imgCommande/fr.png</file>
+        <file>imgCommande/imprimante.png</file>
+        <file>imgCommande/lang_icon.png</file>
+        <file>imgCommande/Logo.png</file>
+        <file>imgCommande/mute.png</file>
+        <file>imgCommande/refresh-button.png</file>
+        <file>imgCommande/refresh.png</file>
+        <file>imgCommande/search.png</file>
+        <file>imgCommande/sort.png</file>
+        <file>imgCommande/trash-icon.png</file>
+        <file>imgCommande/volume.png</file>
+        <file>imgCommande/spanner.png</file>
     </qresource>
 </RCC>

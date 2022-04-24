@@ -8,13 +8,12 @@ class Commandes
 {
 public:
     Commandes();
-    Commandes(QString descreption, QString etat, int quantiteCouleur, QString quantiteSansCouleur , int cinemp,int cinclient );
+    Commandes(QString descreption, int quantiteCouleur, QString quantiteSansCouleur,int cinclient,QString date_Fin);
 
     QString getDescreption(){return descreption;}
-    QString getEtat(){return etat;}
     int getQuantiteCouleur(){return  quantiteCouleur;}
     QString getQuantiteSansCouleur(){return quantiteSansCouleur;}
-    bool ajouterCommandes(QString date_fin);
+    bool ajouterCommandes();
      QSqlQuery afficherCommande();
          bool supprimerCommandes(int Commandesid);
 
@@ -25,19 +24,16 @@ public:
         QStringList rechercherCommandes();
         int statistiqueCommande(int month);
           QSqlQuery editview(QString);
-
           int dateFin(int idCommande);
-
+          void repaireDateFinCommande(int idCommande);
 
 
 private:
-
     QString descreption;
-    QString etat;
     int quantiteCouleur;
     QString quantiteSansCouleur;
-    int cinemp;
     int cinclient;
+    QString date_Fin;
 
 };
 

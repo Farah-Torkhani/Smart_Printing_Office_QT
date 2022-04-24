@@ -2,9 +2,8 @@
 #include "commandes.h"
 #include "ui_date_fin.h"
 
-
 #include <QTimer>
-QTimer *timerr = new QTimer();
+QTimer *timerrSetDate = new QTimer();
 
 
 Date_fin::Date_fin(QWidget *parent) :
@@ -13,8 +12,8 @@ Date_fin::Date_fin(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(timerr, SIGNAL(timeout()), this, SLOT(setDate()));
-    timerr->start(500);
+    connect(timerrSetDate, SIGNAL(timeout()), this, SLOT(setDate()));
+    timerrSetDate->start(100);
 }
 
 Date_fin::~Date_fin()
@@ -26,13 +25,11 @@ Date_fin::~Date_fin()
 void Date_fin::setDate()
 {
     QString descreption="";
-    QString etat="";
     int quantiteCouleur=0;
     QString quantiteSansCouleur="";
-    int cinemp=0;
     int cinclient=0;
-
-    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
+    QString date_Fin="";
+    Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
 
 
 
@@ -43,4 +40,5 @@ void Date_fin::setDate()
      ui->dateFin->setText(QString::number(commandeInfo));
      ui->dateFin->setReadOnly(true);
 
+     timerrSetDate->stop();
 }

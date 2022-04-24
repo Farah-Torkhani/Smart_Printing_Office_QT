@@ -12,20 +12,19 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlQueryModel>
 #include <QSqlQuery>
-#include "arduino_machine.h"
+
+#include "descreption_commande.h"
 #include "date_fin.h"
 #include <imprimer_recu.h>
 
 int id = 0;
 QTranslator T;
-QTimer *timer = new QTimer();
-QTimer *timer2 = new QTimer();
-QTimer *timer3 = new QTimer(); //recher
-QTimer *timer4 = new QTimer(); //stat
-QTimer *timer5 = new QTimer();
-QTimer *timer6 = new QTimer();
+QTimer *timerCommande = new QTimer();//setFormulaire
+QTimer *timer2Commande = new QTimer();//reflesh
+QTimer *timer3Commande = new QTimer(); //recher
+QTimer *timer4Commande = new QTimer(); //stat
 
-QVBoxLayout *layoutt = new QVBoxLayout();
+QVBoxLayout *layouttCommande = new QVBoxLayout();
 Gestcommandes::Gestcommandes(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Gestcommandes)
@@ -34,53 +33,38 @@ Gestcommandes::Gestcommandes(QWidget *parent) :
 
 
     ui->setupUi(this);
-    ui->comboBox_7->addItem("par défaut");
-        ui->comboBox_7->addItem("date");
-        ui->comboBox_7->addItem("etat");
-        ui->comboBox_7->addItem("quantiteCouleur");
-QString descreption="";
-QString etat="";
-QString quantiteCouleur="";
-QString quantiteSansCouleur="";
+
+    ui->commande_combo->addItem("par défaut");
+    ui->commande_combo->addItem("date");
+    ui->commande_combo->addItem("etat");
+    ui->commande_combo->addItem("quantiteCouleur");
+    QString descreption="";
+    QString etat="";
+    QString quantiteCouleur="";
+    QString quantiteSansCouleur="";
 
 
-ui->scrollArea->setWidget( ui->scrollAreaWidgetContents );
- ui->scrollAreaWidgetContents ->setLayout( layoutt );
-
-Commandes c("","",0,"",0,0);
-
- QSqlQuery commandeList = c.afficherCommande();
-
-    while (commandeList.next()) {
-
-      commandes_row_table *row = new commandes_row_table(ui->scrollArea,commandeList.value(1).toString(),commandeList.value(2).toString(),commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(5).toString(),commandeList.value(0).toString());
-       row->setMinimumHeight(34);
-       layoutt->addWidget( row );
-   }
-
+    ui->scrollAreaCommande->setWidget( ui->scrollAreaWidgetContentsCommande );
+     ui->scrollAreaWidgetContentsCommande ->setLayout( layouttCommande );
    //end scroll area
 
-    connect(timer, SIGNAL(timeout()), this, SLOT(setFormulaire()));
+    connect(timerCommande, SIGNAL(timeout()), this, SLOT(setCommandeFormulaire()));
     //timer->start(500);
 
-    connect(timer2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
-    timer2->start(500);
+    connect(timer2Commande, SIGNAL(timeout()), this, SLOT(on_refreshCommandeBtn_clicked()));
+    timer2Commande->start(100);
 
 
-    connect(timer3, SIGNAL(timeout()), this, SLOT(on_search_commandeBtn_clicked()));
+    connect(timer3Commande, SIGNAL(timeout()), this, SLOT(on_search_commandeBtn_clicked()));
 //    timer3->start(3000);
 
 
-  //  afficherStatistique();
+        //afficherStatistique();
+        connect(timer4Commande, SIGNAL(timeout()), this, SLOT(on_statCommande_clicked()));
+        timer4Commande->start(100);
 
-        connect(timer4, SIGNAL(timeout()), this, SLOT(on_statCommande_clicked()));
-        timer4->start(500);
-        connect(timer5, SIGNAL(timeout()), this, SLOT(on_ajouter_2_clicked()));
-        timer5->start(500);
-        connect(timer6, SIGNAL(timeout()), this, SLOT(on_LoadCinEmployee_clicked()));
-        timer6->start(500);
-
-
+        //set cin client comboBox
+        setCinClient_combo();
 
 }
 
@@ -91,52 +75,29 @@ Gestcommandes::~Gestcommandes()
 
 
 
-void Gestcommandes::on_ajouter_clicked()
+void Gestcommandes::on_ajouter_commande_clicked()
 {
+   int cinClient=ui->selectCinClient->currentText().toInt();
+    QString descreption=ui->descreption->toPlainText();
+    int quantiteCouleur=ui->Qc->text().toInt();
+    QString quantiteSansCouleur=ui->Qsc->text();
+
+    QString date_fin=ui->dateFinCommande->text();
+    Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinClient, date_fin);
 
 
-   QString i=ui->Employee->currentText();
-   int val=i.toInt();
-
-   QString u=ui->Client->currentText();
-   int val2=u.toInt();
-   QString descreption=ui->descreption->text();
-   QString etat=ui->eta->text();
- int quantiteCouleur=ui->Qc->text().toInt();
- QString quantiteSansCouleur=ui->Qsc->text();
- int cinemp=val;
- int cinclient=val2;
-Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
-QString date_fin=ui->dateEdit->text();
- bool test_ajout = c.ajouterCommandes(date_fin);
- if(test_ajout)
+     bool test_ajout = c.ajouterCommandes();
+    if(test_ajout)
     {
         QMessageBox::information(nullptr,QObject::tr("ok"),
                                QObject::tr(" effectue\n"
                                            "click cancel to exit."),QMessageBox::Cancel);
-        timer4->start(100);
+        timer2Commande->start(100);
+        timer4Commande->start(100);
     }
     else  QMessageBox::critical(nullptr,QObject::tr("Not ok"),
                                    QObject::tr("non effectue\n"
                                                "click cancel to exit."),QMessageBox::Cancel);
-
-
- while(!layoutt->isEmpty()){
- QLayoutItem* item = layoutt->itemAt(0);
- layoutt->removeItem(item);
- QWidget* widgett = item->widget();
- if(widgett)
-     {
-         delete widgett;
-     }
- }
- QSqlQuery commandeList = c.afficherCommande();
-   while (commandeList.next()) {
-      commandes_row_table *row = new commandes_row_table(ui->scrollArea,commandeList.value(1).toString(),commandeList.value(2).toString(),commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(5).toString(),commandeList.value(0).toString());
-       row->setMinimumHeight(34);
-       layoutt->addWidget( row );
-   }
-
 
 }
 
@@ -149,48 +110,54 @@ QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve th
 int commandesid = buttonSender->whatsThis().toInt();
 
 
-QString descreption="";
-QString etat="";
-int quantiteCouleur=0;
-QString quantiteSansCouleur="";
-int cinemp=0;
-int cinclient=0;
-Commandes c( descreption,etat,quantiteCouleur,  quantiteSansCouleur ,cinemp,cinclient);
-c.supprimerCommandes(commandesid);
+    QString descreption="";
+    int quantiteCouleur=0;
+    QString quantiteSansCouleur="";
+    int cinclient=0;
+    QString date_Fin="";
+    Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
 
-timer4->start(100);
+    bool test = c.supprimerCommandes(commandesid);
 
+     if(test){
+         QMessageBox::information(nullptr, QObject::tr("delete status"),QObject::tr("Commmande deleted.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+         timer2Commande->start(100);
+         timer4Commande->start(100);
+     }
+     else {
+         QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("Commmande not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
+     }
 }
 
 
 void Gestcommandes::on_modifier_commande_clicked()
 {
-    QString descreption=ui->descreption->text();
-    QString etat=ui->eta->text();
-  int quantiteCouleur=ui->Qc->text().toInt();
-  QString quantiteSansCouleur=ui->Qsc->text();
-  int cinemp=0;
-  int cinclient=0;
+    QString descreption=ui->descreption->toPlainText();
+    int quantiteCouleur=ui->Qc->text().toInt();
+    QString quantiteSansCouleur=ui->Qsc->text();
+    int cinClient=ui->selectCinClient->currentText().toInt();
+    QString date_Fin=ui->dateFinCommande->text();
 
- Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
-
+Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinClient, date_Fin);
 
  bool test = c.modifierCommande(id);
 
     if(test){
-        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("Machine updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        QMessageBox::information(nullptr, QObject::tr("update status"),QObject::tr("Commande updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+        timer2Commande->start(100);
+        on_clear_commande_clicked();
     }
     else {
-        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("Machine not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
+        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("Commande not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
     }
 }
 
 
-void Gestcommandes::on_refreshBtn_clicked()
+void Gestcommandes::on_refreshCommandeBtn_clicked()
 {
-    while(!layoutt->isEmpty()){
-    QLayoutItem* item = layoutt->itemAt(0);
-    layoutt->removeItem(item);
+    while(!layouttCommande->isEmpty()){
+    QLayoutItem* item = layouttCommande->itemAt(0);
+    layouttCommande->removeItem(item);
     QWidget* widgett = item->widget();
     if(widgett)
         {
@@ -199,22 +166,20 @@ void Gestcommandes::on_refreshBtn_clicked()
     }
 
 
-    QString descreption=ui->descreption->text();
-    QString etat=ui->eta->text();
-    int quantiteCouleur=ui->Qc->text().toInt();
-    QString quantiteSansCouleur=ui->Qsc->text();
-    int cinemp=0;
+    QString descreption="";
+    int quantiteCouleur=0;
+    QString quantiteSansCouleur="";
     int cinclient=0;
+    QString date_Fin="";
+    Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
 
-    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur, cinemp, cinclient);
 
-
-    QString trieOption = ui->comboBox_7->currentText();
+    QString trieOption = ui->commande_combo->currentText();
     QSqlQuery commandeList = c.triCommande(trieOption);
     while (commandeList.next()) {
-         commandes_row_table *row = new commandes_row_table(ui->scrollArea,commandeList.value(1).toString(),commandeList.value(2).toString().split("T")[0],commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(5).toString(),commandeList.value(0).toString());
+         commandes_row_table *row = new commandes_row_table(ui->scrollAreaCommande,commandeList.value(2).toString().split("T")[0],commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(0).toString(), commandeList.value(8).toString());
          row->setMinimumHeight(34);
-         layoutt->addWidget( row );
+         layouttCommande->addWidget( row );
     }
 
     QStringList CompletionList;
@@ -225,36 +190,35 @@ void Gestcommandes::on_refreshBtn_clicked()
     stringCompleter->setCaseSensitivity(Qt::CaseInsensitive);
     ui->chercher_commande->setCompleter(stringCompleter);
 
+    timer2Commande->stop();
 }
 
 
 
-void Gestcommandes::setFormulaire()
+void Gestcommandes::setCommandeFormulaire()
 {
     if(id != -999999999){
 
         QString descreption="";
-        QString etat="";
         int quantiteCouleur=0;
         QString quantiteSansCouleur="";
-        int cinemp=0;
         int cinclient=0;
-
-        Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
-
+        QString date_Fin="";
+        Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
 
         QSqlQuery commandeInfo = c.afficherCommande(id);
 
         commandeInfo.next();
 
-        ui->descreption->setText(commandeInfo.value(1).toString());
-        ui->eta->setText(commandeInfo.value(3).toString());
-        ui->Qc->setText(commandeInfo.value(4).toString());
-        ui->Qsc->setText(commandeInfo.value(5).toString());
+        ui->descreption->setPlainText(commandeInfo.value(1).toString());
+        ui->Qc->setText(commandeInfo.value(3).toString());
+        ui->Qsc->setText(commandeInfo.value(4).toString());
+        ui->dateFinCommande->setDate(commandeInfo.value(7).toDate());
+        ui->selectCinClient->setCurrentText(commandeInfo.value(6).toString());
 
-        bool inputsFocus = ui->descreption->hasFocus() || ui->eta->hasFocus() || ui->Qc->hasFocus() || ui->Qsc->hasFocus() ;
+        bool inputsFocus = ui->selectCinClient->hasFocus() || ui->descreption->hasFocus() || ui->dateFinCommande->hasFocus() || ui->Qc->hasFocus() || ui->Qsc->hasFocus() ;
         if(inputsFocus){
-            timer->stop();
+            timerCommande->stop();
         }
     }
 }
@@ -266,7 +230,7 @@ void commandes_row_table::updateBtn_clicked()
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     id = buttonSender->whatsThis().toInt();
 
-    timer->start(500);
+    timerCommande->start(100);
 }
 
 
@@ -274,11 +238,14 @@ void commandes_row_table::updateBtn_clicked()
 
 void Gestcommandes::on_clear_commande_clicked()
 {
-    timer->stop();
-    ui->descreption->setText("");
-    ui->eta->setText("");
+    timerCommande->stop();
+    ui->descreption->setPlainText("");
     ui->Qc->setText("");
     ui->Qsc->setText("");
+
+    QDate cd = QDate::currentDate();
+    ui->dateFinCommande->setDate(cd);
+    ui->selectCinClient->setCurrentText("");
 }
 
 
@@ -290,13 +257,13 @@ void Gestcommandes::on_search_commandeBtn_clicked()
 
     if(chaine_c !="")
     {
-        timer2->stop();
-        timer3->start(100);
+        timer2Commande->stop();
+        timer3Commande->start(100);
 
 
-     while(!layoutt->isEmpty()){
-     QLayoutItem* item = layoutt->itemAt(0);
-     layoutt->removeItem(item);
+     while(!layouttCommande->isEmpty()){
+     QLayoutItem* item = layouttCommande->itemAt(0);
+     layouttCommande->removeItem(item);
      QWidget* widgett = item->widget();
      if(widgett)
          {
@@ -306,27 +273,25 @@ void Gestcommandes::on_search_commandeBtn_clicked()
 
 
      QString descreption="";
-     QString etat="";
      int quantiteCouleur=0;
      QString quantiteSansCouleur="";
-     int cinemp=0;
      int cinclient=0;
-
-     Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
+     QString date_Fin="";
+     Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
 
 
      QSqlQuery commandeList = c.rechercherCommande(chaine_c);
      while (commandeList.next()) {
-          commandes_row_table *row = new commandes_row_table(ui->scrollArea,commandeList.value(1).toString(),commandeList.value(2).toString().split("T")[0],commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(5).toString(),commandeList.value(0).toString());
+            commandes_row_table *row = new commandes_row_table(ui->scrollAreaCommande,commandeList.value(2).toString().split("T")[0],commandeList.value(3).toString(),commandeList.value(4).toString(),commandeList.value(0).toString(), commandeList.value(8).toString());
           row->setMinimumHeight(34);
-          layoutt->addWidget( row );
+          layouttCommande->addWidget( row );
      }
 
      }
     else
     {
-        timer3->stop();
-        timer2->start(100);
+        timer3Commande->stop();
+        timer2Commande->start(100);
 
     }
 
@@ -338,27 +303,19 @@ void Gestcommandes::on_chercher_commande_textChanged(const QString &arg1)
 }
 
 
-
-
-
-//********************************afficher statistique graphe***************************************************
-
-
 void Gestcommandes::on_statCommande_clicked()
 {
 
     QBarSet *set1 = new QBarSet("Nombre de commandes par mois");
 
     QString descreption="";
-    QString etat="";
     int quantiteCouleur=0;
     QString quantiteSansCouleur="";
-    int cinemp=0;
     int cinclient=0;
+    QString date_Fin="";
+    Commandes c(descreption,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
 
-    Commandes c(descreption,etat,quantiteCouleur,quantiteSansCouleur,cinemp,cinclient);
 
-//        set1->insert(1,c.statistiqueCilents(2));
     *set1 <<  c.statistiqueCommande(1)
           <<  c.statistiqueCommande(2)
           <<  c.statistiqueCommande(3)
@@ -378,11 +335,6 @@ void Gestcommandes::on_statCommande_clicked()
 
         QBarSeries *series = new QBarSeries();
 
-       // set1->remove(0);
-       // series->deleteLater();
-        //series->append(set1);
-
-        //series->deleteLater();
 
         series->append(set1);
 
@@ -403,13 +355,7 @@ void Gestcommandes::on_statCommande_clicked()
                chart->setBackgroundBrush(QBrush(QColor(bgColor)));
 
                chart->setBackgroundVisible(true);
-               //i=0;
-
-
            //    chart->setBackgroundVisible(false);
-
-
-
 
             QStringList categories;
             categories << "Jan" << "Fiv" << "Mar" << "Avr" << "Mai" << "Juin" << "Jui" <<"Aou" << "sep" << "Oct" << "Nov" << "Dec" ;
@@ -426,11 +372,6 @@ void Gestcommandes::on_statCommande_clicked()
             chart->legend()->setAlignment(Qt::AlignBottom);
 
 
-
-          //  series->remove(0);//*****************
-          //  chart->removeAxis(axis);//******************
-           // chart->removeSeries(series);//****************
-
             QChartView *chartView = new QChartView(chart);
 
             chartView->setRenderHint(QPainter::Antialiasing);
@@ -445,31 +386,12 @@ void Gestcommandes::on_statCommande_clicked()
 
 
             chartView->setParent(ui->horizontalFrame);
-         //   chartView->update();
             chartView->show();
 
-                if(NULL != chart){
-                       series->remove(0);
-
-                    }
-timer4->stop();
+            timer4Commande->stop();
 
 
 }
-
-
-
-
-
-//                chart->removeSeries(series);
-
-//                delete chartView;
-//
-
-//                chart->update();
-
-
-     //end statistique
 
 
 void commandes_row_table::imprimerBtn_clicked()
@@ -484,34 +406,18 @@ void commandes_row_table::imprimerBtn_clicked()
 }
 
 
-void Gestcommandes::on_ajouter_2_clicked()
+void Gestcommandes::setCinClient_combo()
 {
 
    QSqlQueryModel * modal=new QSqlQueryModel();
 
     QSqlQuery query;
-     query.prepare("select cinclient from commandes  ");
+     query.prepare("select cinClient from clients ");
     query.exec();
     modal->setQuery(query);
-    ui->Client->setModel(modal);
+    ui->selectCinClient->setModel(modal);
 
 }
-
-
-void Gestcommandes::on_LoadCinEmployee_clicked()
-{
-
-        QSqlQueryModel * modal=new QSqlQueryModel();
-
-         QSqlQuery query;
-          query.prepare("select cinemp from commandes  ");
-         query.exec();
-         modal->setQuery(query);
-         ui->Employee->setModel(modal);
-
-
-}
-
 
 
 void commandes_row_table::etatBtn_clicked()
@@ -527,9 +433,38 @@ void commandes_row_table::etatBtn_clicked()
         date->show();
 }
 
-void Gestcommandes::on_arduinoM_btn_clicked()
-{
-    Arduino_machine *arduino = new Arduino_machine();
 
-    arduino->show();
+void Gestcommandes::on_trie_commande_clicked()
+{
+    timer2Commande->start(100);
+}
+
+
+void commandes_row_table::descreptionBtn_clicked()
+{
+
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    int idComm = buttonSender->whatsThis().toInt();
+
+
+    Descreption_commande *desc = new Descreption_commande();
+        desc->idCommande= idComm;
+
+        desc->show();
+}
+
+
+void commandes_row_table::repaireBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    int idComm = buttonSender->whatsThis().toInt();
+
+    QString desc="";
+    int quantiteCouleur=0;
+    QString quantiteSansCouleur="";
+    int cinclient=0;
+    QString date_Fin="";
+    Commandes c(desc,quantiteCouleur,quantiteSansCouleur,cinclient, date_Fin);
+    c.repaireDateFinCommande(idComm);
+      timer2Commande->start(100);
 }

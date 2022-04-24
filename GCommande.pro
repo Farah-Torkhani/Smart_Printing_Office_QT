@@ -16,31 +16,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    arduino.cpp \
-    arduino_machine.cpp \
     commandes.cpp \
     commandes_row_table.cpp \
     connection.cpp \
     date_fin.cpp \
+    descreption_commande.cpp \
     gestcommandes.cpp \
     imprimer_recu.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    arduino.h \
-    arduino_machine.h \
     commandes.h \
     commandes_row_table.h \
     connection.h \
     date_fin.h \
+    descreption_commande.h \
     gestcommandes.h \
     imprimer_recu.h \
     mainwindow.h
 
 FORMS += \
-    arduino_machine.ui \
     date_fin.ui \
+    descreption_commande.ui \
     gestcommandes.ui \
     imprimer_recu.ui \
     mainwindow.ui
@@ -52,3 +50,22 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES += \
+    imgCommande/Logo.png \
+    imgCommande/bg.png \
+    imgCommande/clock.png \
+    imgCommande/edit-icon.png \
+    imgCommande/eng.png \
+    imgCommande/eraser.png \
+    imgCommande/eye.png \
+    imgCommande/fr.png \
+    imgCommande/imprimante.png \
+    imgCommande/lang_icon.png \
+    imgCommande/mute.png \
+    imgCommande/refresh-button.png \
+    imgCommande/refresh.png \
+    imgCommande/search.png \
+    imgCommande/sort.png \
+    imgCommande/trash-icon.png \
+    imgCommande/volume.png
