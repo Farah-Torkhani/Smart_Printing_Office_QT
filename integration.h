@@ -50,6 +50,21 @@
 #include "arduino_machine.h"
 //Gestion Machine***
 
+//Gestion Commande***
+#include "commandes.h"
+#include "commandes_row_table.h"
+#include <qtranslator.h>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlQueryModel>
+#include <QSqlQuery>
+#include "descreption_commande.h"
+#include "date_fin.h"
+#include <imprimer_recu.h>
+//Gestion Commande***
+
+
 namespace Ui {
 class Integration;
 }
@@ -113,7 +128,9 @@ private slots:
     void on_call_testBtn_clicked();
     void on_recive_callBtnTimer_clicked();
     //gestion Client***************
+
 //-----------------------------------------------------------------------------------------------------------------------
+
     //gestion Machine********************************
     void on_ajouter_machine_clicked();
     void on_refreshBtnMachine_clicked();
@@ -128,6 +145,21 @@ private slots:
     void on_add_imageBtn_clicked();
     void on_arduinoM_btn_clicked();
     //gestion Machine*********************************
+
+//-----------------------------------------------------------------------------------------------------------------------
+
+    //gestion Commande********************************
+    void setCommandeFormulaire();
+    void on_ajouter_commande_clicked();
+    void on_modifier_commande_clicked();
+    void on_refreshCommandeBtn_clicked();
+    void on_clear_commande_clicked();
+    void on_chercher_commande_textChanged(const QString &arg1);
+    void on_search_commandeBtn_clicked();
+    void on_statCommande_clicked();
+    void setCinClient_combo();
+    void on_trie_commande_clicked();
+    //gestion Commande********************************
 
 private:
     Ui::Integration *ui;

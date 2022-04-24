@@ -68,7 +68,7 @@ border-radius:10px;
 } </string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <property name="styleSheet">
@@ -3119,6 +3119,999 @@ background-image: url(:/resource/img/bg.png);
      <attribute name="title">
       <string>Gest commandes</string>
      </attribute>
+     <widget class="QGroupBox" name="gComBg">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1340</width>
+        <height>700</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#gComBg{
+background-image:url(:/resource/imgCommande/bg.png);
+}</string>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QGraphicsView" name="graphicsView_2">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>390</y>
+         <width>310</width>
+         <height>310</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;
+border:none;</string>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>30</y>
+         <width>351</width>
+         <height>471</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat</family>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:  white;
+border-radius:35px;
+
+</string>
+       </property>
+       <property name="title">
+        <string/>
+       </property>
+       <widget class="QLabel" name="label_62">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>14</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>-1</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+color:#341763;
+color:#4a5bcf;
+font-size:20px;</string>
+        </property>
+        <property name="text">
+         <string>Formulaire</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_63">
+        <property name="geometry">
+         <rect>
+          <x>21</x>
+          <y>80</y>
+          <width>101</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Description</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_64">
+        <property name="geometry">
+         <rect>
+          <x>115</x>
+          <y>80</y>
+          <width>47</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:red;</string>
+        </property>
+        <property name="text">
+         <string>*</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_65">
+        <property name="geometry">
+         <rect>
+          <x>21</x>
+          <y>260</y>
+          <width>131</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Q. avec couleur</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="Qc">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>280</y>
+          <width>128</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#Qc{
+background-color: #F9FDFF;
+border:1px solid rgba(222, 226, 230, 0.8);
+padding-left:5px;
+border-radius:10px;
+color:#585856;
+}
+#Qc:focus{
+border:1px solid #6568f3;
+outline:none;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_66">
+        <property name="geometry">
+         <rect>
+          <x>144</x>
+          <y>260</y>
+          <width>47</width>
+          <height>14</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:red;</string>
+        </property>
+        <property name="text">
+         <string>*</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_67">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>260</y>
+          <width>121</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+          <kerning>true</kerning>
+         </font>
+        </property>
+        <property name="text">
+         <string>Q. sans couleur</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="Qsc">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>280</y>
+          <width>128</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#Qsc{
+background-color: #F9FDFF;
+border:1px solid rgba(222, 226, 230, 0.8);
+padding-left:5px;
+border-radius:10px;
+color:#585856;
+}
+#Qsc:focus{
+border:1px solid #6568f3;
+outline:none;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_68">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>260</y>
+          <width>47</width>
+          <height>14</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:red;</string>
+        </property>
+        <property name="text">
+         <string>*</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_69">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>330</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Cin Client</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_70">
+        <property name="geometry">
+         <rect>
+          <x>97</x>
+          <y>330</y>
+          <width>47</width>
+          <height>14</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:red;</string>
+        </property>
+        <property name="text">
+         <string>*</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="ajouter_commande">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>420</y>
+          <width>101</width>
+          <height>33</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#ajouter_commande{
+color:white;
+background-color:#6568F3;
+border-radius:15px;
+}
+
+#ajouter_commande:hover{
+background-color:#4144f1;
+}</string>
+        </property>
+        <property name="text">
+         <string>Ajouter</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="modifier_commande">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>420</y>
+          <width>101</width>
+          <height>33</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#modifier_commande{
+color:white;
+background-color:#03BF8A;
+border-radius:15px;
+}
+
+#modifier_commande:hover{
+background-color:#02976d;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Modifier</string>
+        </property>
+       </widget>
+       <widget class="Line" name="line_5">
+        <property name="geometry">
+         <rect>
+          <x>15</x>
+          <y>400</y>
+          <width>322</width>
+          <height>1</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(222, 226, 230, 0.8);
+border-width: 1px;
+border: 2px solid rgba(222, 226, 230, 0.8);
+</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="clear_commande">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>31</width>
+          <height>33</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>9</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#clear_commande{
+color:white;
+background-color:#6568F3;
+border-radius:15px;
+}
+
+#clear_commande:hover{
+background-color:#4144f1;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/resource/imgCommande/eraser.png</normaloff>:/resource/imgCommande/eraser.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="Line" name="line_6">
+        <property name="geometry">
+         <rect>
+          <x>11</x>
+          <y>50</y>
+          <width>330</width>
+          <height>1</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(222, 226, 230, 0.8);
+border-width: 1px;
+border: 2px solid rgba(222, 226, 230, 0.8);
+</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QDateEdit" name="dateFinCommande">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>350</y>
+          <width>128</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#dateFinCommande{
+background-color: #F9FDFF;
+border:1px solid rgba(222, 226, 230, 0.8);
+padding-left:5px;
+border-radius:10px;
+color:#585856;
+}
+#dateFinCommande:focus{
+border:1px solid #6568f3;
+outline:none;
+}</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_71">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>330</y>
+          <width>71</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Date fin</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="selectCinClient">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>350</y>
+          <width>128</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#selectCinClient{
+background-color: #F9FDFF;
+border:1px solid rgba(222, 226, 230, 0.8);
+padding-left:5px;
+border-radius:10px;
+color:#585856;
+}
+#selectCinClient:focus{
+border:1px solid #6568f3;
+outline:none;
+}</string>
+        </property>
+       </widget>
+       <widget class="QPlainTextEdit" name="descreption">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>100</y>
+          <width>311</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Montserrat</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#descreption{
+background-color: #F9FDFF;
+border:1px solid rgba(222, 226, 230, 0.8);
+padding-left:5px;
+border-radius:10px;
+color:#585856
+}
+#descreption:focus{
+border:1px solid #6568f3;
+outline:none;
+}
+</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_274">
+       <property name="geometry">
+        <rect>
+         <x>1060</x>
+         <y>60</y>
+         <width>211</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat ExtraBold</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#D6DBFD;
+color:#4A5BCF;
+padding:6px;
+border-top-right-radius:10px;</string>
+       </property>
+       <property name="text">
+        <string>#</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="search_commandeBtn">
+       <property name="geometry">
+        <rect>
+         <x>1070</x>
+         <y>20</y>
+         <width>41</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#search_commandeBtn{
+background-color:white;
+border-radius:15px;
+}
+
+#search_commandeBtn:hover{
+background-color:#D6DBFD;
+
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/resource/imgCommande/search.png</normaloff>:/resource/imgCommande/search.png</iconset>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_268">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>30</y>
+         <width>251</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat ExtraBold</family>
+         <pointsize>-1</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:#6568F3;
+font-size:18px;</string>
+       </property>
+       <property name="text">
+        <string>Listes des commandes</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_269">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>60</y>
+         <width>124</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat ExtraBold</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#D6DBFD;
+color:#4A5BCF;
+padding:6px;
+border-top-left-radius:10px;</string>
+       </property>
+       <property name="text">
+        <string> Description</string>
+       </property>
+      </widget>
+      <widget class="QScrollArea" name="scrollAreaCommande">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>100</y>
+         <width>871</width>
+         <height>206</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;border:none;</string>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContentsCommande">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>854</width>
+          <height>206</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_275">
+       <property name="geometry">
+        <rect>
+         <x>940</x>
+         <y>60</y>
+         <width>121</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat ExtraBold</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#D6DBFD;
+color:#4A5BCF;
+padding:6px;
+</string>
+       </property>
+       <property name="text">
+        <string>QS.Couleur</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="commande_combo">
+       <property name="geometry">
+        <rect>
+         <x>550</x>
+         <y>320</y>
+         <width>210</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat</family>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:white;
+color:#585856;</string>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentText">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_272">
+       <property name="geometry">
+        <rect>
+         <x>850</x>
+         <y>60</y>
+         <width>91</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat ExtraBold</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#D6DBFD;
+color:#4A5BCF;
+padding:6px;
+</string>
+       </property>
+       <property name="text">
+        <string>Q.Couleur</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="chercher_commande">
+       <property name="geometry">
+        <rect>
+         <x>890</x>
+         <y>20</y>
+         <width>211</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:15px;
+padding:4px;
+padding-left:10px;
+padding-right:15px;
+color:#7375f3;
+font-size:15px;
+font-weight:bold;
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string extracomment="Recherche">Rechercher</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="refreshCommandeBtn">
+       <property name="geometry">
+        <rect>
+         <x>1190</x>
+         <y>20</y>
+         <width>75</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#refreshCommandeBtn{
+background-color:transparent;
+image: url(:/resource/imgCommande/refresh.png);
+}
+
+#refreshCommandeBtn:hover{
+	image: url(:/resource/imgCommande/refresh-button.png);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_271">
+       <property name="geometry">
+        <rect>
+         <x>536</x>
+         <y>60</y>
+         <width>181</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat ExtraBold</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#D6DBFD;
+color:#4A5BCF;
+padding:6px;
+</string>
+       </property>
+       <property name="text">
+        <string>Date commande</string>
+       </property>
+      </widget>
+      <widget class="QFrame" name="horizontalFrame_2">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>350</y>
+         <width>871</width>
+         <height>271</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_7"/>
+      </widget>
+      <widget class="QPushButton" name="trie_commande">
+       <property name="geometry">
+        <rect>
+         <x>776</x>
+         <y>320</y>
+         <width>58</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#trie_commande{
+color:white;
+background-color:#FF7244;
+border-radius:15px;
+}
+
+#trie_commande:hover{
+background-color:#ff531a;
+}</string>
+       </property>
+       <property name="text">
+        <string>Trier</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_270">
+       <property name="geometry">
+        <rect>
+         <x>710</x>
+         <y>60</y>
+         <width>141</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Montserrat ExtraBold</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#D6DBFD;
+color:#4A5BCF;
+padding:6px;
+</string>
+       </property>
+       <property name="text">
+        <string>Etat</string>
+       </property>
+      </widget>
+      <zorder>graphicsView_2</zorder>
+      <zorder>groupBox_3</zorder>
+      <zorder>label_274</zorder>
+      <zorder>label_268</zorder>
+      <zorder>label_269</zorder>
+      <zorder>scrollAreaCommande</zorder>
+      <zorder>label_275</zorder>
+      <zorder>commande_combo</zorder>
+      <zorder>label_272</zorder>
+      <zorder>chercher_commande</zorder>
+      <zorder>refreshCommandeBtn</zorder>
+      <zorder>label_271</zorder>
+      <zorder>horizontalFrame_2</zorder>
+      <zorder>trie_commande</zorder>
+      <zorder>label_270</zorder>
+      <zorder>search_commandeBtn</zorder>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_4">
      <property name="styleSheet">
@@ -3176,7 +4169,7 @@ border-radius:35px;
        <property name="title">
         <string/>
        </property>
-       <widget class="QLineEdit" name="Nom_f_2">
+       <widget class="QLineEdit" name="Nom_Mach">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3194,14 +4187,14 @@ border-radius:35px;
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">#Nom_f{
+         <string notr="true">#Nom_Mach{
 background-color: #F9FDFF;
 border:1px solid rgba(222, 226, 230, 0.8);
 padding-left:5px;
 border-radius:10px;
 color:#585856;
 }
-#Nom_f:focus{
+#Nom_Mach:focus{
 border:1px solid #6568f3;
 outline:none;
 }
@@ -3731,7 +4724,7 @@ color:#FF7244;
          <bool>true</bool>
         </property>
        </widget>
-       <zorder>Nom_f_2</zorder>
+       <zorder>Nom_Mach</zorder>
        <zorder>label_45</zorder>
        <zorder>label_46</zorder>
        <zorder>label_47</zorder>
@@ -3938,7 +4931,7 @@ background-color:#ff531a;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">#trier_client{
+        <string notr="true">#trier_client_2{
 background-color:transparent;
 border-radius:5px;
 }</string>

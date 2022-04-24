@@ -1,4 +1,4 @@
-QT       += core gui sql charts serialport network
+QT       += core gui sql charts serialport network printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,12 +25,17 @@ SOURCES += \
     chatservice.cpp \
     client_fonction.cpp \
     client_row_table.cpp \
+    commandes.cpp \
+    commandes_row_table.cpp \
     connection.cpp \
+    date_fin.cpp \
+    descreption_commande.cpp \
     duscene.cpp \
     email.cpp \
     employees.cpp \
     gifanimation.cpp \
     historiques_machine.cpp \
+    imprimer_recu.cpp \
     integration.cpp \
     login.cpp \
     machine_fonction.cpp \
@@ -51,12 +56,17 @@ HEADERS += \
     chatservice.h \
     client_fonction.h \
     client_row_table.h \
+    commandes.h \
+    commandes_row_table.h \
     connection.h \
+    date_fin.h \
+    descreption_commande.h \
     duscene.h \
     email.h \
     employees.h \
     gifanimation.h \
     historiques_machine.h \
+    imprimer_recu.h \
     integration.h \
     login.h \
     machine_fonction.h \
@@ -71,8 +81,11 @@ FORMS += \
     arduino_machine.ui \
     callard.ui \
     chat.ui \
+    date_fin.ui \
+    descreption_commande.ui \
     email.ui \
     historiques_machine.ui \
+    imprimer_recu.ui \
     integration.ui \
     login.ui \
     mainwindow.ui \
