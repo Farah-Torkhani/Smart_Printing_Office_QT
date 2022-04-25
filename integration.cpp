@@ -44,6 +44,7 @@ QTimer *timerCommande = new QTimer();//setFormulaire
 QTimer *timer2Commande = new QTimer();//reflesh
 QTimer *timer3Commande = new QTimer(); //recher
 QTimer *timer4Commande = new QTimer(); //stat
+QTimer *timer5Commande = new QTimer(); //cin combobox
 QVBoxLayout *layouttCommande = new QVBoxLayout();
 //GESTION Commande***
 
@@ -256,6 +257,7 @@ Integration::Integration(QWidget *parent) :
             timer4Commande->start(100);
 
             //set cin client comboBox
+            connect(timer5Commande, SIGNAL(timeout()), this, SLOT(setCinClient_combo()));
             setCinClient_combo();
 
             //*****************************End Gestion Commande********************************************
@@ -554,6 +556,63 @@ void Integration::on_logoutBtn_clicked()
     disconnect(timerAccountInfo, SIGNAL(timeout()), this, SLOT(refreshAccountInfo()));
     disconnect(timerChartEmp, SIGNAL(timeout()), this, SLOT(chartEmp()));
 
+    //client part
+        timer->stop();
+        timer2->stop();
+        timer3->stop();
+        timer4->stop();
+        timerTestCall2->stop();
+
+        disconnect(timer, SIGNAL(timeout()), this, SLOT(refreshCurrentEmp()));
+
+        disconnect(timer, SIGNAL(timeout()), this, SLOT(setClientFormulaire()));
+        disconnect(timer2, SIGNAL(timeout()), this, SLOT(on_refreshClientBtn_clicked()));
+        disconnect(timer3, SIGNAL(timeout()), this, SLOT(on_search_client_clicked()));
+        disconnect(timer4, SIGNAL(timeout()), this, SLOT(on_stat_clicked()));
+        disconnect(timerTestCall2, SIGNAL(timeout()), this, SLOT(test_callArd()));
+    //client part
+
+    //machine part
+        timerMach->stop();
+        timer2Mach->stop();
+        timer3Mach->stop();
+        timer4Mach->stop();
+
+        disconnect(timerMach, SIGNAL(timeout()), this, SLOT(setFormulaireMachine()));
+        disconnect(timer2Mach, SIGNAL(timeout()), this, SLOT(on_refreshBtnMachine_clicked()));
+        disconnect(timer3Mach, SIGNAL(timeout()), this, SLOT(on_search_machine_clicked()));
+        disconnect(timer4Mach, SIGNAL(timeout()), this, SLOT(on_statMachine_clicked()));
+    //machine part
+
+    //commande part
+        timerCommande->stop();
+        timer2Commande->stop();
+        timer3Commande->stop();
+        timer4Commande->stop();
+        timer5Commande->stop();
+
+        disconnect(timerCommande, SIGNAL(timeout()), this, SLOT(setCommandeFormulaire()));
+        disconnect(timer2Commande, SIGNAL(timeout()), this, SLOT(on_refreshCommandeBtn_clicked()));
+        disconnect(timer3Commande, SIGNAL(timeout()), this, SLOT(on_search_commandeBtn_clicked()));
+        disconnect(timer4Commande, SIGNAL(timeout()), this, SLOT(on_statCommande_clicked()));
+        disconnect(timer5Commande, SIGNAL(timeout()), this, SLOT(setCinClient_combo()));
+    //commande part
+
+    //produit part
+        timerP->stop();
+        timerP2->stop();
+        timerP3->stop();
+        timerP4->stop();
+        timerP5->stop();
+        timerP8->stop();
+
+        connect(timerP, SIGNAL(timeout()), this, SLOT(setFormulaire1()));
+        connect(timerP2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked1()));
+        connect(timerP4, SIGNAL(timeout()), this, SLOT(on_statP_clicked()));
+        connect(timerP5, SIGNAL(timeout()), this, SLOT(on_statP1_clicked()));
+        connect(timerP3, SIGNAL(timeout()), this, SLOT(setQR()));
+    //produit part
+
     this->close();
 
 //    delete timerRefresh;
@@ -813,6 +872,9 @@ void Integration::on_ajouter_client_clicked()
                                                 "Click Cancel to exit."),QMessageBox::Cancel);
 
 
+     //
+     setCinClient_combo();
+     //
 }
 
 void Client_row_table::deleteBtn_clicked()
@@ -841,6 +903,9 @@ void Client_row_table::deleteBtn_clicked()
         QMessageBox::critical(nullptr, QObject::tr("delete status"),QObject::tr("Client not deleted.\nClick Cancel to exit."), QMessageBox::Cancel);
     }
 
+    //
+    timer5Commande->start(100);
+    //
 }
 
 void Integration::on_refreshClientBtn_clicked()
@@ -2169,6 +2234,8 @@ void Integration::setCinClient_combo()
     query.exec();
     modal->setQuery(query);
     ui->selectCinClient->setModel(modal);
+
+    timer5Commande->stop();
 
 }
 
