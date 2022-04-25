@@ -38,5 +38,6 @@
         <file>imgCommande/spanner.png</file>
         <file>imgCommande/trash-icon.png</file>
         <file>imgCommande/volume.png</file>
+        <file>img/anglais.qm</file>
     </qresource>
 </RCC>

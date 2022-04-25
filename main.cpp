@@ -6,12 +6,14 @@
 #include "connection.h"
 #include <QMessageBox>
 #include "login.h"
-
+#include <QTranslator>
+#include <QInputDialog>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+    QTranslator T;
 
     //specific declaration
     Login l;
@@ -32,6 +34,19 @@ int main(int argc, char *argv[])
         //specific declaration
         QSplashScreen *splash = new QSplashScreen;
         splash->setPixmap(QPixmap(":/resource/img/splash.jpg"));
+        QStringList languages;
+              languages <<"French"<<"English";
+              const QString lang=QInputDialog::getItem(NULL,"Select language ","Language",languages);
+
+            {
+                 T.load(":/resource/img/anglais.qm");
+            }
+            if (lang !="French")
+            {
+                a.installTranslator(&T);
+            }
+
+
         splash->show();
         QTimer::singleShot(500,splash,&QWidget::close);
         QTimer::singleShot(500,&l,SLOT(show()));
