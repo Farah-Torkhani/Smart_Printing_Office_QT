@@ -27,6 +27,8 @@ private slots:
     void getCardUid();
     void authRFID();
 
+    void on_scanCardButton_clicked();
+
 private:
     Ui::Login *ui;
     QByteArray data; // variable contenant les données reçu

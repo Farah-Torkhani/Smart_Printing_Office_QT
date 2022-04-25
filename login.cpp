@@ -10,7 +10,7 @@
 Employees currentEmp;
 QString cardUID="";
 QString test="";
-int yo=1;
+int yo=0;
 
 
 QTimer *timerAuthRfid = new QTimer();
@@ -34,7 +34,7 @@ Login::Login(QWidget *parent) :
 //    this->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(timerAuthRfid, SIGNAL(timeout()), this, SLOT(authRFID()));
-yo=1;
+yo=0;
 
 }
 
@@ -133,4 +133,9 @@ void Login::authRFID()
     }
 
     timerAuthRfid->stop();
+}
+
+void Login::on_scanCardButton_clicked()
+{
+    yo=1;
 }
