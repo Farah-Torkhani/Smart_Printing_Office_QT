@@ -1,5 +1,10 @@
 QT       += core gui sql charts serialport network printsupport
 
+QT       += core gui multimedia multimediawidgets
+QT       +=widgets
+QT +=svg
+QT +=charts
+QT +=printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -19,6 +24,7 @@ SOURCES += \
     arduino.cpp \
     arduino_client.cpp \
     arduino_machine.cpp \
+    arduino_produit.cpp \
     arduino_sms_row_table.cpp \
     callard.cpp \
     chat.cpp \
@@ -33,6 +39,7 @@ SOURCES += \
     duscene.cpp \
     email.cpp \
     employees.cpp \
+    fonctionproduits.cpp \
     gifanimation.cpp \
     historiques_machine.cpp \
     imprimer_recu.cpp \
@@ -42,7 +49,13 @@ SOURCES += \
     machine_row_table.cpp \
     main.cpp \
     mainwindow.cpp \
+    popup.cpp \
+    qrcode.cpp \
+    qrcodegeneratordemo.cpp \
+    qrcodegeneratorworker.cpp \
+    qrwidget.cpp \
     row_table.cpp \
+    row_table_produits.cpp \
     sms.cpp \
     smtp.cpp
 
@@ -50,6 +63,7 @@ HEADERS += \
     arduino.h \
     arduino_client.h \
     arduino_machine.h \
+    arduino_produit.h \
     arduino_sms_row_table.h \
     callard.h \
     chat.h \
@@ -64,6 +78,7 @@ HEADERS += \
     duscene.h \
     email.h \
     employees.h \
+    fonctionproduits.h \
     gifanimation.h \
     historiques_machine.h \
     imprimer_recu.h \
@@ -72,13 +87,18 @@ HEADERS += \
     machine_fonction.h \
     machine_row_table.h \
     mainwindow.h \
+    popup.h \
+    qrcode.h \
+    qrwidget.h \
     row_table.h \
+    row_table_produits.h \
     sms.h \
     smtp.h
 
 FORMS += \
     arduino_client.ui \
     arduino_machine.ui \
+    arduino_produit.ui \
     callard.ui \
     chat.ui \
     date_fin.ui \

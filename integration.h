@@ -64,6 +64,21 @@
 #include <imprimer_recu.h>
 //Gestion Commande***
 
+//Gestion produit**
+#include <QtCharts>
+#include <QChartView>
+#include <QBarSet>
+#include <QBarSeries>
+#include <QPieSeries>
+#include <QPieSlice>
+#include "fonctionproduits.h"
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlQueryModel>
+#include <QString>
+#include "popup.h"
+#include "arduino.h"
+//Gestion produit**
+
 
 namespace Ui {
 class Integration;
@@ -161,6 +176,32 @@ private slots:
     void on_trie_commande_clicked();
     //gestion Commande********************************
 
+    //GESTION Pr**
+    void on_valider_b_clicked();
+    void setFormulaire1();
+    void setQR();
+    void on_refreshBtn_clicked1();
+
+    void on_modifier_b_clicked();
+
+    void on_b_searsh_clicked();
+
+    void on_excel_clicked();
+    void on_pushButton_clicked();
+    void on_statP_clicked();
+    void on_statP1_clicked();
+    void update_label();
+
+
+
+    void on_qrcode_pt_clicked();
+
+    void on_edit_r_textChanged(const QString &arg1);
+
+    void on_arduino_clicked();
+    //GESTION Pr**
+    void on_arduino_2_clicked();
+
 private:
     Ui::Integration *ui;
     //gestion Client***************
@@ -168,6 +209,10 @@ private:
     //gestion Client***************
     QCompleter *stringCompleter;
     QCompleter *ModelCompleter;
+    //GESTION Pr**********
+    PopUp *popUp;
+  //GESTION Pr**********
+
 };
 
 #endif // INTEGRATION_H

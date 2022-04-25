@@ -47,6 +47,35 @@ QTimer *timer4Commande = new QTimer(); //stat
 QVBoxLayout *layouttCommande = new QVBoxLayout();
 //GESTION Commande***
 
+//GESTION Produit***
+#include <stdlib.h>
+#include "row_table_produits.h"
+#include <QDebug>
+#include <QVBoxLayout>
+#include <QScrollArea>
+#include <QUrl>
+#include <QDesktopServices>
+
+#include "qrcode.h"
+#include <QtSvg/QSvgRenderer>
+#include <fstream>
+#include "arduino_produit.h"
+//GESTION Produit***
+
+
+
+QVBoxLayout *layouttP = new QVBoxLayout();
+
+QTimer *timerP = new QTimer();
+QTimer *timerP2 = new QTimer();
+QTimer *timerP3 = new QTimer();
+QTimer *timerP4 = new QTimer();
+QTimer *timerP5 = new QTimer();
+QTimer *timerP8 = new QTimer();
+int idP=0,idd=0;
+using qrcodegen::QrCode;
+using qrcodegen::QrSegment;
+
 
 Integration::Integration(QWidget *parent) :
     QMainWindow(parent),
@@ -230,6 +259,47 @@ Integration::Integration(QWidget *parent) :
             setCinClient_combo();
 
             //*****************************End Gestion Commande********************************************
+
+
+
+
+            //*************************START GESTION Pr  ****************************
+
+            //scroll area
+            ui->scrollArea_P->setWidget( ui->scrollAreaContents_P );
+            ui->scrollAreaContents_P ->setLayout( layouttP);
+            ui->edit_prix->setValidator(new QIntValidator (0,99999999,ui->edit_prix));
+            ui->edit_qu->setValidator(new QIntValidator (0,99999999,ui->edit_qu));
+            Produits p;
+
+           // ui->tab_produits->setModel(p.affichertr());
+           int ret=A.connect_arduino(); // lancer la connexion à arduino
+            switch(ret){
+            case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+                break;
+            case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+               break;
+            case(-1):qDebug() << "arduino is not available";
+                break;
+            }
+               /* connect(timerP8, SIGNAL(timeout()), this, SLOT(update_label()));
+                timerP8->start(100);*/
+
+
+
+            connect(timerP, SIGNAL(timeout()), this, SLOT(setFormulaire1()));
+
+            connect(timerP2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked1()));
+            timerP2->start(200);
+            connect(timerP4, SIGNAL(timeout()), this, SLOT(on_statP_clicked()));
+            timerP4->start(100);
+            connect(timerP5, SIGNAL(timeout()), this, SLOT(on_statP1_clicked()));
+            timerP5->start(100);
+
+            connect(timerP3, SIGNAL(timeout()), this, SLOT(setQR()));
+            popUp = new PopUp();
+            // ************  Gestion Pr END *******************
+
 
 
 
@@ -2150,3 +2220,427 @@ void commandes_row_table::repaireBtn_clicked()
 
 //*************************************End gestion commande*************************************************************
 
+
+//************************************* START GEST PRODUIT *****************************************************
+void Integration::update_label()
+{
+    data=A.read_from_arduino();
+    qDebug() << data;
+if(data !="")
+{
+        popUp->setPopupText("flamme !!!");
+
+        popUp->show();
+        Produits P;
+        P.ajouterf(data);
+
+}
+}
+void Integration::on_statP_clicked(){
+
+    Produits p;
+    QBarSet *set0 = new QBarSet("Quantité des produits a consommés");
+
+    *set0 << p.statistiquesProduits(1) << p.statistiquesProduits(2) << p.statistiquesProduits(3) << p.statistiquesProduits(4) << p.statistiquesProduits(5) << p.statistiquesProduits(6) << p.statistiquesProduits(7) << p.statistiquesProduits(8) << p.statistiquesProduits(9) << p.statistiquesProduits(10) <<p.statistiquesProduits(11) << p.statistiquesProduits(12);
+
+
+    QColor color(0x6568F3);
+    set0->setColor(color);
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set0);
+
+
+
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->setBackgroundVisible(false);
+
+    QColor bgColor(0xF4DCD3);
+                   chart->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+                   chart->setBackgroundVisible(true);
+
+    QStringList categories;
+    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun" << "Jui" << "Aou" << "Sep" << "Oct" << "Nov" << "Dec";
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(categories);
+    chart->createDefaultAxes();
+    chart->setAxisX(axis, series);
+
+    QChartView *chartView = new QChartView(chart);
+
+    chartView->setMaximumWidth(631);
+    chartView->setMaximumHeight(300);
+    chartView->setParent(ui->horizontalFrame_P);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    chartView->show();
+    timerP4->stop();
+}
+void Integration::on_statP1_clicked(){
+    Produits c;
+
+    QPieSeries *series1 = new QPieSeries();
+    series1->append(" 150", c.statistiqueProduits(150));
+    series1->append("50", c.statistiqueProduits(50));
+    series1->append("500", c.statistiqueProduits(500));
+    series1->append("100", c.statistiqueProduits(100));
+    series1->append(" 250", c.statistiqueProduits(250));
+
+    QPieSlice *slice0 = series1->slices().at(0);
+    slice0->setLabelVisible();
+
+    QPieSlice *slice1 = series1->slices().at(1);
+   // slice1->setExploded();
+    slice1->setLabelVisible();
+   // slice1->setPen(QPen(Qt::color1, 0));
+   // slice1->setBrush(Qt::color1);
+
+    QPieSlice *slice2 = series1->slices().at(2);
+    slice2->setLabelVisible();
+
+    QPieSlice *slice3 = series1->slices().at(3);
+    slice3->setLabelVisible();
+
+    QPieSlice *slice4 = series1->slices().at(4);
+    slice4->setLabelVisible();
+    QColor color(0x6568F3);
+    QColor color0(0x6568F3);
+    slice0->setColor(color);
+
+    QColor color1(0x341763);
+    slice1->setColor(color1);
+
+    QColor color2(0xFF7244);
+    slice2->setColor(color2);
+
+    QColor color3(0x585856);
+    slice3->setColor(color3);
+
+    QColor color4(0x6568F3);
+    slice4->setColor(color4);
+
+
+    QChart *chart1 = new QChart();
+    chart1->addSeries(series1);
+    chart1->setTitle("Quantité des produits en stock");
+    chart1->legend()->hide();
+    chart1->setBackgroundVisible(false);
+
+    QColor bgColor(0xF4DCD3);
+                   chart1->setBackgroundBrush(QBrush(QColor(bgColor)));
+
+                   chart1->setBackgroundVisible(true);
+
+    QChartView *chartView1 = new QChartView(chart1);
+
+    chartView1->setMaximumWidth(500);
+    chartView1->setMaximumHeight(260);
+    chartView1->setParent(ui->circleFrame_P);
+    chartView1->show();
+    timerP5->stop();
+
+                                  }
+void Integration::on_valider_b_clicked()
+{
+
+        QString nomProduits=ui->edit_nom->text();
+        QString quantite=ui->edit_qu->text();
+        QString type=ui->edit_type->text();
+        QString prixunitaire=ui->edit_prix->text();
+
+
+        Produits P(nomProduits,quantite,type,prixunitaire);
+
+        bool test=P.ajouter();
+
+       if(test)
+        {
+           QMessageBox::information(nullptr,QObject::tr("ok"),
+                                  QObject::tr(" effectue\n"
+                                              "click cancel to exit."),QMessageBox::Cancel);
+       }
+       else  QMessageBox::critical(nullptr,QObject::tr("Not ok"),
+                                      QObject::tr("non effectue\n"
+                                                "click cancel to exit."),QMessageBox::Cancel);
+
+       while(!layouttP->isEmpty()){
+       QLayoutItem* item = layouttP->itemAt(0);
+       layouttP->removeItem(item);
+       QWidget* widgett = item->widget();
+       if(widgett)
+           {
+               delete widgett;
+           }
+       }
+
+
+       QSqlQuery pro_liste = P.afficherAllP();
+       while (pro_liste.next()) {
+           row_table_produits *row = new row_table_produits(ui->scrollArea_P,pro_liste.value(0).toString(),pro_liste.value(1).toString(),pro_liste.value(2).toString(),pro_liste.value(3).toString(),pro_liste.value(4).toString());
+           row->setMinimumHeight(34);
+           layouttP->addWidget( row );
+       }
+       popUp->setPopupText(nomProduits+" est bien ajouter");
+
+       popUp->show();
+       timerP4->start();
+       timerP5->start();
+       timerP2->start();
+}
+
+void row_table_produits::deleteBtn_clicked()
+{
+
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    int id = buttonSender->whatsThis().toInt();
+
+    Produits p;
+    p.supprimer(id);
+
+    while(!layouttP->isEmpty()){
+    QLayoutItem* item = layouttP->itemAt(0);
+    layouttP->removeItem(item);
+    QWidget* widgett = item->widget();
+    if(widgett)
+        {
+            delete widgett;
+        }
+    }
+
+timerP4->start();
+timerP5->start();
+
+}
+void row_table_produits::editBtn_clicked()
+{
+
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    idP = buttonSender->whatsThis().toInt();
+    timerP->start(500);
+}
+void row_table_produits::qrGBtn_clicked()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    idd = buttonSender->whatsThis().toInt();
+    timerP3->start(500);
+}
+void Integration::setQR()
+{
+//    int reference=idd;
+    Produits p;
+    QSqlQuery pro_liste = p.afficherPr(idd);
+    pro_liste.next();
+    QString reference = pro_liste.value(1).toString() +" | "+ pro_liste.value(2).toString()+" | "+ pro_liste.value(3).toString()+" | "+ pro_liste.value(4).toString();
+    QByteArray ba = reference.toLocal8Bit();
+    const char *c_str2 = ba.data();
+    const QrCode qr = QrCode::encodeText(/*std::to_string(reference).c_str()*/c_str2, QrCode::Ecc::LOW);
+    std::ofstream myfile;
+    myfile.open ("qrcode.svg") ;
+    myfile << qr.toSvgString(1);
+    myfile.close();
+    QSvgRenderer svgRenderer(QString("qrcode.svg"));
+    QPixmap pix( QSize(120, 120) );
+    QPainter pixPainter( &pix );
+    svgRenderer.render( &pixPainter );
+    ui->QRCODE_3->setPixmap(pix);
+    bool inputsFocus = ui->QRCODE_3->hasFocus();
+    if(inputsFocus){
+        timerP3->stop();
+
+    }
+}
+
+void Integration::setFormulaire1()
+{
+    if(idP != -999999999){
+        Produits p;
+        QSqlQuery emp = p.afficherPr(idP);
+        emp.next();
+        ui->edit_nom->setText(emp.value(1).toString());
+        ui->edit_type->setText(emp.value(3).toString());
+        ui->edit_prix->setText(emp.value(4).toString()); //tel 3
+        ui->edit_qu->setText(emp.value(2).toString()); //salaire 4
+
+        bool inputsFocus = ui->edit_nom->hasFocus() || ui->edit_type->hasFocus() || ui->edit_prix->hasFocus() || ui->edit_qu->hasFocus();
+        int reference=idP;
+        const QrCode qr = QrCode::encodeText(std::to_string(reference).c_str(), QrCode::Ecc::LOW);
+        std::ofstream myfile;
+        myfile.open ("qrcode.svg") ;
+        myfile << qr.toSvgString(1);
+        myfile.close();
+        QSvgRenderer svgRenderer(QString("qrcode.svg"));
+        QPixmap pix( QSize(120, 120) );
+        QPainter pixPainter( &pix );
+        svgRenderer.render( &pixPainter );
+        ui->QRCODE_3->setPixmap(pix);
+
+        if(inputsFocus){
+            timerP->stop();
+
+        }
+    }
+}
+void Integration::on_refreshBtn_clicked1()
+{
+    while(!layouttP->isEmpty()){
+        QLayoutItem* item = layouttP->itemAt(0);
+        layouttP->removeItem(item);
+        QWidget* widgett = item->widget();
+        if(widgett)
+            {
+                delete widgett;
+            }
+    }
+
+
+    Produits P;
+    QSqlQuery pro_liste = P.afficherAllP();
+    while (pro_liste.next()) {
+        row_table_produits *row = new row_table_produits(ui->scrollArea_P,pro_liste.value(0).toString(),pro_liste.value(1).toString(),pro_liste.value(2).toString(),pro_liste.value(3).toString(),pro_liste.value(4).toString());
+        row->setMinimumHeight(34);
+        layouttP->addWidget( row );
+    }
+    timerP2->stop();
+}
+
+
+
+void Integration::on_modifier_b_clicked()
+{
+    QString nomproduit = ui->edit_nom->text();
+    QString type = ui->edit_type->text();
+    QString quantite = ui->edit_qu->text();
+    QString prix = ui->edit_prix->text();
+
+    Produits P(nomproduit,quantite,type,prix);
+    bool test = P.modifier(idP);
+
+    if(test){
+        QMessageBox::information(nullptr, QObject::tr("update status"),QObject::tr("produit updated.\nClick Cancel to exit."), QMessageBox::Cancel,QMessageBox::NoIcon);
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("update status"),QObject::tr("produit not updated.\nClick Cancel to exit."), QMessageBox::Cancel);
+    }
+
+
+}
+
+void Integration::on_b_searsh_clicked()
+{
+    QString chaine_r=ui->edit_r->text();
+
+
+    while(!layouttP->isEmpty()){
+    QLayoutItem* item = layouttP->itemAt(0);
+    layouttP->removeItem(item);
+    QWidget* widgett = item->widget();
+    if(widgett)
+        {
+            delete widgett;
+        }
+    }
+
+Produits P;
+    QSqlQuery pro_liste = P.rechercher(chaine_r);
+    while (pro_liste.next()) {
+        row_table_produits *r = new row_table_produits(ui->scrollArea_P,pro_liste.value(0).toString(),pro_liste.value(1).toString(),pro_liste.value(2).toString(),pro_liste.value(3).toString(),pro_liste.value(4).toString());
+        r->setMinimumHeight(34);
+        layouttP->addWidget( r );
+    }
+    connect(timerP, SIGNAL(timeout()), this, SLOT(setFormulaire()));
+    //timer->start(500);
+
+    connect(timerP2, SIGNAL(timeout()), this, SLOT(on_refreshBtn_clicked()));
+    timerP2->start(5000);
+
+}
+void Integration::on_edit_r_textChanged(const QString &arg1)
+{
+    on_b_searsh_clicked();
+}
+
+void Integration::on_excel_clicked()
+{
+
+
+    QString nomMachine="";
+    QString machineImg="";
+    int etatMachine=0;
+    int prixMachine=0;
+
+
+    Produits m;
+
+    QTableView *table=new QTableView;
+    table->setModel(m.afficherProduitForExcel());
+
+
+
+               QString filters("CSV files (*.csv);;All files (.*)");
+               QString defaultFilter("CSV files (*.csv)");//
+               QString fileName = QFileDialog::getSaveFileName(0, "Save file", QCoreApplication::applicationDirPath(),
+                                  filters, &defaultFilter);//d:fenetre d'enrgtr
+               QFile file(fileName);
+
+               QAbstractItemModel *model =  table->model();
+               if (file.open(QFile::WriteOnly | QFile::Truncate)) {//tc:type de fch
+                   QTextStream data(&file);
+                   QStringList strList;//separation des chaines
+
+
+                   for (int i = 0; i < model->columnCount(); i++)
+                   {
+                       if (model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString().length() > 0)
+                           strList.append("\"" + model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString() + "\"");
+                       else
+                           strList.append("");
+                   }
+
+                   data << strList.join(";") << "\n";
+
+
+                   for (int i = 0; i < model->rowCount(); i++)
+                   {
+                       strList.clear();
+                       for (int j = 0; j < model->columnCount(); j++)
+                       {
+
+                           if (model->data(model->index(i, j)).toString().length() > 0)
+                               strList.append("\"" + model->data(model->index(i, j)).toString() + "\"");
+                           else
+                               strList.append("");
+                       }
+                   data << strList.join(";") + "\n";
+                   }
+                   file.close();
+                   QMessageBox::information(nullptr, QObject::tr("Export excel"),
+                                             QObject::tr("Export avec succes .\n"
+                                                         "Click OK to exit."), QMessageBox::Ok);
+               }
+}
+
+
+
+
+
+
+
+
+
+
+void Integration::on_arduino_clicked()
+{
+    Arduino_Produit *arduinoo = new Arduino_Produit();
+    arduinoo->show();
+}
+//************ END Gest Produis *****************
+
+void Integration::on_arduino_2_clicked()
+{
+    Arduino_Produit *arduinoo = new Arduino_Produit();
+    arduinoo->show();
+}
