@@ -18,7 +18,7 @@ public:
     ~Arduino_Produit();
 
 private slots:
-    void update_label();
+   // void update_label();
     void refreshHistorique();
 
 private:

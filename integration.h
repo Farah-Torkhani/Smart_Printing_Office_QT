@@ -187,14 +187,14 @@ private slots:
     void on_b_searsh_clicked();
 
     void on_excel_clicked();
-    void on_pushButton_clicked();
+   // void on_pushButton_clicked();
     void on_statP_clicked();
     void on_statP1_clicked();
     void update_label();
 
 
 
-    void on_qrcode_pt_clicked();
+   // void on_qrcode_pt_clicked();
 
     void on_edit_r_textChanged(const QString &arg1);
 
