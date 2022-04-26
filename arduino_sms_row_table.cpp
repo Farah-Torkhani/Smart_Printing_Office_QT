@@ -5,7 +5,7 @@
 
 Arduino_sms_row_table::Arduino_sms_row_table(QWidget *parent,QString cinEmp, QString nomEmp, QString prenomEmp, QString roleEmp, QString telEmp): QLabel(parent)
 {
-    row_container->setGeometry(3,0,600,34);
+    row_container->setGeometry(3,0,660,34);
     row_container->setStyleSheet("background-color: white;\
                              border-top-left-radius: 15px;\
                              border-bottom-left-radius: 15px;\
@@ -52,10 +52,17 @@ Arduino_sms_row_table::Arduino_sms_row_table(QWidget *parent,QString cinEmp, QSt
     smsBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/Resources/client_img/speech-bubble.png);qproperty-iconSize: 20px;}QPushButton::hover {background-color: #D6DBFD;}");
     smsBtn->setCursor(QCursor(Qt::PointingHandCursor));
     smsBtn->setWhatsThis(cinEmp);
+
+    deconnectBtn->setParent(row_container);
+    deconnectBtn->setGeometry(585,0,44,34);
+    deconnectBtn->setStyleSheet("QPushButton {background-color: white;border:none;border-radius:15px;qproperty-icon: url(:/Resources/client_img/no-signal.png);qproperty-iconSize: 20px;}QPushButton::hover {background-color: #D6DBFD;}");
+    deconnectBtn->setCursor(QCursor(Qt::PointingHandCursor));
+    deconnectBtn->setWhatsThis(cinEmp);
     //-----------------
 
     connect(callBtn, &QPushButton::clicked, this, &Arduino_sms_row_table::callEmpBtn_clicked);
     connect(smsBtn, &QPushButton::clicked, this, &Arduino_sms_row_table::smsEmpBtn_clicked);
+    connect(deconnectBtn, &QPushButton::clicked, this, &Arduino_sms_row_table::deconnectEmpBtn_clicked);
 
     //connect(callBtn, &QPushButton::clicked, this, &Arduino_client::on_call_btn_clicked());
 

@@ -68,7 +68,7 @@ border-radius:10px;
 } </string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <property name="styleSheet">
@@ -119,7 +119,7 @@ border:none;
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>919</width>
+          <width>923</width>
           <height>213</height>
          </rect>
         </property>
@@ -2529,9 +2529,9 @@ border-top-left-radius:10px;</string>
       <widget class="QLabel" name="label_38">
        <property name="geometry">
         <rect>
-         <x>1000</x>
+         <x>1050</x>
          <y>80</y>
-         <width>301</width>
+         <width>250</width>
          <height>34</height>
         </rect>
        </property>
@@ -2810,7 +2810,7 @@ border:none;</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>860</width>
+          <width>864</width>
           <height>231</height>
          </rect>
         </property>
@@ -2845,9 +2845,9 @@ image: url(:/Resources/client_img/refresh.png);
       <widget class="QLabel" name="label_39">
        <property name="geometry">
         <rect>
-         <x>515</x>
+         <x>530</x>
          <y>80</y>
-         <width>121</width>
+         <width>111</width>
          <height>34</height>
         </rect>
        </property>
@@ -2871,7 +2871,7 @@ padding:6px;</string>
       <widget class="QLabel" name="label_42">
        <property name="geometry">
         <rect>
-         <x>610</x>
+         <x>630</x>
          <y>80</y>
          <width>101</width>
          <height>34</height>
@@ -2897,9 +2897,9 @@ padding:6px;</string>
       <widget class="QLabel" name="label_43">
        <property name="geometry">
         <rect>
-         <x>700</x>
+         <x>730</x>
          <y>80</y>
-         <width>201</width>
+         <width>211</width>
          <height>34</height>
         </rect>
        </property>
@@ -2923,9 +2923,9 @@ padding:6px;</string>
       <widget class="QLabel" name="label_44">
        <property name="geometry">
         <rect>
-         <x>900</x>
+         <x>940</x>
          <y>80</y>
-         <width>121</width>
+         <width>141</width>
          <height>34</height>
         </rect>
        </property>
@@ -3709,7 +3709,7 @@ outline:none;
        <property name="geometry">
         <rect>
          <x>1060</x>
-         <y>60</y>
+         <y>80</y>
          <width>211</width>
          <height>34</height>
         </rect>
@@ -3738,7 +3738,7 @@ border-top-right-radius:10px;</string>
        <property name="geometry">
         <rect>
          <x>1070</x>
-         <y>20</y>
+         <y>30</y>
          <width>41</width>
          <height>32</height>
         </rect>
@@ -3769,14 +3769,14 @@ background-color:#D6DBFD;
        <property name="geometry">
         <rect>
          <x>420</x>
-         <y>30</y>
+         <y>40</y>
          <width>251</width>
          <height>20</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Montserrat ExtraBold</family>
+         <family>Montserrat</family>
          <pointsize>-1</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -3794,7 +3794,7 @@ font-size:18px;</string>
        <property name="geometry">
         <rect>
          <x>420</x>
-         <y>60</y>
+         <y>80</y>
          <width>124</width>
          <height>34</height>
         </rect>
@@ -3824,9 +3824,9 @@ border-top-left-radius:10px;</string>
        <property name="geometry">
         <rect>
          <x>410</x>
-         <y>100</y>
+         <y>120</y>
          <width>871</width>
-         <height>206</height>
+         <height>231</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -3843,8 +3843,8 @@ border-top-left-radius:10px;</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>850</width>
-          <height>206</height>
+          <width>854</width>
+          <height>231</height>
          </rect>
         </property>
        </widget>
@@ -3853,7 +3853,7 @@ border-top-left-radius:10px;</string>
        <property name="geometry">
         <rect>
          <x>940</x>
-         <y>60</y>
+         <y>80</y>
          <width>121</width>
          <height>34</height>
         </rect>
@@ -3883,7 +3883,7 @@ padding:6px;
        <property name="geometry">
         <rect>
          <x>550</x>
-         <y>320</y>
+         <y>360</y>
          <width>210</width>
          <height>30</height>
         </rect>
@@ -3911,7 +3911,7 @@ color:#585856;</string>
        <property name="geometry">
         <rect>
          <x>850</x>
-         <y>60</y>
+         <y>80</y>
          <width>91</width>
          <height>34</height>
         </rect>
@@ -3941,7 +3941,7 @@ padding:6px;
        <property name="geometry">
         <rect>
          <x>890</x>
-         <y>20</y>
+         <y>30</y>
          <width>211</width>
          <height>32</height>
         </rect>
@@ -3967,7 +3967,7 @@ font-weight:bold;
        <property name="geometry">
         <rect>
          <x>1190</x>
-         <y>20</y>
+         <y>30</y>
          <width>75</width>
          <height>32</height>
         </rect>
@@ -3990,7 +3990,7 @@ image: url(:/resource/imgCommande/refresh.png);
        <property name="geometry">
         <rect>
          <x>536</x>
-         <y>60</y>
+         <y>80</y>
          <width>181</width>
          <height>34</height>
         </rect>
@@ -4019,8 +4019,8 @@ padding:6px;
       <widget class="QFrame" name="horizontalFrame_2">
        <property name="geometry">
         <rect>
-         <x>420</x>
-         <y>350</y>
+         <x>460</x>
+         <y>390</y>
          <width>871</width>
          <height>271</height>
         </rect>
@@ -4034,7 +4034,7 @@ padding:6px;
        <property name="geometry">
         <rect>
          <x>776</x>
-         <y>320</y>
+         <y>360</y>
          <width>58</width>
          <height>30</height>
         </rect>
@@ -4069,7 +4069,7 @@ background-color:#ff531a;
        <property name="geometry">
         <rect>
          <x>710</x>
-         <y>60</y>
+         <y>80</y>
          <width>141</width>
          <height>34</height>
         </rect>
@@ -4099,7 +4099,7 @@ padding:6px;
        <property name="geometry">
         <rect>
          <x>450</x>
-         <y>317</y>
+         <y>357</y>
          <width>101</width>
          <height>31</height>
         </rect>
@@ -4123,7 +4123,7 @@ font-size:18px;</string>
        <property name="geometry">
         <rect>
          <x>400</x>
-         <y>317</y>
+         <y>357</y>
          <width>75</width>
          <height>31</height>
         </rect>
@@ -5147,7 +5147,7 @@ background-color:#FF7244;
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>860</width>
+          <width>864</width>
           <height>381</height>
          </rect>
         </property>
@@ -6115,7 +6115,7 @@ border-radius:10px;
      <x>0</x>
      <y>0</y>
      <width>1320</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

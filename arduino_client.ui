@@ -21,7 +21,7 @@ background-image:url(:/Resources/client_img/bg.png);
   <widget class="QLabel" name="label_10">
    <property name="geometry">
     <rect>
-     <x>394</x>
+     <x>290</x>
      <y>140</y>
      <width>121</width>
      <height>34</height>
@@ -47,9 +47,9 @@ padding:6px;</string>
   <widget class="QLabel" name="label_18">
    <property name="geometry">
     <rect>
-     <x>634</x>
+     <x>530</x>
      <y>140</y>
-     <width>151</width>
+     <width>201</width>
      <height>34</height>
     </rect>
    </property>
@@ -74,7 +74,7 @@ border-top-right-radius:10px;</string>
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
-     <x>274</x>
+     <x>170</x>
      <y>140</y>
      <width>121</width>
      <height>34</height>
@@ -100,7 +100,7 @@ padding:6px;</string>
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
-     <x>514</x>
+     <x>410</x>
      <y>140</y>
      <width>121</width>
      <height>34</height>
@@ -126,7 +126,7 @@ padding:6px;</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>394</x>
+     <x>330</x>
      <y>40</y>
      <width>141</width>
      <height>41</height>
@@ -155,7 +155,7 @@ border-radius: 17px;</string>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>154</x>
+     <x>50</x>
      <y>140</y>
      <width>121</width>
      <height>34</height>
@@ -182,9 +182,9 @@ border-top-left-radius:10px;</string>
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>144</x>
+     <x>40</x>
      <y>173</y>
-     <width>641</width>
+     <width>691</width>
      <height>261</height>
     </rect>
    </property>
@@ -202,7 +202,7 @@ border-top-left-radius:10px;</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>620</width>
+      <width>674</width>
       <height>261</height>
      </rect>
     </property>
@@ -211,7 +211,7 @@ border-top-left-radius:10px;</string>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>60</x>
      <y>100</y>
      <width>211</width>
      <height>20</height>

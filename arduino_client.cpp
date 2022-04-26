@@ -62,6 +62,7 @@ Arduino_client::~Arduino_client()
 
 void Arduino_sms_row_table::smsEmpBtn_clicked()
 {
+
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     int cinEmp = buttonSender->whatsThis().toInt();
 
@@ -80,30 +81,23 @@ void Arduino_sms_row_table::smsEmpBtn_clicked()
     B.write_to_arduino("m"); //envoyer 'm' à arduino
 
 
-
-        if(testBtnSerial == 0)
-        {
             B.connect_arduino(); // lancer la connexion à arduino
-            if(( dataSend.length()>=8) && (dataSend != "55516530") )
+            if(( dataSend.length()==8) && (dataSend != "55516530") )
             B.write_to_arduino("s");
-            testBtnSerial = 1;
-        }
-        else if(testBtnSerial == 1)
-        {
-            testBtnSerial = 0;
-            B.close_arduino();
-        }
 
 
-
-
-//B.close_arduino();
+    data=B.read_from_arduino();
+    qDebug() << data;
 
 }
 
 
 void Arduino_sms_row_table::callEmpBtn_clicked()
 {
+//    B.connect_arduino(); // lancer la connexion à arduino
+//    B.write_to_arduino("c");
+
+
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     int cinEmp = buttonSender->whatsThis().toInt();
 
@@ -116,44 +110,33 @@ void Arduino_sms_row_table::callEmpBtn_clicked()
 
 
 //    QString dataSend = "55516530";
-        QString dataSend = tellEmp;
-        B.write_to_arduino(dataSend.toStdString().c_str());
 
+    QString dataSend = tellEmp;
     B.write_to_arduino("m"); //envoyer 'm' à arduino
 
+    B.write_to_arduino(dataSend.toStdString().c_str());
 
-   // B.close_arduino();
 
-    if(testBtnSerial == 0)
-    {
         B.connect_arduino(); // lancer la connexion à arduino
-        if(( dataSend.length()>=8) && (dataSend != "55516530") )
+        if(( dataSend.length()>=6) && (dataSend != "55516530") )
         B.write_to_arduino("c");
 
        // QString dataSend = "26840169";
    //     B.write_to_arduino(dataSend.toStdString().c_str());
-        testBtnSerial = 1;
+        //testBtnSerial = 1;
 
-//        data=B.read_from_arduino();
-//            qDebug() << data;
-    }
-    else if(testBtnSerial == 1)
-    {
-        testBtnSerial = 0;
-        B.close_arduino();
-    }
-
-
-  //  data=A.read_from_arduino();
-  //  qDebug() << data;
-
+        data=B.read_from_arduino();
+            qDebug() << data;
 
 }
 
 
 
 void Arduino_client::test_call()
-{/*
+{
+
+
+    /*
     int ret=A.connect_arduino(); // lancer la connexion à arduino
     data=A.read_from_arduino();
     qDebug() << data;
@@ -236,6 +219,8 @@ void Arduino_client::test_call()
     timerTestCall->stop();
 
     */
+
+
 }
 
 
@@ -293,5 +278,8 @@ void Arduino_client::reject()
     this->close();
 }
 
-
+void Arduino_sms_row_table::deconnectEmpBtn_clicked()
+{
+    B.close_arduino();
+}
 

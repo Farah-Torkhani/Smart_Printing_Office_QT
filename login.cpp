@@ -20,18 +20,18 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
-    int ret=A.connect_arduino(); // lancer la connexion à arduino
+   int ret=AE.connect_arduino(); // lancer la connexion à arduino
         switch(ret){
-        case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+        case(0):qDebug()<< "arduino is available and connected to : "<< AE.getarduino_port_name();
             break;
-        case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+        case(1):qDebug() << "arduino is available but not connected to :" <<AE.getarduino_port_name();
            break;
         case(-1):qDebug() << "arduino is not available";
         }
-         QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(getCardUid())); // permet de lancer
+         QObject::connect(AE.getserial(),SIGNAL(readyRead()),this,SLOT(getCardUid())); // permet de lancer
          //le slot update_label suite à la reception du signal readyRead (reception des données).
 
-//    this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(timerAuthRfid, SIGNAL(timeout()), this, SLOT(authRFID()));
 yo=0;
@@ -60,6 +60,9 @@ void Login::on_loginButton_clicked()
             qDebug()<< emp.value(0).toString();
             Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
             currentEmp = test;
+            int you;
+            you=AE.close_arduino();
+            qDebug()<<"testt ="<<you;
                 this->close();
                 //GestionEmp gEmp;
                 Integration integ;
@@ -79,6 +82,7 @@ void Login::on_loginButton_clicked()
 
     }
 
+
 }
 
 void Login::getCardUid()
@@ -86,7 +90,7 @@ void Login::getCardUid()
     if(yo==1){
         timerAuthRfid->start(100);
     }
-    data=A.read_from_arduino();
+    data=AE.read_from_arduino();
     //test = data;
 
     //test = "";
@@ -118,9 +122,15 @@ void Login::authRFID()
         qDebug()<< emp.value(0).toString();
         Employees test(emp.value(0).toInt(), emp.value(2).toString(), emp.value(1).toString(), emp.value(7).toString(), emp.value(8).toString(), emp.value(9).toString(), emp.value(3).toInt(), emp.value(8).toInt(), emp.value(6).toString());
         currentEmp = test;
+
+        int you;
+        you=AE.close_arduino();
+        qDebug()<<"testt ="<<you;
             this->close();
             //GestionEmp gEmp;
             Integration integ;
+
+
             integ.show();
             QEventLoop loop;
             connect(&integ, SIGNAL(closed()), &loop, SLOT(quit()));

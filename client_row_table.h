@@ -29,7 +29,7 @@ private slots:
     void updateBtn_clicked();
     void emailBtn_clicked();
     void smsBtn_clicked();
-    void callBtn_clicked();
+//    void callBtn_clicked();
 
 
 private:

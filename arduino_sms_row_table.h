@@ -22,6 +22,7 @@ public:
     QLabel *tell_label = new QLabel();
     QPushButton *smsBtn = new QPushButton();
     QPushButton *callBtn = new QPushButton();
+    QPushButton *deconnectBtn = new QPushButton();
 
 
     int testBtnSerial=0;
@@ -29,6 +30,7 @@ public:
 private slots:
     void smsEmpBtn_clicked();
     void callEmpBtn_clicked();
+    void deconnectEmpBtn_clicked();
 
 private:
 

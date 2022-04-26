@@ -17,6 +17,8 @@ public:
 
     QString nomMachine="ttttt";
 
+    void reject();
+
 
 
 

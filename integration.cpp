@@ -83,7 +83,6 @@ Integration::Integration(QWidget *parent) :
     ui(new Ui::Integration)
 {
     ui->setupUi(this);
-
     //GESTION EMP:START***********************************************
     ui->trieOption->addItem("par défaut");
     ui->trieOption->addItem("nom");
@@ -274,8 +273,7 @@ Integration::Integration(QWidget *parent) :
             ui->edit_qu->setValidator(new QIntValidator (0,99999999,ui->edit_qu));
             Produits p;
 
-           // ui->tab_produits->setModel(p.affichertr());
-           int ret=A.connect_arduino(); // lancer la connexion à arduino
+          /* int ret=A.connect_arduino(); // lancer la connexion à arduino
             switch(ret){
             case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
                 break;
@@ -283,9 +281,12 @@ Integration::Integration(QWidget *parent) :
                break;
             case(-1):qDebug() << "arduino is not available";
                 break;
-            }
-               /* connect(timerP8, SIGNAL(timeout()), this, SLOT(update_label()));
-                timerP8->start(100);*/
+            }*/
+               // connect(timerP8, SIGNAL(timeout()), this, SLOT(update_label()));
+                // QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+                //le slot update_label suite à la reception du signal readyRead (reception des données).
+
+                /* timerP8->start(100);*/
 
 
 
@@ -1276,10 +1277,10 @@ void Integration::on_Alerte_btn_clicked()
 
 }
 
-void Client_row_table::callBtn_clicked()
-{
-//
-}
+//void Client_row_table::callBtn_clicked()
+//{
+
+//}
 
 void Client_row_table::smsBtn_clicked()
 {
@@ -2042,7 +2043,12 @@ void Integration::setCommandeFormulaire()
         ui->descreption->setPlainText(commandeInfo.value(1).toString());
         ui->Qc->setText(commandeInfo.value(3).toString());
         ui->Qsc->setText(commandeInfo.value(4).toString());
-        ui->dateFinCommande->setDate(commandeInfo.value(7).toDate());
+        QDate d = commandeInfo.value(7).toDate();
+
+        QString date_string_on_db = commandeInfo.value(7).toString();
+        QDate Date = QDate::fromString(date_string_on_db,"dd/MM/yyyy");
+
+        ui->dateFinCommande->setDate(Date);
         ui->selectCinClient->setCurrentText(commandeInfo.value(6).toString());
 
         bool inputsFocus = ui->selectCinClient->hasFocus() || ui->descreption->hasFocus() || ui->dateFinCommande->hasFocus() || ui->Qc->hasFocus() || ui->Qsc->hasFocus() ;
@@ -2116,6 +2122,7 @@ void Integration::on_search_commandeBtn_clicked()
 
     }
 
+    timer3Commande->stop();
 }
 
 void Integration::on_chercher_commande_textChanged(const QString &arg1)
@@ -2291,17 +2298,17 @@ void commandes_row_table::repaireBtn_clicked()
 //************************************* START GEST PRODUIT *****************************************************
 void Integration::update_label()
 {
-    data=A.read_from_arduino();
-    qDebug() << data;
-if(data !="")
-{
-        popUp->setPopupText("flamme !!!");
+//    data=A.read_from_arduino();
+//    qDebug() << data;
+//if(data !="")
+//{
+//        popUp->setPopupText("flamme !!!");
 
-        popUp->show();
-        Produits P;
-        P.ajouterf(data);
+//        popUp->show();
+//        Produits P;
+//        P.ajouterf(data);
 
-}
+//}
 }
 void Integration::on_statP_clicked(){
 

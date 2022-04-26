@@ -19,6 +19,7 @@
         <file>client_img/speech-bubble.png</file>
         <file>client_img/telephone.png</file>
         <file>client_img/trash-icon.png</file>
+        <file>client_img/no-signal.png</file>
     </qresource>
     <qresource prefix="/Machine_resources">
         <file>img_m/arduino.png</file>

@@ -68,7 +68,9 @@ void Arduino_machine::on_showLCD_btn_clicked()
     QString dataSend = nomMachine;
     A.write_to_arduino(dataSend.toStdString().c_str());
 
-    //A.write_to_arduino("1"); //envoyer 1 à arduino
+    A.write_to_arduino("1"); //envoyer 1 à arduino
+
+     A.write_to_arduino(dataSend.toStdString().c_str());
 }
 
 void Arduino_machine::on_mute_btn_clicked()
@@ -86,4 +88,19 @@ void Arduino_machine::setNomMachine()
 {
     ui->nomMachine->setText(nomMachine);
     timerNomMachine->stop();
+}
+
+
+
+void Arduino_machine::reject()
+{
+
+
+    A.close_arduino();
+
+    QDialog::reject();
+
+    //this->hide();
+
+    this->close();
 }
